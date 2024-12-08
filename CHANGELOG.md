@@ -2,6 +2,19 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.3.2] - 2024-12-08
+
+### Ajouté
+- Script Python pour télécharger automatiquement les avatars des YouTubeurs via l'API YouTube Data v3
+- Dossier `src/assets/youtubers` pour stocker les images des profils
+
+### Modifié
+- Implémentation temporaire d'avatars générés avec les initiales en attendant l'intégration de l'API YouTube
+
+### À faire
+- Obtenir une clé API YouTube Data v3
+- Intégrer les vraies images de profil des YouTubeurs
+
 ## [0.3.1] - 2024-12-08
 
 ### Ajouté
