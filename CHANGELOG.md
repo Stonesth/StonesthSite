@@ -2,6 +2,22 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.3.0] - 2024-03-08
+
+### Ajouté
+- Section IA enrichie avec :
+  - Projet principal de génération d'images IA
+  - Ressources de génération d'images
+  - Outils de génération de vidéos
+  - Solutions de création d'avatars
+  - Liste des assistants IA
+  - Tutoriels et ressources d'apprentissage
+- Interface utilisateur améliorée avec :
+  - Cards Material-UI
+  - Accordéons pour l'organisation
+  - Icônes thématiques
+  - Liens externes fonctionnels
+
 ## [0.2.0] - 2024-03-07
 
 ### Ajouté

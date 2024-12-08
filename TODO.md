@@ -14,7 +14,25 @@
   - [x] Section équipement
   - [x] Section DragonBlade
 
-## À Faire 📝
+## Fait ✅ (08/03/2024)
+- [x] Section IA enrichie :
+  - [x] Projet principal de génération d'images
+  - [x] Ressources de génération d'images
+  - [x] Outils de génération de vidéos
+  - [x] Solutions de création d'avatars
+  - [x] Liste des assistants IA
+  - [x] Tutoriels et ressources
+
+## À Faire 
+
+### Section IA
+- [ ] Ajouter des exemples de projets réalisés
+- [ ] Intégrer des démos interactives
+- [ ] Ajouter des captures d'écran des outils
+- [ ] Créer des guides pas à pas
+- [ ] Intégrer un système de favoris
+- [ ] Ajouter des statistiques d'utilisation
+- [ ] Implémenter le projet de génération d'images
 
 ### Section Impression 3D
 - [ ] Ajouter des images pour les projets
@@ -22,12 +40,6 @@
 - [ ] Intégrer un système de filtrage des projets
 - [ ] Ajouter un système de suivi de progression des projets
 - [ ] Intégrer des statistiques d'impression
-
-### Section Experts IA
-- [ ] Ajouter la liste des experts suivis
-- [ ] Ajouter les liens vers leurs contenus
-- [ ] Ajouter les descriptions détaillées
-- [ ] Système de catégorisation des experts
 
 ### Configuration Firebase
 - [ ] Création du projet Firebase
@@ -60,7 +72,7 @@
 - [ ] Configuration du domaine personnalisé
 - [ ] Mise en place des analytics
 
-## Idées Futures 💡
+## Idées Futures 
 - Système de newsletter
 - Blog intégré
 - Galerie de projets interactive
@@ -69,3 +81,6 @@
 - Intégration avec l'API de l'imprimante 3D
 - Système de partage de fichiers STL
 - Calculateur de coûts d'impression
+- Intégration d'APIs d'IA pour des démos en direct
+- Système de recommandations personnalisées
+- Plateforme de collaboration pour projets IA

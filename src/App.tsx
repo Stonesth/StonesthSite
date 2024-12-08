@@ -4,6 +4,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import AIExperts from './pages/AIExperts';
+import AIProjects from './pages/AIProjects';
 import ThreeDPrinting from './pages/3DPrinting';
 import Admin from './pages/Admin';
 
@@ -28,6 +29,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/ai-experts" element={<AIExperts />} />
+          <Route path="/ai-projects" element={<AIProjects />} />
           <Route path="/3d-printing" element={<ThreeDPrinting />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>
