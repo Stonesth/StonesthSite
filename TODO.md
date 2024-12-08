@@ -7,15 +7,21 @@
 - [x] Création de la barre de navigation
 - [x] Création des pages de base
 - [x] Structure pour l'authentification Firebase
+- [x] Section Impression 3D :
+  - [x] Organisation du contenu en sections (accordéons)
+  - [x] Ajout des liens vers les tutoriels
+  - [x] Ajout des liens vers les projets
+  - [x] Section équipement
+  - [x] Section DragonBlade
 
 ## À Faire 📝
 
-### Priorité Haute
-- [ ] Configuration complète de Firebase
-  - [ ] Création du projet Firebase
-  - [ ] Configuration des clés d'API
-  - [ ] Mise en place de l'authentification
-  - [ ] Configuration de la base de données
+### Section Impression 3D
+- [ ] Ajouter des images pour les projets
+- [ ] Ajouter des descriptions détaillées
+- [ ] Intégrer un système de filtrage des projets
+- [ ] Ajouter un système de suivi de progression des projets
+- [ ] Intégrer des statistiques d'impression
 
 ### Section Experts IA
 - [ ] Ajouter la liste des experts suivis
@@ -23,11 +29,12 @@
 - [ ] Ajouter les descriptions détaillées
 - [ ] Système de catégorisation des experts
 
-### Section Impression 3D
-- [ ] Ajouter les projets d'impression
-- [ ] Galerie de photos
-- [ ] Documentation des processus
-- [ ] Liste des matériaux utilisés
+### Configuration Firebase
+- [ ] Création du projet Firebase
+- [ ] Configuration des clés d'API
+- [ ] Mise en place de l'authentification
+- [ ] Configuration de la base de données
+- [ ] Règles de sécurité Firestore
 
 ### Administration
 - [ ] Système de connexion complet
@@ -59,3 +66,6 @@
 - Galerie de projets interactive
 - Système de tags et de recherche
 - Version multilingue
+- Intégration avec l'API de l'imprimante 3D
+- Système de partage de fichiers STL
+- Calculateur de coûts d'impression

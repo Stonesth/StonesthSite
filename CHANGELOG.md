@@ -2,6 +2,19 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.2.0] - 2024-03-07
+
+### Ajouté
+- Section 3D Printing enrichie avec :
+  - Interface de contrôle de l'imprimante
+  - Sites de modèles 3D
+  - Tutoriels vidéo
+  - Section équipement (caméra, smart pad)
+  - Projets (Star Wars, véhicules, figurines)
+  - Projet spécial DragonBlade
+- Organisation du contenu en accordéons pour une meilleure lisibilité
+- Liens externes vers les ressources
+
 ## [0.1.0] - 2024-03-07
 
 ### Ajouté
@@ -14,7 +27,7 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
   - Section Impression 3D (structure)
   - Page d'administration (structure)
 - Installation et configuration de Material-UI
-- Configuration de base pour Firebase (structure)
+- Configuration de base pour Firebase
 - Mise en place du routage avec React Router
 - Thème de base avec Material-UI
 
