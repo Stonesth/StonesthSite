@@ -12,15 +12,52 @@ import {
   AccordionSummary,
   AccordionDetails,
   Button,
+  Link,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CodeIcon from '@mui/icons-material/Code';
 import ImageIcon from '@mui/icons-material/Image';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
 
 const AIProjects = () => {
   const projects = [
     {
+      id: "voice-generator",
+      title: "Générateur d'Histoires avec Clone Vocal",
+      description: "Un projet qui génère des histoires et les lit avec une voix clonée. Utilise Coqui TTS pour le clonage vocal et la synthèse vocale.",
+      features: [
+        "Génération d'histoires personnalisées",
+        "Clonage de voix avec Coqui TTS",
+        "Lecture des histoires avec la voix clonée",
+        "Interface en ligne de commande",
+        "Support multiplateforme (Windows/Mac)"
+      ],
+      technologies: [
+        "Python 3.9",
+        "Coqui TTS",
+        "PyTorch",
+        "NumPy",
+        "SoundFile",
+        "PyAudio"
+      ],
+      tasks: [
+        "Configuration de l'environnement virtuel Python",
+        "Installation des dépendances requises",
+        "Intégration de Coqui TTS",
+        "Implémentation du clonage vocal",
+        "Génération et lecture des histoires",
+        "Tests et optimisations"
+      ],
+      documentation: [
+        { label: "Coqui TTS Documentation", url: "https://docs.coqui.ai/en/latest/models/xtts.html" },
+        { label: "Issue GitHub", url: "https://github.com/coqui-ai/TTS/issues/3369" }
+      ],
+      status: "Terminé",
+      icon: <RecordVoiceOverIcon />
+    },
+    {
+      id: "image-generator",
       title: "IA Générative d'Images",
       description: "Création d'une IA capable de générer des images à partir de descriptions textuelles",
       features: [
@@ -44,7 +81,6 @@ const AIProjects = () => {
       status: "En développement",
       icon: <ImageIcon />
     },
-    // Vous pouvez ajouter d'autres projets ici
   ];
 
   return (
@@ -53,9 +89,50 @@ const AIProjects = () => {
         Mes Projets IA
       </Typography>
 
+      {/* Menu de navigation rapide */}
+      <Paper 
+        elevation={3}
+        sx={{ 
+          p: 2,
+          mb: 4,
+          background: 'linear-gradient(135deg, #1976d2 0%, #64b5f6 100%)',
+          color: 'white'
+        }}
+      >
+        <Typography variant="h6" gutterBottom>
+          Navigation Rapide
+        </Typography>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+          {projects.map((project) => (
+            <Link
+              key={project.id}
+              href={`#${project.id}`}
+              sx={{ 
+                textDecoration: 'none',
+                color: 'white',
+                '&:hover': { textDecoration: 'none' }
+              }}
+            >
+              <Chip
+                icon={project.icon}
+                label={project.title}
+                clickable
+                sx={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                  color: 'white',
+                  '&:hover': {
+                    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+                  }
+                }}
+              />
+            </Link>
+          ))}
+        </Box>
+      </Paper>
+
       <Grid container spacing={4}>
         {projects.map((project, index) => (
-          <Grid item xs={12} key={index}>
+          <Grid item xs={12} key={index} id={project.id}>
             <Paper 
               elevation={3} 
               sx={{ 
@@ -87,7 +164,7 @@ const AIProjects = () => {
                   label={project.status} 
                   sx={{ 
                     mb: 2,
-                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                    backgroundColor: project.status === 'Terminé' ? 'rgba(76, 175, 80, 0.3)' : 'rgba(255, 255, 255, 0.2)',
                     color: 'white'
                   }} 
                 />
@@ -95,6 +172,29 @@ const AIProjects = () => {
                 <Typography variant="body1" paragraph>
                   {project.description}
                 </Typography>
+
+                {project.technologies && (
+                  <Box sx={{ mb: 3 }}>
+                    <Typography variant="h6" gutterBottom>
+                      Technologies Utilisées
+                    </Typography>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                      {project.technologies.map((tech, idx) => (
+                        <Chip
+                          key={idx}
+                          label={tech}
+                          sx={{
+                            backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                            color: 'white',
+                            '&:hover': {
+                              backgroundColor: 'rgba(255, 255, 255, 0.3)',
+                            }
+                          }}
+                        />
+                      ))}
+                    </Box>
+                  </Box>
+                )}
 
                 <Box sx={{ mb: 3 }}>
                   <Typography variant="h6" gutterBottom>
@@ -117,6 +217,36 @@ const AIProjects = () => {
                   </Box>
                 </Box>
 
+                {project.documentation && (
+                  <Box sx={{ mb: 3 }}>
+                    <Typography variant="h6" gutterBottom>
+                      Documentation
+                    </Typography>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                      {project.documentation.map((doc, idx) => (
+                        <Link
+                          key={idx}
+                          href={doc.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          sx={{ textDecoration: 'none' }}
+                        >
+                          <Chip
+                            label={doc.label}
+                            sx={{
+                              backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                              color: 'white',
+                              '&:hover': {
+                                backgroundColor: 'rgba(255, 255, 255, 0.3)',
+                              }
+                            }}
+                          />
+                        </Link>
+                      ))}
+                    </Box>
+                  </Box>
+                )}
+
                 <Accordion 
                   sx={{ 
                     backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -134,7 +264,7 @@ const AIProjects = () => {
                       }
                     }}
                   >
-                    <Typography>Roadmap du Projet</Typography>
+                    <Typography>Étapes du Projet</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
                     {project.tasks.map((task, idx) => (

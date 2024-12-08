@@ -23,13 +23,19 @@
   - [x] Liste des assistants IA
   - [x] Tutoriels et ressources
 
+## Section IA - Accomplissements
+- [x] Création de la page des projets IA
+- [x] Ajout du projet de génération d'histoires avec clone vocal
+- [x] Amélioration du design et de l'organisation des projets
+- [x] Ajout des liens vers la documentation
+
 ## À Faire 
 
 ### Section IA
-- [ ] Ajouter des exemples de projets réalisés
-- [ ] Intégrer des démos interactives
-- [ ] Ajouter des captures d'écran des outils
-- [ ] Créer des guides pas à pas
+- [ ] Ajouter plus de projets IA
+- [ ] Intégrer des démonstrations interactives
+- [ ] Ajouter des captures d'écran des projets
+- [ ] Créer une section pour les retours d'expérience
 - [ ] Intégrer un système de favoris
 - [ ] Ajouter des statistiques d'utilisation
 - [ ] Implémenter le projet de génération d'images

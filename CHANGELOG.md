@@ -2,6 +2,18 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.3.1] - 2024-12-08
+
+### Ajouté
+- Ajout du projet de génération d'histoires avec clone vocal dans la section IA
+- Amélioration du design de la page des projets IA
+- Ajout des liens vers la documentation des projets
+- Ajout d'une section Technologies Utilisées pour chaque projet
+
+### Modifié
+- Mise à jour du style des badges de statut (vert pour les projets terminés)
+- Amélioration de l'organisation des informations des projets
+
 ## [0.3.0] - 2024-03-08
 
 ### Ajouté
