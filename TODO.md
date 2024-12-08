@@ -29,6 +29,30 @@
 - [x] Amélioration du design et de l'organisation des projets
 - [x] Ajout des liens vers la documentation
 
+## TODO List
+
+## Priorité Haute
+- [ ] Obtenir une clé API YouTube Data v3 pour les images de profil
+- [ ] Exécuter le script de téléchargement des avatars
+- [ ] Intégrer les images de profil dans le composant TechYoutubers
+
+## Priorité Moyenne
+- [ ] Ajouter des filtres de recherche pour les YouTubeurs (par catégorie, langue)
+- [ ] Implémenter un système de favoris persistant
+- [ ] Ajouter des liens vers les dernières vidéos
+
+## Priorité Basse
+- [ ] Optimiser les performances de chargement des images
+- [ ] Ajouter des animations de transition
+- [ ] Implémenter un mode sombre/clair
+
+## Complété ✓
+- [x] Créer la page des YouTubeurs Tech
+- [x] Implémenter les cartes de profil
+- [x] Ajouter la séparation Francophone/Anglophone
+- [x] Mettre en place les avatars temporaires avec initiales
+- [x] Créer le script de téléchargement des avatars YouTube
+
 ## À Faire 
 
 ### Section IA

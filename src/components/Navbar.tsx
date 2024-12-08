@@ -3,6 +3,15 @@ import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
+  const pages = [
+    { name: 'Accueil', path: '/' },
+    { name: 'Experts IA', path: '/ai-experts' },
+    { name: 'Projets IA', path: '/ai-projects' },
+    { name: 'YouTubeurs Tech', path: '/tech-youtubers' },
+    { name: 'Impression 3D', path: '/3d-printing' },
+    { name: 'Admin', path: '/admin' }
+  ];
+
   return (
     <AppBar position="static">
       <Toolbar>
@@ -10,10 +19,11 @@ const Navbar = () => {
           Stonesth Site
         </Typography>
         <Box>
-          <Button color="inherit" component={Link} to="/">Accueil</Button>
-          <Button color="inherit" component={Link} to="/ai-experts">Experts IA</Button>
-          <Button color="inherit" component={Link} to="/3d-printing">Impression 3D</Button>
-          <Button color="inherit" component={Link} to="/admin">Admin</Button>
+          {pages.map((page, index) => (
+            <Button key={index} color="inherit" component={Link} to={page.path}>
+              {page.name}
+            </Button>
+          ))}
         </Box>
       </Toolbar>
     </AppBar>
