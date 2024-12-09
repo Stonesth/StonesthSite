@@ -84,8 +84,20 @@ npm run dev
 
 ## Déploiement
 
+> **Important** : Avant de déployer, assurez-vous de construire l'application en exécutant :
+> ```bash
+> npm run build
+> ```
+
 Pour déployer le site :
 
+> **Note** : La commande suivante n'est nécessaire que lors de la première configuration. Vous n'avez pas besoin de l'exécuter à chaque déploiement.
+
+```bash
+npm install firebase-tools@12.4.0
+```
+
+Déployez le site :
 ```bash
 npx firebase-tools deploy --only hosting
 ```
