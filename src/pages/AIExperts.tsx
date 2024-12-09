@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -10,6 +10,8 @@ import {
   Link,
   Paper,
   Button,
+  Menu,
+  MenuItem,
 } from '@mui/material';
 import ImageIcon from '@mui/icons-material/Image';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
@@ -20,6 +22,16 @@ import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 
 const AIExperts = () => {
   const navigate = useNavigate();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const resources = {
     imageGeneration: [
@@ -59,7 +71,7 @@ const AIExperts = () => {
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Typography variant="h3" component="h1" gutterBottom align="center" sx={{ mb: 4 }}>
+      <Typography variant="h3" component="h1" gutterBottom align="center" sx={{ mb: 4 }} id="top">
         Intelligence Artificielle
       </Typography>
 
@@ -85,10 +97,29 @@ const AIExperts = () => {
         </Button>
       </Box>
 
+      <Box sx={{ mb: 2 }}>
+        <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+          Menu
+        </Button>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem component="a" href="#generation-images" onClick={handleClose}>Génération d'Images</MenuItem>
+          <MenuItem component="a" href="#generation-videos" onClick={handleClose}>Génération de Vidéos</MenuItem>
+          <MenuItem component="a" href="#creation-avatars" onClick={handleClose}>Création d'Avatars</MenuItem>
+          <MenuItem component="a" href="#assistants-ia" onClick={handleClose}>Assistants IA</MenuItem>
+          <MenuItem component="a" href="#tutoriels-ressources" onClick={handleClose}>Tutoriels et Ressources</MenuItem>
+        </Menu>
+      </Box>
+
       {/* Ressources */}
       <Grid container spacing={3}>
         {/* Génération d'Images */}
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} id="generation-images">
           <Card sx={{ height: '100%' }}>
             <CardContent>
               <Typography variant="h5" gutterBottom sx={{ display: 'flex', alignItems: 'center' }}>
@@ -109,7 +140,7 @@ const AIExperts = () => {
         </Grid>
 
         {/* Génération de Vidéos */}
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} id="generation-videos">
           <Card sx={{ height: '100%' }}>
             <CardContent>
               <Typography variant="h5" gutterBottom sx={{ display: 'flex', alignItems: 'center' }}>
@@ -130,7 +161,7 @@ const AIExperts = () => {
         </Grid>
 
         {/* Création d'Avatars */}
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} id="creation-avatars">
           <Card sx={{ height: '100%' }}>
             <CardContent>
               <Typography variant="h5" gutterBottom sx={{ display: 'flex', alignItems: 'center' }}>
@@ -151,7 +182,7 @@ const AIExperts = () => {
         </Grid>
 
         {/* Chats IA */}
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} id="assistants-ia">
           <Card sx={{ height: '100%' }}>
             <CardContent>
               <Typography variant="h5" gutterBottom sx={{ display: 'flex', alignItems: 'center' }}>
@@ -172,9 +203,9 @@ const AIExperts = () => {
         </Grid>
 
         {/* Tutoriels */}
-        <Grid item xs={12}>
+        <Grid item xs={12} id="tutoriels-ressources">
           <Card>
-            <CardContent>
+            <CardContent id="tutoriels-ressources">
               <Typography variant="h5" gutterBottom sx={{ display: 'flex', alignItems: 'center' }}>
                 <SchoolIcon sx={{ mr: 1 }} /> Tutoriels et Ressources
               </Typography>
