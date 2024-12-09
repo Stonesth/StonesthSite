@@ -22,3 +22,13 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Firebase cache
+.firebase/
+
+# Firebase configuration
+src/config/firebase-config.js
+.env
+
+# TypeScript build info
+*.tsbuildinfo

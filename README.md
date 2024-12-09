@@ -1,6 +1,12 @@
-# StonesthSite
+# StonesthSite - Documentation Technique
 
 Site personnel présentant mes intérêts en IA, LLMs et impression 3D.
+
+## Prérequis
+
+- Node.js v18, v20 ou v22 (Firebase Tools n'est pas compatible avec Node.js v23)
+- npm
+- Python 3.x
 
 ## Technologies utilisées
 
@@ -10,27 +16,105 @@ Site personnel présentant mes intérêts en IA, LLMs et impression 3D.
 - Firebase (Authentication & Database)
 - React Router
 
-## Installation
+## Structure du projet
+
+```
+src/
+├── components/     # Composants réutilisables
+├── config/        # Configuration (Firebase, etc.)
+├── pages/         # Pages de l'application
+├── hooks/         # Hooks personnalisés
+├── services/      # Services (API, Firebase, etc.)
+└── utils/         # Utilitaires et helpers
+```
+
+## Configuration
+
+### Variables d'environnement
+Pour faire fonctionner l'application, vous devez configurer les variables d'environnement suivantes :
+
+1. Créez un fichier `.env` à la racine du projet (ce fichier ne sera pas versionné)
+2. Ajoutez les variables suivantes :
 
 ```bash
+YOUTUBE_API_KEY=votre_clé_api_youtube
+```
+
+⚠️ Ne jamais commiter de fichiers contenant des clés API ou des mots de passe dans le dépôt Git.
+
+## Configuration Firebase
+
+Pour configurer Firebase dans votre environnement local :
+
+1. Copiez le fichier exemple de configuration :
+```bash
+cp src/config/firebase-config.example.js src/config/firebase-config.js
+```
+
+2. Modifiez le fichier `firebase-config.js` avec vos propres informations Firebase :
+   - Remplacez `YOUR_API_KEY` par votre clé API
+   - Remplacez `YOUR_AUTH_DOMAIN` par votre domaine d'authentification
+   - Remplacez `YOUR_PROJECT_ID` par votre ID de projet
+   - Remplacez `YOUR_STORAGE_BUCKET` par votre bucket de stockage
+   - Remplacez `YOUR_MESSAGING_SENDER_ID` par votre ID d'expéditeur de messages
+   - Remplacez `YOUR_APP_ID` par votre ID d'application
+
+> **Note de sécurité** : Le fichier `firebase-config.js` contient des informations sensibles et est ignoré par Git. Ne le committez jamais dans le dépôt.
+
+## Installation et Développement
+
+1. Clonez le repository
+2. Installez les dépendances :
+```bash
 npm install
+pip install -r requirements.txt
+```
+
+3. Lancez le serveur de développement :
+```bash
 npm run dev
 ```
 
-## Structure du projet
+### Scripts disponibles
 
-- `/src/components` : Composants réutilisables
-- `/src/pages` : Pages principales du site
-- `/src/firebase.ts` : Configuration Firebase
+- `npm run dev` : Lance le serveur de développement
+- `npm run build` : Compile l'application pour la production
+- `npm run preview` : Prévisualise la version de production
+- `npm run deploy` : Déploie l'application sur Firebase Hosting
 
-## Fonctionnalités
+## Déploiement
 
-- Navigation responsive
-- Section Experts IA
-- Section Impression 3D
-- Interface d'administration
-- Système de commentaires (à venir)
+Pour déployer le site :
 
-## Documentation
+```bash
+npx firebase-tools deploy --only hosting
+```
 
-Voir [CHANGELOG.md](CHANGELOG.md) pour l'historique des modifications et [TODO.md](TODO.md) pour les tâches en cours et à venir.
+Le site sera déployé à l'URL : https://monsite-5f920.web.app
+
+## Développement
+
+### Composants
+
+Les composants sont organisés de manière modulaire dans le dossier `components/`. Chaque composant doit :
+- Avoir son propre fichier
+- Utiliser TypeScript pour le typage
+- Être documenté avec des commentaires JSDoc
+
+### Pages
+
+Les pages sont dans le dossier `pages/` et représentent les différentes routes de l'application. Chaque page :
+- Est un composant React
+- Peut utiliser des composants du dossier `components/`
+- Gère sa propre logique métier
+
+### Services
+
+Les services dans le dossier `services/` encapsulent la logique d'accès aux données et aux API externes :
+- Firebase (authentification, base de données)
+- YouTube API
+- Autres services externes
+
+## Sécurité
+- Toutes les clés API et informations sensibles doivent être stockées dans des variables d'environnement
+- Les fichiers de configuration sensibles sont exclus du versionnement Git
