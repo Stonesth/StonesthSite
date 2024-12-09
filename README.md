@@ -127,6 +127,12 @@ Les services dans le dossier `services/` encapsulent la logique d'accès aux don
 - YouTube API
 - Autres services externes
 
+## Changements récents
+
+- Mise à jour du menu de navigation pour le rendre visible lors du défilement de la page, repositionné sous le titre "Mes Projets IA".
+- Ajout d'un nouveau menu de navigation pour améliorer l'expérience utilisateur.
+- Modification de la disposition du menu de navigation pour une meilleure accessibilité.
+
 ## Sécurité
 - Toutes les clés API et informations sensibles doivent être stockées dans des variables d'environnement
 - Les fichiers de configuration sensibles sont exclus du versionnement Git

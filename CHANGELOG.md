@@ -2,6 +2,14 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.3.3] - 2024-12-09
+
+### Modifié
+- Mise à jour du menu de navigation pour le rendre visible lors du défilement de la page, repositionné sous le titre "Mes Projets IA". Cette mise à jour améliore l'expérience utilisateur en permettant un accès facile au menu de navigation même lorsque l'utilisateur fait défiler la page. Le menu a également été repositionné pour une meilleure visibilité et une navigation plus intuitive. Les modifications incluent :
+  - Ajout d'un effet de défilement pour maintenir le menu visible en haut de la page
+  - Repositionnement du menu sous le titre "Mes Projets IA" pour une meilleure organisation
+  - Amélioration de la mise en page pour une navigation plus intuitive
+
 ## [0.3.2] - 2024-12-08
 
 ### Ajouté
