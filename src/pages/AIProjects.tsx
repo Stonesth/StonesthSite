@@ -89,100 +89,127 @@ const AIProjects = () => {
         Mes Projets IA
       </Typography>
 
-      {/* Menu de navigation rapide */}
-      <Paper 
-        elevation={3}
-        sx={{ 
-          p: 2,
-          mb: 4,
-          background: 'linear-gradient(135deg, #1976d2 0%, #64b5f6 100%)',
-          color: 'white'
-        }}
-      >
-        <Typography variant="h6" gutterBottom>
-          Navigation Rapide
-        </Typography>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-          {projects.map((project) => (
-            <Link
-              key={project.id}
-              href={`#${project.id}`}
-              sx={{ 
-                textDecoration: 'none',
-                color: 'white',
-                '&:hover': { textDecoration: 'none' }
-              }}
-            >
-              <Chip
-                icon={project.icon}
-                label={project.title}
-                clickable
-                sx={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                  color: 'white',
-                  '&:hover': {
-                    backgroundColor: 'rgba(255, 255, 255, 0.3)',
-                  }
-                }}
-              />
-            </Link>
-          ))}
-        </Box>
-      </Paper>
-
       <Grid container spacing={4}>
-        {projects.map((project, index) => (
-          <Grid item xs={12} key={index} id={project.id}>
+        <Grid item xs={12} md={3} sx={{ position: 'sticky', top: 0, marginTop: '80px' }}>
+          <Box sx={{ position: 'sticky', top: '80px', maxHeight: 'calc(100vh - 80px)', overflowY: 'auto' }}>
+            {/* Menu de navigation rapide */}
             <Paper 
-              elevation={3} 
+              elevation={3}
               sx={{ 
-                p: 3, 
-                background: 'linear-gradient(135deg, #1976d2 0%, #64b5f6 100%)', 
-                color: 'white',
-                position: 'relative',
-                overflow: 'hidden'
+                p: 2,
+                mb: 4,
+                background: 'linear-gradient(135deg, #1976d2 0%, #64b5f6 100%)',
+                color: 'white'
               }}
             >
-              <Box sx={{ 
-                position: 'absolute', 
-                top: -20, 
-                right: -20, 
-                opacity: 0.1, 
-                transform: 'rotate(15deg)',
-                fontSize: '150px'
-              }}>
-                {project.icon}
+              <Typography variant="h6" gutterBottom>
+                Navigation Rapide
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                {projects.map((project) => (
+                  <Link
+                    key={project.id}
+                    href={`#${project.id}`}
+                    sx={{ 
+                      textDecoration: 'none',
+                      color: 'white',
+                      '&:hover': { textDecoration: 'none' }
+                    }}
+                  >
+                    <Chip
+                      icon={project.icon}
+                      label={project.title}
+                      clickable
+                      sx={{
+                        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                        color: 'white',
+                        '&:hover': {
+                          backgroundColor: 'rgba(255, 255, 255, 0.3)',
+                        }
+                      }}
+                    />
+                  </Link>
+                ))}
               </Box>
-
-              <Box sx={{ position: 'relative', zIndex: 1 }}>
-                <Typography variant="h4" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            </Paper>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={9}>
+          {/* Contenu principal */}
+          {projects.map((project, index) => (
+            <Grid item xs={12} key={index} id={project.id}>
+              <Paper 
+                elevation={3} 
+                sx={{ 
+                  p: 3, 
+                  background: 'linear-gradient(135deg, #1976d2 0%, #64b5f6 100%)', 
+                  color: 'white',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+              >
+                <Box sx={{ 
+                  position: 'absolute', 
+                  top: -20, 
+                  right: -20, 
+                  opacity: 0.1, 
+                  transform: 'rotate(15deg)',
+                  fontSize: '150px'
+                }}>
                   {project.icon}
-                  {project.title}
-                </Typography>
+                </Box>
 
-                <Chip 
-                  label={project.status} 
-                  sx={{ 
-                    mb: 2,
-                    backgroundColor: project.status === 'Terminé' ? 'rgba(76, 175, 80, 0.3)' : 'rgba(255, 255, 255, 0.2)',
-                    color: 'white'
-                  }} 
-                />
+                <Box sx={{ position: 'relative', zIndex: 1 }}>
+                  <Typography variant="h4" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    {project.icon}
+                    {project.title}
+                  </Typography>
 
-                <Typography variant="body1" paragraph>
-                  {project.description}
-                </Typography>
+                  <Chip 
+                    label={project.status} 
+                    sx={{ 
+                      mb: 2,
+                      backgroundColor: project.status === 'Terminé' ? 'rgba(76, 175, 80, 0.3)' : 'rgba(255, 255, 255, 0.2)',
+                      color: 'white'
+                    }} 
+                  />
 
-                {project.technologies && (
+                  <Typography variant="body1" paragraph>
+                    {project.description}
+                  </Typography>
+
+                  {project.technologies && (
+                    <Box sx={{ mb: 3 }}>
+                      <Typography variant="h6" gutterBottom>
+                        Technologies Utilisées
+                      </Typography>
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                        {project.technologies.map((tech, idx) => (
+                          <Chip
+                            key={idx}
+                            label={tech}
+                            sx={{
+                              backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                              color: 'white',
+                              '&:hover': {
+                                backgroundColor: 'rgba(255, 255, 255, 0.3)',
+                              }
+                            }}
+                          />
+                        ))}
+                      </Box>
+                    </Box>
+                  )}
+
                   <Box sx={{ mb: 3 }}>
                     <Typography variant="h6" gutterBottom>
-                      Technologies Utilisées
+                      Fonctionnalités
                     </Typography>
                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                      {project.technologies.map((tech, idx) => (
+                      {project.features.map((feature, idx) => (
                         <Chip
                           key={idx}
-                          label={tech}
+                          label={feature}
                           sx={{
                             backgroundColor: 'rgba(255, 255, 255, 0.2)',
                             color: 'white',
@@ -194,102 +221,81 @@ const AIProjects = () => {
                       ))}
                     </Box>
                   </Box>
-                )}
 
-                <Box sx={{ mb: 3 }}>
-                  <Typography variant="h6" gutterBottom>
-                    Fonctionnalités
-                  </Typography>
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                    {project.features.map((feature, idx) => (
-                      <Chip
-                        key={idx}
-                        label={feature}
-                        sx={{
-                          backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                          color: 'white',
-                          '&:hover': {
-                            backgroundColor: 'rgba(255, 255, 255, 0.3)',
-                          }
-                        }}
-                      />
-                    ))}
-                  </Box>
-                </Box>
-
-                {project.documentation && (
-                  <Box sx={{ mb: 3 }}>
-                    <Typography variant="h6" gutterBottom>
-                      Documentation
-                    </Typography>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                      {project.documentation.map((doc, idx) => (
-                        <Link
-                          key={idx}
-                          href={doc.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          sx={{ textDecoration: 'none' }}
-                        >
-                          <Chip
-                            label={doc.label}
-                            sx={{
-                              backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                              color: 'white',
-                              '&:hover': {
-                                backgroundColor: 'rgba(255, 255, 255, 0.3)',
-                              }
-                            }}
-                          />
-                        </Link>
-                      ))}
+                  {project.documentation && (
+                    <Box sx={{ mb: 3 }}>
+                      <Typography variant="h6" gutterBottom>
+                        Documentation
+                      </Typography>
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                        {project.documentation.map((doc, idx) => (
+                          <Link
+                            key={idx}
+                            href={doc.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            sx={{ textDecoration: 'none' }}
+                          >
+                            <Chip
+                              label={doc.label}
+                              sx={{
+                                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                                color: 'white',
+                                '&:hover': {
+                                  backgroundColor: 'rgba(255, 255, 255, 0.3)',
+                                }
+                              }}
+                            />
+                          </Link>
+                        ))}
+                      </Box>
                     </Box>
-                  </Box>
-                )}
+                  )}
 
-                <Accordion 
-                  sx={{ 
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                    color: 'white',
-                    '&:before': {
-                      display: 'none',
-                    }
-                  }}
-                >
-                  <AccordionSummary 
-                    expandIcon={<ExpandMoreIcon sx={{ color: 'white' }} />}
-                    sx={{
-                      '&:hover': {
-                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                  <Accordion 
+                    sx={{ 
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                      color: 'white',
+                      '&:before': {
+                        display: 'none',
                       }
                     }}
                   >
-                    <Typography>Étapes du Projet</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    {project.tasks.map((task, idx) => (
-                      <Typography 
-                        key={idx} 
-                        component="div" 
-                        sx={{ 
-                          display: 'flex', 
-                          alignItems: 'center', 
-                          mb: 1,
-                          '&:before': {
-                            content: '"•"',
-                            marginRight: '8px',
-                          }
-                        }}
-                      >
-                        {task}
-                      </Typography>
-                    ))}
-                  </AccordionDetails>
-                </Accordion>
-              </Box>
-            </Paper>
-          </Grid>
-        ))}
+                    <AccordionSummary 
+                      expandIcon={<ExpandMoreIcon sx={{ color: 'white' }} />}
+                      sx={{
+                        '&:hover': {
+                          backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                        }
+                      }}
+                    >
+                      <Typography>Étapes du Projet</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      {project.tasks.map((task, idx) => (
+                        <Typography 
+                          key={idx} 
+                          component="div" 
+                          sx={{ 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            mb: 1,
+                            '&:before': {
+                              content: '"•"',
+                              marginRight: '8px',
+                            }
+                          }}
+                        >
+                          {task}
+                        </Typography>
+                      ))}
+                    </AccordionDetails>
+                  </Accordion>
+                </Box>
+              </Paper>
+            </Grid>
+          ))}
+        </Grid>
       </Grid>
     </Container>
   );
