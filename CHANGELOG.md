@@ -78,3 +78,17 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
 - Système de commentaires
 - Contenu détaillé pour chaque section
 - Déploiement sur Firebase Hosting
+
+## [Unreleased]
+
+### Ajouté
+- Ajout d'un fichier exemple `firebase-config.example.js` pour faciliter la configuration Firebase
+- Instructions détaillées dans le README pour la configuration Firebase
+
+### Modifié
+- Mise à jour de la version de firebase-tools à 12.4.0 pour la stabilité
+- Amélioration de la documentation sur la gestion des secrets
+
+### Sécurité
+- Ajout de mesures de sécurité supplémentaires pour la gestion des clés API Firebase
+- Mise à jour du `.gitignore` pour exclure les fichiers de configuration sensibles
