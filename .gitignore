@@ -28,6 +28,7 @@ dist-ssr
 
 # Firebase configuration
 src/config/firebase-config.js
+src/firebaseConfig.js
 .env
 
 # TypeScript build info
