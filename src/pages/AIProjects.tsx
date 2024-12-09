@@ -24,7 +24,7 @@ const AIProjects = () => {
   const projects = [
     {
       id: "voice-generator",
-      title: "Générateur d'Histoires avec Clone Vocal",
+      title: "Générateur d'Histoires",
       description: "Un projet qui génère des histoires et les lit avec une voix clonée. Utilise Coqui TTS pour le clonage vocal et la synthèse vocale.",
       features: [
         "Génération d'histoires personnalisées",
