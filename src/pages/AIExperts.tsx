@@ -23,10 +23,10 @@ import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 const AIExperts = () => {
   const navigate = useNavigate();
 
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement | undefined>(null);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement> | null) => {
+    setAnchorEl(event?.currentTarget);
   };
 
   const handleClose = () => {
