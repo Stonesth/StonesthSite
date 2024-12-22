@@ -2,6 +2,20 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.3.6] - 2024-12-22
+
+### Ajouté
+- Adresse email de contact (stonesth@gmx.fr) pour les retours sur la section Blockchain
+
+## [0.3.5] - 2024-12-22
+
+### Ajouté
+- Nouvelle section Blockchain avec analyse comparative de la consommation énergétique
+- Page dédiée aux sources et références pour la section Blockchain
+- Graphiques interactifs pour la visualisation des données énergétiques
+- Tableaux comparatifs détaillés
+- Note de transparence sur l'utilisation de l'IA pour l'analyse
+
 ## [0.3.3] - 2024-12-09
 
 ### Modifié
@@ -92,6 +106,7 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
 ### Ajouté
 - Ajout d'un fichier exemple `firebase-config.example.js` pour faciliter la configuration Firebase
 - Instructions détaillées dans le README pour la configuration Firebase
+- Navigation vers la section Blockchain dans la barre de navigation
 
 ### Modifié
 - Mise à jour de la version de firebase-tools à 12.4.0 pour la stabilité

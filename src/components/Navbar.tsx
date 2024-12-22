@@ -24,6 +24,14 @@ const Navbar = () => {
               {page.name}
             </Button>
           ))}
+          <Button
+            color="inherit"
+            component={Link}
+            to="/blockchain"
+            sx={{ textTransform: 'none' }}
+          >
+            Blockchain
+          </Button>
         </Box>
       </Toolbar>
     </AppBar>

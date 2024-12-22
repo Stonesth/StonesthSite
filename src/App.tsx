@@ -8,6 +8,8 @@ import AIProjects from './pages/AIProjects';
 import TechYoutubers from './pages/TechYoutubers';
 import ThreeDPrinting from './pages/3DPrinting';
 import Admin from './pages/Admin';
+import Blockchain from './pages/Blockchain';
+import BlockchainSources from './pages/BlockchainSources';
 
 const theme = createTheme({
   palette: {
@@ -33,6 +35,8 @@ function App() {
           <Route path="/ai-projects" element={<AIProjects />} />
           <Route path="/tech-youtubers" element={<TechYoutubers />} />
           <Route path="/3d-printing" element={<ThreeDPrinting />} />
+          <Route path="/blockchain" element={<Blockchain />} />
+          <Route path="/blockchain-sources" element={<BlockchainSources />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </Router>
