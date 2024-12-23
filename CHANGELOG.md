@@ -2,6 +2,27 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.3.8] - 2024-12-24
+
+### Modifié
+- Refactoring de la section Blockchain :
+  - Création d'une nouvelle page dédiée à l'analyse énergétique détaillée
+  - Simplification de la page principale Blockchain avec un lien vers l'analyse
+  - Ajout de nouvelles données comparatives sur la consommation énergétique
+  - Amélioration de la présentation des données avec des tableaux et graphiques
+  - Suppression des données relatives aux agences bancaires
+  - Réduction de la taille des graphiques pour une meilleure lisibilité
+  - Déplacement du lien Blockchain dans la barre de navigation avant Admin
+
+## [0.3.7] - 2024-12-23
+
+### Modifié
+- Refactoring de la section Blockchain :
+  - Création d'une nouvelle page dédiée à l'analyse énergétique détaillée
+  - Simplification de la page principale Blockchain avec un lien vers l'analyse
+  - Ajout de nouvelles données comparatives sur la consommation énergétique
+  - Amélioration de la présentation des données avec des tableaux et graphiques
+
 ## [0.3.6] - 2024-12-22
 
 ### Ajouté

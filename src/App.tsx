@@ -10,6 +10,7 @@ import ThreeDPrinting from './pages/3DPrinting';
 import Admin from './pages/Admin';
 import Blockchain from './pages/Blockchain';
 import BlockchainSources from './pages/BlockchainSources';
+import BlockchainEnergyAnalysis from './pages/BlockchainEnergyAnalysis';
 
 const theme = createTheme({
   palette: {
@@ -37,6 +38,7 @@ function App() {
           <Route path="/3d-printing" element={<ThreeDPrinting />} />
           <Route path="/blockchain" element={<Blockchain />} />
           <Route path="/blockchain-sources" element={<BlockchainSources />} />
+          <Route path="/blockchain-energy-analysis" element={<BlockchainEnergyAnalysis />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </Router>

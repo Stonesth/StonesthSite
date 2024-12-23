@@ -9,6 +9,7 @@ const Navbar = () => {
     { name: 'Projets IA', path: '/ai-projects' },
     { name: 'YouTubeurs Tech', path: '/tech-youtubers' },
     { name: 'Impression 3D', path: '/3d-printing' },
+    { name: 'Blockchain', path: '/blockchain' },
     { name: 'Admin', path: '/admin' }
   ];
 
@@ -24,14 +25,6 @@ const Navbar = () => {
               {page.name}
             </Button>
           ))}
-          <Button
-            color="inherit"
-            component={Link}
-            to="/blockchain"
-            sx={{ textTransform: 'none' }}
-          >
-            Blockchain
-          </Button>
         </Box>
       </Toolbar>
     </AppBar>
