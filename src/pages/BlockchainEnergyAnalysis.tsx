@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Typography, Paper, Box, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Link } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
@@ -25,23 +25,43 @@ const energyData = [
     energie: 0.01,
     couleur: '#4caf50',
   },
+  {
+    name: 'Bitcoin (PoW)',
+    energie: 707,
+    couleur: '#ff9800',
+  },
 ];
 
 const consommationAnnuelle = [
   {
-    name: 'Système Bancaire (Total)',
+    name: 'Système Bancaire',
     energie: 4981,
     couleur: '#2196f3',
   },
   {
-    name: 'Système Bancaire (Transactions)',
-    energie: 0.845,
-    couleur: '#90caf9',
+    name: 'Bitcoin (PoW)',
+    energie: 121,
+    couleur: '#ff9800',
   },
   {
-    name: 'Blockchain PoS (500B tx)',
+    name: 'Blockchain PoS',
     energie: 5,
     couleur: '#4caf50',
+  },
+];
+
+const transactionsAnnuelles = [
+  {
+    name: 'Système Bancaire',
+    transactions: 500,
+  },
+  {
+    name: 'Bitcoin (PoW)',
+    transactions: 0.35,
+  },
+  {
+    name: 'Blockchain PoS',
+    transactions: 500,
   },
 ];
 
@@ -82,7 +102,98 @@ const BlockchainEnergyAnalysis = () => {
 
       <StyledPaper elevation={3}>
         <Typography variant="h5" gutterBottom>
-          Comparaison Détaillée des Systèmes
+          1. Vue d'ensemble
+        </Typography>
+        <Typography paragraph>
+          Le débat sur l'efficacité énergétique des blockchains par rapport au système bancaire 
+          traditionnel est complexe et nécessite une analyse approfondie. Voici une comparaison 
+          détaillée entre les différentes technologies.
+        </Typography>
+      </StyledPaper>
+
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <StyledPaper elevation={3}>
+            <Typography variant="h5" gutterBottom>
+              2. Consommation Énergétique par Transaction
+            </Typography>
+            <Box sx={{ width: '100%', height: 300, mb: 3 }}>
+              <ResponsiveContainer>
+                <BarChart
+                  data={energyData}
+                  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis type="number" scale="log" domain={['auto', 'auto']} />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="energie" name="Énergie (kWh)" fill="#8884d8" />
+                </BarChart>
+              </ResponsiveContainer>
+            </Box>
+            <Typography variant="body1" paragraph>
+              Le graphique ci-dessus montre la consommation énergétique par transaction pour 
+              différents systèmes. La blockchain PoS se situe entre le système bancaire traditionnel 
+              et Bitcoin, avec une consommation modérée.
+            </Typography>
+          </StyledPaper>
+        </Grid>
+
+        <Grid item xs={12}>
+          <StyledPaper elevation={3}>
+            <Typography variant="h5" gutterBottom>
+              3. Volume de Transactions Annuelles (en milliards)
+            </Typography>
+            <Box sx={{ width: '100%', height: 300 }}>
+              <ResponsiveContainer>
+                <BarChart
+                  data={transactionsAnnuelles}
+                  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="transactions" name="Transactions (milliards)" fill="#4caf50" />
+                </BarChart>
+              </ResponsiveContainer>
+            </Box>
+            <Typography variant="body1" paragraph>
+              Les blockchains PoS peuvent gérer un volume de transactions comparable au système 
+              bancaire, contrairement à Bitcoin qui est limité par sa technologie.
+            </Typography>
+          </StyledPaper>
+        </Grid>
+
+        <Grid item xs={12}>
+          <StyledPaper elevation={3}>
+            <Typography variant="h5" gutterBottom>
+              4. Consommation Annuelle Globale
+            </Typography>
+            <Box sx={{ width: '100%', height: 300 }}>
+              <ResponsiveContainer>
+                <BarChart
+                  data={consommationAnnuelle}
+                  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis type="number" scale="log" domain={['auto', 'auto']} />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="energie" name="Énergie (TWh)" fill="#82ca9d" />
+                </BarChart>
+              </ResponsiveContainer>
+            </Box>
+          </StyledPaper>
+        </Grid>
+      </Grid>
+
+      <StyledPaper elevation={3}>
+        <Typography variant="h5" gutterBottom>
+          5. Analyse Comparative Détaillée
         </Typography>
         <TableContainer component={Paper} sx={{ mb: 3 }}>
           <Table>
@@ -119,76 +230,54 @@ const BlockchainEnergyAnalysis = () => {
         </TableContainer>
       </StyledPaper>
 
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <StyledPaper elevation={3}>
-            <Typography variant="h5" gutterBottom>
-              Consommation Énergétique par Transaction
-            </Typography>
-            <Box sx={{ width: '100%', height: 300, mb: 3 }}>
-              <ResponsiveContainer>
-                <BarChart
-                  data={energyData}
-                  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="energie" name="Énergie (kWh)" fill="#8884d8" />
-                </BarChart>
-              </ResponsiveContainer>
-            </Box>
-          </StyledPaper>
-        </Grid>
+      <StyledPaper elevation={3}>
+        <Typography variant="h5" gutterBottom>
+          6. Exemples de Blockchains PoS Efficaces
+        </Typography>
+        <Typography variant="h6" gutterBottom>
+          Cardano (ADA)
+        </Typography>
+        <Typography paragraph>
+          • Protocole : Proof-of-Stake (PoS)
+          • Consommation par transaction : ~0,5479 kWh
+          • Consommation annuelle : ~6 GWh
+        </Typography>
 
-        <Grid item xs={12}>
-          <StyledPaper elevation={3}>
-            <Typography variant="h5" gutterBottom>
-              Consommation Annuelle Globale
-            </Typography>
-            <Box sx={{ width: '100%', height: 300 }}>
-              <ResponsiveContainer>
-                <BarChart
-                  data={consommationAnnuelle}
-                  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis type="number" scale="log" domain={['auto', 'auto']} />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="energie" name="Énergie (TWh)" fill="#82ca9d" />
-                </BarChart>
-              </ResponsiveContainer>
-            </Box>
-          </StyledPaper>
-        </Grid>
-      </Grid>
+        <Typography variant="h6" gutterBottom>
+          Ethereum 2.0
+        </Typography>
+        <Typography paragraph>
+          • Protocole : Transition vers PoS
+          • Réduction de 99,95% de la consommation après transition
+          • Consommation comparable aux autres blockchains PoS
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
+          Polygon (MATIC)
+        </Typography>
+        <Typography paragraph>
+          • Protocole : PoS
+          • Consommation annuelle : ~0,00079 TWh
+          • Excellente efficacité énergétique
+        </Typography>
+      </StyledPaper>
 
       <StyledPaper elevation={3}>
         <Typography variant="h5" gutterBottom>
-          Analyse des Résultats
+          7. Conclusion
         </Typography>
         <Typography paragraph>
-          Pour le même nombre de transactions (500 milliards), la blockchain PoS démontre une 
-          efficacité énergétique remarquable, particulièrement lorsqu'on considère la consommation 
-          globale incluant toutes les infrastructures. L'absence d'infrastructures physiques comme 
-          les agences bancaires représente un avantage significatif en termes d'économie d'énergie.
+          L'analyse démontre que les blockchains PoS représentent une alternative viable et 
+          écologique au système bancaire traditionnel. Bien que la consommation par transaction 
+          soit légèrement plus élevée pour certaines blockchains PoS, la consommation globale 
+          est significativement inférieure grâce à l'absence d'infrastructures physiques et à 
+          l'efficacité du protocole de consensus.
         </Typography>
-        <Typography variant="h6" gutterBottom>
-          Points Clés
+        <Typography paragraph>
+          Les innovations continues dans le domaine des blockchains PoS, comme en témoigne la 
+          transition d'Ethereum, suggèrent que l'efficacité énergétique continuera de s'améliorer, 
+          rendant cette technologie encore plus attrayante pour l'avenir des transactions financières.
         </Typography>
-        <Box component="ul">
-          <Typography component="li">
-            La consommation par transaction est comparable entre les deux systèmes
-          </Typography>
-          <Typography component="li">
-            L'élimination des infrastructures physiques dans le système PoS permet une réduction 
-            drastique de la consommation globale
-          </Typography>
-        </Box>
       </StyledPaper>
 
       <StyledPaper elevation={3}>

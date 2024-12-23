@@ -2,6 +2,16 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.3.9] - 2024-12-23
+
+### Modifié
+- Enrichissement de l'analyse énergétique Blockchain :
+  - Ajout de nouveaux graphiques comparatifs
+  - Intégration de données sur Bitcoin et les blockchains PoS
+  - Ajout d'une section sur les blockchains PoS efficaces (Cardano, Ethereum 2.0, Polygon)
+  - Amélioration de la présentation des données avec échelle logarithmique
+  - Restructuration de l'analyse en sections distinctes
+
 ## [0.3.8] - 2024-12-24
 
 ### Modifié
