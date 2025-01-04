@@ -2,6 +2,32 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.4.0] - 2025-01-04
+
+### Ajouté
+- Nouvelle section "Ressources & Conseils" :
+  - Ajout d'un nouvel onglet dans la barre de navigation
+  - Création de la page principale listant les ressources
+  - Création de la page "Microsoft Office : quelle solution choisir ?" avec :
+    - Comparaison détaillée des différentes options Microsoft Office
+    - Information sur Office Famille 2024 (149€)
+    - Section spéciale pour les étudiants avec recommandations adaptées
+    - Information sur la version gratuite en ligne de Microsoft 365
+    - Menu de navigation rapide vers les sections
+    - Tableau comparatif des avantages
+    - Liste des sources avec liens cliquables
+
+### Modifié
+- Ajout de la date de publication en haut de chaque page principale :
+  - BlockchainEnergyAnalysis.tsx
+  - Blockchain.tsx
+  - AIProjects.tsx
+  - AIExperts.tsx
+  - 3DPrinting.tsx
+  - TechYoutubers.tsx
+  - Resources.tsx
+  - MicrosoftOffice.tsx
+
 ## [0.3.9] - 2024-12-23
 
 ### Modifié
