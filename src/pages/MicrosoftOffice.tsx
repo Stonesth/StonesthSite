@@ -51,71 +51,6 @@ const MicrosoftOffice: React.FC = () => {
         afin de vous aider à choisir celle qui convient le mieux à vos besoins.
       </Typography>
 
-      <Typography variant="h6" gutterBottom sx={{ mt: 4 }} id="etudiants">
-        Focus : Solutions pour un étudiant de 14 ans
-      </Typography>
-      <Box sx={{ pl: 2 }}>
-        <Typography variant="subtitle1" gutterBottom>
-          <Link 
-            href="https://www.microsoft.com/fr-be/education/products/office?wt.mc_id=StudentandEducators_cat_banner1_office365free" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            sx={{
-              textDecoration: 'none',
-              fontWeight: 'bold',
-              '&:hover': {
-                textDecoration: 'underline',
-              },
-            }}
-          >
-            Option 1 : Microsoft Office Gratuit pour Étudiants
-          </Link>
-        </Typography>
-        <Box sx={{ mb: 2 }}>
-          <Typography variant="body1" sx={{ mb: 1 }}>
-            Pour les étudiants ayant une adresse email scolaire (@ecole.be, @student.be, etc.), Microsoft propose une version gratuite de Microsoft 365.
-          </Typography>
-          <Typography variant="body1" sx={{ mb: 1 }}>
-            Cette version inclut :
-          </Typography>
-          <Box component="ul" sx={{ pl: 2 }}>
-            <Typography component="li">Les applications Office en ligne</Typography>
-            <Typography component="li">1 To de stockage OneDrive</Typography>
-            <Typography component="li">Microsoft Teams</Typography>
-            <Typography component="li">Outils de collaboration en temps réel</Typography>
-          </Box>
-        </Box>
-
-        <Typography variant="subtitle1" gutterBottom sx={{ mt: 3 }}>
-          <Link 
-            href="https://www.microsoft.com/fr-be/microsoft-365/p/microsoft-365-famille/cfq7ttc0k5dm?activetab=pivot:pr%C3%A9sentationtab" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            sx={{
-              textDecoration: 'none',
-              fontWeight: 'bold',
-              '&:hover': {
-                textDecoration: 'underline',
-              },
-            }}
-          >
-            Option 2 : Microsoft 365 Famille
-          </Link>
-        </Typography>
-        <Box>
-          <Typography variant="body1" sx={{ mb: 1 }}>
-            Si l'étudiant n'a pas d'adresse email scolaire, l'abonnement Microsoft 365 Famille est une excellente alternative :
-          </Typography>
-          <Box component="ul" sx={{ pl: 2 }}>
-            <Typography component="li">Jusqu'à 6 utilisateurs</Typography>
-            <Typography component="li">1 To de stockage OneDrive par utilisateur</Typography>
-            <Typography component="li">Applications Office complètes sur tous les appareils</Typography>
-            <Typography component="li">Protection avancée contre les menaces en ligne</Typography>
-            <Typography component="li">Partage familial facilité</Typography>
-          </Box>
-        </Box>
-      </Box>
-
       <Typography variant="h5" component="h2" gutterBottom sx={{ mt: 4 }} id="options">
         1. Options d'achat de Microsoft Office
       </Typography>
@@ -210,17 +145,78 @@ const MicrosoftOffice: React.FC = () => {
       </Typography>
       <Box component="ul">
         <Typography component="li" sx={{ mb: 1 }}>
-          <strong>Microsoft 365 Personnel</strong> : Un utilisateur, jusqu'à cinq installations (PC/Mac/tablette). 
-          Inclut Word, Excel, PowerPoint, Outlook, OneDrive (1 To) et des mises à jour continues.
+          <strong>Microsoft 365 Personnel</strong> : Pour une personne. 
+          Inclut les applications Office complètes, 1 To de stockage OneDrive et des fonctionnalités premium.
         </Typography>
         <Typography component="li" sx={{ mb: 1 }}>
-          <strong>Microsoft 365 Famille</strong> : Jusqu'à six utilisateurs avec les mêmes avantages que la version Personnel. 
-          Idéal pour les familles.
+          <strong>Microsoft 365 Famille</strong> : Pour jusqu'à 6 personnes. 
+          Mêmes avantages que la version Personnel, mais partageable avec la famille.
         </Typography>
-        <Typography component="li" sx={{ mb: 1 }}>
-          <strong>Microsoft 365 Business Standard</strong> : Conçu pour les petites entreprises, 
-          inclut des outils collaboratifs comme Teams, SharePoint et Exchange.
+      </Box>
+
+      <Typography variant="h6" gutterBottom sx={{ mt: 4 }} id="etudiants">
+        Focus : Solutions pour un étudiant de 14 ans
+      </Typography>
+      <Box sx={{ pl: 2 }}>
+        <Typography variant="subtitle1" gutterBottom>
+          <Link 
+            href="https://www.microsoft.com/fr-be/education/products/office?wt.mc_id=StudentandEducators_cat_banner1_office365free" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            sx={{
+              textDecoration: 'none',
+              fontWeight: 'bold',
+              '&:hover': {
+                textDecoration: 'underline',
+              },
+            }}
+          >
+            Option 1 : Microsoft Office Gratuit pour Étudiants
+          </Link>
         </Typography>
+        <Box sx={{ mb: 2 }}>
+          <Typography variant="body1" sx={{ mb: 1 }}>
+            Pour les étudiants ayant une adresse email scolaire (@ecole.be, @student.be, etc.), Microsoft propose une version gratuite de Microsoft 365.
+          </Typography>
+          <Typography variant="body1" sx={{ mb: 1 }}>
+            Cette version inclut :
+          </Typography>
+          <Box component="ul" sx={{ pl: 2 }}>
+            <Typography component="li">Les applications Office en ligne</Typography>
+            <Typography component="li">1 To de stockage OneDrive</Typography>
+            <Typography component="li">Microsoft Teams</Typography>
+            <Typography component="li">Outils de collaboration en temps réel</Typography>
+          </Box>
+        </Box>
+
+        <Typography variant="subtitle1" gutterBottom sx={{ mt: 3 }}>
+          <Link 
+            href="https://www.microsoft.com/fr-be/microsoft-365/p/microsoft-365-famille/cfq7ttc0k5dm?activetab=pivot:pr%C3%A9sentationtab" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            sx={{
+              textDecoration: 'none',
+              fontWeight: 'bold',
+              '&:hover': {
+                textDecoration: 'underline',
+              },
+            }}
+          >
+            Option 2 : Microsoft 365 Famille
+          </Link>
+        </Typography>
+        <Box>
+          <Typography variant="body1" sx={{ mb: 1 }}>
+            Si l'étudiant n'a pas d'adresse email scolaire, l'abonnement Microsoft 365 Famille est une excellente alternative :
+          </Typography>
+          <Box component="ul" sx={{ pl: 2 }}>
+            <Typography component="li">Jusqu'à 6 utilisateurs</Typography>
+            <Typography component="li">1 To de stockage OneDrive par utilisateur</Typography>
+            <Typography component="li">Applications Office complètes sur tous les appareils</Typography>
+            <Typography component="li">Protection avancée contre les menaces en ligne</Typography>
+            <Typography component="li">Partage familial facilité</Typography>
+          </Box>
+        </Box>
       </Box>
 
       <Typography variant="h5" component="h2" gutterBottom sx={{ mt: 4 }} id="comparaison">
