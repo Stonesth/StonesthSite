@@ -139,238 +139,241 @@ const ThreeDPrinting = () => {
   };
 
   return (
-    <Container maxWidth="lg">
-      <Box sx={{ mt: 4, mb: 4 }}>
-        <Typography variant="h4" gutterBottom>
-          Impression 3D
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      <Box sx={{ mb: 4 }}>
+        <Typography variant="caption" color="text.secondary" display="block" gutterBottom>
+          Date de publication : 9 décembre 2024
         </Typography>
-
-        {/* Contrôle et Sites */}
-        <Accordion defaultExpanded>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h6">Contrôle et Ressources</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={6}>
-                <Card>
-                  <CardContent>
-                    <Typography variant="h6" gutterBottom>
-                      Contrôle Imprimante
-                    </Typography>
-                    <List>
-                      {resources.controls.map((item, index) => (
-                        <ListItem key={index}>
-                          <ListItemText
-                            primary={<Link href={item.url} target="_blank">{item.title}</Link>}
-                            secondary={item.description}
-                          />
-                        </ListItem>
-                      ))}
-                    </List>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Card>
-                  <CardContent>
-                    <Typography variant="h6" gutterBottom>
-                      Sites de Modèles
-                    </Typography>
-                    <List>
-                      {resources.modelSites.map((item, index) => (
-                        <ListItem key={index}>
-                          <ListItemText
-                            primary={<Link href={item.url} target="_blank">{item.title}</Link>}
-                            secondary={item.description}
-                          />
-                        </ListItem>
-                      ))}
-                    </List>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-          </AccordionDetails>
-        </Accordion>
-
-        {/* Tutoriels */}
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h6">Tutoriels</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Card>
-              <CardContent>
-                <List>
-                  {resources.tutorials.map((item, index) => (
-                    <ListItem key={index}>
-                      <ListItemText
-                        primary={<Link href={item.url} target="_blank">{item.title}</Link>}
-                      />
-                    </ListItem>
-                  ))}
-                </List>
-              </CardContent>
-            </Card>
-          </AccordionDetails>
-        </Accordion>
-
-        {/* Équipement */}
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h6">Équipement</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={4}>
-                <Card>
-                  <CardContent>
-                    <Typography variant="subtitle1" gutterBottom>
-                      Caméra
-                    </Typography>
-                    <List>
-                      {resources.equipment.camera.map((item, index) => (
-                        <ListItem key={index}>
-                          <ListItemText
-                            primary={<Link href={item.url} target="_blank">{item.title}</Link>}
-                          />
-                        </ListItem>
-                      ))}
-                    </List>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Card>
-                  <CardContent>
-                    <Typography variant="subtitle1" gutterBottom>
-                      Smart Pad
-                    </Typography>
-                    <List>
-                      {resources.equipment.smartPad.map((item, index) => (
-                        <ListItem key={index}>
-                          <ListItemText
-                            primary={<Link href={item.url} target="_blank">{item.title}</Link>}
-                          />
-                        </ListItem>
-                      ))}
-                    </List>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Card>
-                  <CardContent>
-                    <Typography variant="subtitle1" gutterBottom>
-                      Documentation
-                    </Typography>
-                    <List>
-                      {resources.equipment.documentation.map((item, index) => (
-                        <ListItem key={index}>
-                          <ListItemText
-                            primary={<Link href={item.url} target="_blank">{item.title}</Link>}
-                          />
-                        </ListItem>
-                      ))}
-                    </List>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-          </AccordionDetails>
-        </Accordion>
-
-        {/* Projets */}
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h6">Projets</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={4}>
-                <Card>
-                  <CardContent>
-                    <Typography variant="subtitle1" gutterBottom>
-                      Star Wars
-                    </Typography>
-                    <List>
-                      {resources.projects.starWars.map((item, index) => (
-                        <ListItem key={index}>
-                          <ListItemText
-                            primary={<Link href={item.url} target="_blank">{item.title}</Link>}
-                          />
-                        </ListItem>
-                      ))}
-                    </List>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Card>
-                  <CardContent>
-                    <Typography variant="subtitle1" gutterBottom>
-                      Véhicules
-                    </Typography>
-                    <List>
-                      {resources.projects.vehicles.map((item, index) => (
-                        <ListItem key={index}>
-                          <ListItemText
-                            primary={<Link href={item.url} target="_blank">{item.title}</Link>}
-                          />
-                        </ListItem>
-                      ))}
-                    </List>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Card>
-                  <CardContent>
-                    <Typography variant="subtitle1" gutterBottom>
-                      Figurines
-                    </Typography>
-                    <List>
-                      {resources.projects.figures.map((item, index) => (
-                        <ListItem key={index}>
-                          <ListItemText
-                            primary={<Link href={item.url} target="_blank">{item.title}</Link>}
-                          />
-                        </ListItem>
-                      ))}
-                    </List>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-          </AccordionDetails>
-        </Accordion>
-
-        {/* Projet DragonBlade */}
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h6">Projet DragonBlade</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Card>
-              <CardContent>
-                <Typography variant="body1" paragraph>
-                  Projet de création d'une voiture RC personnalisée
-                </Typography>
-                <List>
-                  {resources.dragonBlade.resources.map((item, index) => (
-                    <ListItem key={index}>
-                      <ListItemText
-                        primary={<Link href={item.url} target="_blank">{item.title}</Link>}
-                      />
-                    </ListItem>
-                  ))}
-                </List>
-              </CardContent>
-            </Card>
-          </AccordionDetails>
-        </Accordion>
       </Box>
+      <Typography variant="h4" gutterBottom>
+        Impression 3D
+      </Typography>
+
+      {/* Contrôle et Sites */}
+      <Accordion defaultExpanded>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6">Contrôle et Ressources</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>
+                    Contrôle Imprimante
+                  </Typography>
+                  <List>
+                    {resources.controls.map((item, index) => (
+                      <ListItem key={index}>
+                        <ListItemText
+                          primary={<Link href={item.url} target="_blank">{item.title}</Link>}
+                          secondary={item.description}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>
+                    Sites de Modèles
+                  </Typography>
+                  <List>
+                    {resources.modelSites.map((item, index) => (
+                      <ListItem key={index}>
+                        <ListItemText
+                          primary={<Link href={item.url} target="_blank">{item.title}</Link>}
+                          secondary={item.description}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+        </AccordionDetails>
+      </Accordion>
+
+      {/* Tutoriels */}
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6">Tutoriels</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Card>
+            <CardContent>
+              <List>
+                {resources.tutorials.map((item, index) => (
+                  <ListItem key={index}>
+                    <ListItemText
+                      primary={<Link href={item.url} target="_blank">{item.title}</Link>}
+                    />
+                  </ListItem>
+                ))}
+              </List>
+            </CardContent>
+          </Card>
+        </AccordionDetails>
+      </Accordion>
+
+      {/* Équipement */}
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6">Équipement</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={4}>
+              <Card>
+                <CardContent>
+                  <Typography variant="subtitle1" gutterBottom>
+                    Caméra
+                  </Typography>
+                  <List>
+                    {resources.equipment.camera.map((item, index) => (
+                      <ListItem key={index}>
+                        <ListItemText
+                          primary={<Link href={item.url} target="_blank">{item.title}</Link>}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Card>
+                <CardContent>
+                  <Typography variant="subtitle1" gutterBottom>
+                    Smart Pad
+                  </Typography>
+                  <List>
+                    {resources.equipment.smartPad.map((item, index) => (
+                      <ListItem key={index}>
+                        <ListItemText
+                          primary={<Link href={item.url} target="_blank">{item.title}</Link>}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Card>
+                <CardContent>
+                  <Typography variant="subtitle1" gutterBottom>
+                    Documentation
+                  </Typography>
+                  <List>
+                    {resources.equipment.documentation.map((item, index) => (
+                      <ListItem key={index}>
+                        <ListItemText
+                          primary={<Link href={item.url} target="_blank">{item.title}</Link>}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+        </AccordionDetails>
+      </Accordion>
+
+      {/* Projets */}
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6">Projets</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={4}>
+              <Card>
+                <CardContent>
+                  <Typography variant="subtitle1" gutterBottom>
+                    Star Wars
+                  </Typography>
+                  <List>
+                    {resources.projects.starWars.map((item, index) => (
+                      <ListItem key={index}>
+                        <ListItemText
+                          primary={<Link href={item.url} target="_blank">{item.title}</Link>}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Card>
+                <CardContent>
+                  <Typography variant="subtitle1" gutterBottom>
+                    Véhicules
+                  </Typography>
+                  <List>
+                    {resources.projects.vehicles.map((item, index) => (
+                      <ListItem key={index}>
+                        <ListItemText
+                          primary={<Link href={item.url} target="_blank">{item.title}</Link>}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Card>
+                <CardContent>
+                  <Typography variant="subtitle1" gutterBottom>
+                    Figurines
+                  </Typography>
+                  <List>
+                    {resources.projects.figures.map((item, index) => (
+                      <ListItem key={index}>
+                        <ListItemText
+                          primary={<Link href={item.url} target="_blank">{item.title}</Link>}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+        </AccordionDetails>
+      </Accordion>
+
+      {/* Projet DragonBlade */}
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h6">Projet DragonBlade</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Card>
+            <CardContent>
+              <Typography variant="body1" paragraph>
+                Projet de création d'une voiture RC personnalisée
+              </Typography>
+              <List>
+                {resources.dragonBlade.resources.map((item, index) => (
+                  <ListItem key={index}>
+                    <ListItemText
+                      primary={<Link href={item.url} target="_blank">{item.title}</Link>}
+                    />
+                  </ListItem>
+                ))}
+              </List>
+            </CardContent>
+          </Card>
+        </AccordionDetails>
+      </Accordion>
     </Container>
   );
 };

@@ -315,7 +315,12 @@ const TechYoutubers = () => {
   );
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      <Box sx={{ mb: 4 }}>
+        <Typography variant="caption" color="text.secondary" display="block" gutterBottom>
+          Date de publication : 9 décembre 2024
+        </Typography>
+      </Box>
       <Typography variant="h3" component="h1" gutterBottom align="center" sx={{ mb: 4 }}>
         YouTubeurs Tech
       </Typography>

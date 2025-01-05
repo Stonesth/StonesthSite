@@ -67,7 +67,12 @@ const transactionsAnnuelles = [
 
 const BlockchainEnergyAnalysis = () => {
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 8 }}>
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      <Box sx={{ mb: 4 }}>
+        <Typography variant="caption" color="text.secondary" display="block" gutterBottom>
+          Date de publication : 23 décembre 2024
+        </Typography>
+      </Box>
       <Typography variant="h3" component="h1" gutterBottom>
         Analyse Détaillée : Consommation Énergétique des Systèmes Bancaires vs Blockchain
       </Typography>

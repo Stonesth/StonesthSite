@@ -10,6 +10,7 @@ const Navbar = () => {
     { name: 'YouTubeurs Tech', path: '/tech-youtubers' },
     { name: 'Impression 3D', path: '/3d-printing' },
     { name: 'Blockchain', path: '/blockchain' },
+    { name: 'Ressources', path: '/resources' },
     { name: 'Admin', path: '/admin' }
   ];
 
