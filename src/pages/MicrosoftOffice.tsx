@@ -14,7 +14,7 @@ const MicrosoftOffice: React.FC = () => {
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Box sx={{ mb: 4 }}>
         <Typography variant="caption" color="text.secondary" display="block" gutterBottom>
-          Date de publication : 4 janvier 2025
+          Date de publication : 5 janvier 2025
         </Typography>
       </Box>
 
@@ -191,7 +191,7 @@ const MicrosoftOffice: React.FC = () => {
 
         <Typography variant="subtitle1" gutterBottom sx={{ mt: 3 }}>
           <Link 
-            href="https://www.microsoft.com/fr-be/microsoft-365/p/microsoft-365-famille/cfq7ttc0k5dm?activetab=pivot:pr%C3%A9sentationtab" 
+            href="https://www.microsoft.com/fr-be/microsoft-365/p/microsoft-365-famille/cfq7ttc0k5dm" 
             target="_blank" 
             rel="noopener noreferrer"
             sx={{
