@@ -31,15 +31,17 @@
 
 ## TODO List
 ### En cours
-- 
+- [x] Ajouter l'affichage de la version de l'application en bas de chaque page
+  - [x] Créer un composant Footer réutilisable
+  - [x] Afficher la version depuis package.json
+  - [x] Implémenter le footer sur toutes les pages
+  - [x] Synchroniser la version avec CHANGELOG.md
 
 ### Haute priorité
-- [ ] Ajouter l'affichage de la version de l'application en bas de chaque page
-  - [ ] Créer un composant Footer réutilisable
-  - [ ] Afficher la version depuis package.json
-  - [ ] Implémenter le footer sur toutes les pages
-  - [ ] Synchroniser la version avec CHANGELOG.md
-
+- [ ] Optimiser les performances de chargement :
+  - [ ] Implémenter le code splitting avec dynamic imports
+  - [ ] Optimiser la taille des chunks JavaScript
+  - [ ] Ajuster les limites de taille des chunks
 - [ ] Obtenir une clé API YouTube Data v3 pour les images de profil
 - [ ] Exécuter le script de téléchargement des avatars
 - [ ] Intégrer les images de profil dans le composant TechYoutubers
@@ -50,7 +52,6 @@
 - [ ] Ajouter des liens vers les dernières vidéos
 
 ## Priorité Basse
-- [ ] Optimiser les performances de chargement des images
 - [ ] Ajouter des animations de transition
 - [ ] Implémenter un mode sombre/clair
 
@@ -60,6 +61,7 @@
 - [x] Ajouter la séparation Francophone/Anglophone
 - [x] Mettre en place les avatars temporaires avec initiales
 - [x] Créer le script de téléchargement des avatars YouTube
+- [x] Ajouter l'affichage de la version de l'application en bas de chaque page
 
 ## À Faire 
 
@@ -109,7 +111,6 @@
 ### Fonctionnalités
 - [ ] Système de commentaires
 - [ ] Système de notification
-- [ ] Optimisation des performances
 - [ ] Tests unitaires
 
 ### Design

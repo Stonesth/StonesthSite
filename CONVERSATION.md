@@ -88,3 +88,32 @@
 1. Connexion des statistiques réelles à Firebase
 2. Implémentation des actions rapides (création d'articles, gestion médias)
 3. Mise en place du système de logging des activités
+
+## Session du 20/01/2025 - Footer et Layout
+
+### Réalisations
+1. Mise en place du Footer :
+   - Création du composant Footer avec affichage de la version
+   - Ajout du lien vers les mentions légales
+   - Implémentation du copyright dynamique
+   - Synchronisation de la version avec package.json et CHANGELOG.md
+
+2. Amélioration de la structure :
+   - Création du composant Layout pour une structure commune
+   - Intégration du Layout dans toutes les pages
+   - Amélioration de l'organisation du code
+
+3. Ajouts :
+   - Page des mentions légales
+   - Mise à jour de la documentation (TODO, CHANGELOG)
+   - Optimisation des imports dans App.tsx
+
+### État Actuel
+- Footer présent sur toutes les pages avec la version correcte
+- Structure de l'application plus cohérente avec Layout
+- Documentation à jour
+
+### Prochaines Étapes Prévues
+1. Optimisation des performances de chargement
+2. Implémentation du code splitting
+3. Optimisation de la taille des chunks JavaScript

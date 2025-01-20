@@ -2,6 +2,21 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.5.1] - 2025-01-20
+
+### Ajouté
+- Nouveau composant Footer avec :
+  - Affichage de la version de l'application
+  - Lien vers les mentions légales
+  - Copyright dynamique
+- Composant Layout pour une structure commune à toutes les pages
+- Page des mentions légales
+- Structure de base pour l'affichage des informations légales
+
+### Modifié
+- Restructuration de l'application avec Layout commun
+- Synchronisation de la version entre package.json et CHANGELOG.md
+
 ## [0.5.0] - 2025-01-20
 
 ### Ajouté
