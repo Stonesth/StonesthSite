@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppBar, Toolbar, Button, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import { auth } from '../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const Navbar = () => {
-  const { currentUser } = useAuth();
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+
+    return () => unsubscribe();
+  }, []);
   
   const pages = [
     { title: 'Accueil', path: '/' },
@@ -34,7 +43,7 @@ const Navbar = () => {
               {page.title}
             </Button>
           ))}
-          {currentUser && authenticatedPages.map((page) => (
+          {user && authenticatedPages.map((page) => (
             <Button
               key={page.path}
               component={Link}

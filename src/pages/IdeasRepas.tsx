@@ -1,14 +1,32 @@
-import React from 'react';
-import { Container, Typography, Paper } from '@mui/material';
-import { useAuth } from '../hooks/useAuth';
+import React, { useEffect, useState } from 'react';
+import { Container, Typography, Paper, CircularProgress, Box } from '@mui/material';
 import { Navigate } from 'react-router-dom';
+import { auth } from '../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const IdeasRepas: React.FC = () => {
-  const { currentUser } = useAuth();
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
-  if (!currentUser) {
-    return <Navigate to="/login" replace />;
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  if (loading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (!user) {
+    return <Navigate to="/admin" replace />;
   }
 
   return (
