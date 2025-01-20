@@ -30,8 +30,15 @@
 - [x] Ajout des liens vers la documentation
 
 ## TODO List
+### En cours
+- [ ] Synchroniser la version avec CHANGELOG.md
 
-## Priorité Haute
+### Haute priorité
+- [ ] Ajouter l'affichage de la version de l'application en bas de chaque page
+  - Créer un composant Footer réutilisable
+  - Afficher la version depuis package.json
+  - Implémenter le footer sur toutes les pages
+
 - [ ] Obtenir une clé API YouTube Data v3 pour les images de profil
 - [ ] Exécuter le script de téléchargement des avatars
 - [ ] Intégrer les images de profil dans le composant TechYoutubers
