@@ -1,5 +1,23 @@
 # Liste des tâches
 
+## Fait ✅ (20/01/2025)
+- [x] Système de connexion complet
+- [x] Interface d'administration de base
+- [x] Ajouter l'affichage de la version de l'application en bas de chaque page
+  - [x] Créer un composant Footer réutilisable
+  - [x] Afficher la version depuis package.json
+  - [x] Implémenter le footer sur toutes les pages
+  - [x] Synchroniser la version avec CHANGELOG.md
+
+## Fait ✅ (08/03/2024)
+- [x] Section IA enrichie :
+  - [x] Projet principal de génération d'images
+  - [x] Ressources de génération d'images
+  - [x] Outils de génération de vidéos
+  - [x] Solutions de création d'avatars
+  - [x] Liste des assistants IA
+  - [x] Tutoriels et ressources
+
 ## Fait ✅ (07/03/2024)
 - [x] Initialisation du projet avec Vite et TypeScript
 - [x] Configuration de base de Material-UI
@@ -14,16 +32,12 @@
   - [x] Section équipement
   - [x] Section DragonBlade
 
-## Fait ✅ (08/03/2024)
-- [x] Section IA enrichie :
-  - [x] Projet principal de génération d'images
-  - [x] Ressources de génération d'images
-  - [x] Outils de génération de vidéos
-  - [x] Solutions de création d'avatars
-  - [x] Liste des assistants IA
-  - [x] Tutoriels et ressources
-
-## Section IA - Accomplissements
+## Fait ✅ (Non daté)
+- [x] Création de la page des YouTubeurs Tech
+- [x] Implémenter les cartes de profil
+- [x] Ajouter la séparation Francophone/Anglophone
+- [x] Mettre en place les avatars temporaires avec initiales
+- [x] Créer le script de téléchargement des avatars YouTube
 - [x] Création de la page des projets IA
 - [x] Ajout du projet de génération d'histoires avec clone vocal
 - [x] Amélioration du design et de l'organisation des projets
@@ -31,11 +45,6 @@
 
 ## TODO List
 ### En cours
-- [x] Ajouter l'affichage de la version de l'application en bas de chaque page
-  - [x] Créer un composant Footer réutilisable
-  - [x] Afficher la version depuis package.json
-  - [x] Implémenter le footer sur toutes les pages
-  - [x] Synchroniser la version avec CHANGELOG.md
 
 ### Haute priorité
 - [ ] Optimiser les performances de chargement :
@@ -46,22 +55,14 @@
 - [ ] Exécuter le script de téléchargement des avatars
 - [ ] Intégrer les images de profil dans le composant TechYoutubers
 
-## Priorité Moyenne
+### Priorité Moyenne
 - [ ] Ajouter des filtres de recherche pour les YouTubeurs (par catégorie, langue)
 - [ ] Implémenter un système de favoris persistant
 - [ ] Ajouter des liens vers les dernières vidéos
 
-## Priorité Basse
+### Priorité Basse
 - [ ] Ajouter des animations de transition
 - [ ] Implémenter un mode sombre/clair
-
-## Complété ✓
-- [x] Créer la page des YouTubeurs Tech
-- [x] Implémenter les cartes de profil
-- [x] Ajouter la séparation Francophone/Anglophone
-- [x] Mettre en place les avatars temporaires avec initiales
-- [x] Créer le script de téléchargement des avatars YouTube
-- [x] Ajouter l'affichage de la version de l'application en bas de chaque page
 
 ## À Faire 
 
@@ -82,15 +83,11 @@
 - [ ] Intégrer des statistiques d'impression
 
 ### Configuration Firebase
-- [ ] Création du projet Firebase
 - [ ] Configuration des clés d'API
-- [ ] Mise en place de l'authentification
 - [ ] Configuration de la base de données
 - [ ] Règles de sécurité Firestore
 
 ### Administration
-- [x] Système de connexion complet
-- [x] Interface d'administration de base
 - [ ] Fonctionnalités du tableau de bord admin :
   - [ ] Connexion des statistiques réelles :
     - [ ] Nombre de visiteurs
@@ -105,8 +102,6 @@
     - [ ] Logging des actions administratives
     - [ ] Historique des modifications
     - [ ] Système de notifications
-- [ ] Gestion du contenu
-- [ ] Tableau de bord
 
 ### Fonctionnalités
 - [ ] Système de commentaires
@@ -118,22 +113,3 @@
 - [ ] Mode sombre
 - [ ] Animations
 - [ ] Optimisation des images
-
-### Déploiement
-- [ ] Configuration du déploiement Firebase
-- [ ] Premier déploiement
-- [ ] Configuration du domaine personnalisé
-- [ ] Mise en place des analytics
-
-## Idées Futures 
-- Système de newsletter
-- Blog intégré
-- Galerie de projets interactive
-- Système de tags et de recherche
-- Version multilingue
-- Intégration avec l'API de l'imprimante 3D
-- Système de partage de fichiers STL
-- Calculateur de coûts d'impression
-- Intégration d'APIs d'IA pour des démos en direct
-- Système de recommandations personnalisées
-- Plateforme de collaboration pour projets IA
