@@ -17,10 +17,10 @@ const Navbar = () => {
   
   const pages = [
     { title: 'Accueil', path: '/' },
-    { title: 'Impression 3D', path: '/impression3d' },
-    { title: 'IA', path: '/ia' },
+    { title: 'Impression 3D', path: '/3d-printing' },
+    { title: 'IA', path: '/ai-experts' },
     { title: 'YouTubeurs Tech', path: '/tech-youtubers' },
-    { title: 'Microsoft Office', path: '/microsoft-office' },
+    { title: 'Microsoft Office', path: '/resources/microsoft-office' },
     { title: 'Resources', path: '/resources' },
   ];
 
