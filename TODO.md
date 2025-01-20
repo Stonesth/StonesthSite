@@ -82,6 +82,50 @@
 - [ ] Ajouter un système de suivi de progression des projets
 - [ ] Intégrer des statistiques d'impression
 
+### Section Idées Repas
+- [ ] Mise en place de la structure de base :
+  - [ ] Création de la page protégée IdeasRepas
+  - [ ] Intégration avec le système d'authentification
+  - [ ] Ajout du lien dans la navigation (visible uniquement pour les utilisateurs connectés)
+
+- [ ] Fonctionnalités prévues :
+  - [ ] Catégories de repas :
+    - Petit déjeuner
+    - Déjeuner
+    - Dîner
+    - Snacks
+    - Desserts
+  - [ ] Pour chaque recette :
+    - Temps de préparation
+    - Niveau de difficulté
+    - Nombre de personnes
+    - Ingrédients nécessaires
+    - Étapes de préparation
+    - Photos (optionnel)
+    - Tags (végétarien, rapide, économique, etc.)
+  - [ ] Fonctionnalités additionnelles :
+    - Système de favoris
+    - Planification de repas hebdomadaire
+    - Génération automatique de liste de courses
+    - Calcul des portions
+    - Suggestions basées sur les ingrédients disponibles
+    - Mode hors-ligne pour accès sans connexion
+    - Partage de recettes entre utilisateurs
+    - Système de notation et commentaires
+
+- [ ] Interface utilisateur :
+  - [ ] Vue en grille avec filtres
+  - [ ] Mode d'affichage compact/détaillé
+  - [ ] Recherche par ingrédients/tags
+  - [ ] Interface d'édition intuitive
+  - [ ] Mode impression optimisé
+
+- [ ] Base de données :
+  - [ ] Structure pour les recettes
+  - [ ] Système de tags et catégories
+  - [ ] Gestion des médias (images)
+  - [ ] Système de sauvegarde
+
 ### Configuration Firebase
 - [ ] Configuration des clés d'API
 - [ ] Configuration de la base de données

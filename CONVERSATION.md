@@ -117,3 +117,26 @@
 1. Optimisation des performances de chargement
 2. Implémentation du code splitting
 3. Optimisation de la taille des chunks JavaScript
+
+## Session du 20/01/2025 - Idées Repas
+
+### Planification
+1. Nouvelle section protégée :
+   - Création de la structure initiale pour la section "Idées Repas"
+   - Intégration avec le système d'authentification existant
+   - Documentation des fonctionnalités prévues
+
+2. Documentation :
+   - Ajout des spécifications dans TODO.md
+   - Mise à jour du CHANGELOG
+   - Planification détaillée des fonctionnalités futures
+
+### État Actuel
+- Structure de base planifiée
+- Documentation des fonctionnalités futures établie
+- Intégration avec l'authentification prévue
+
+### Prochaines Étapes Prévues
+1. Implémentation de la page de base
+2. Mise en place de la protection par authentification
+3. Développement progressif des fonctionnalités

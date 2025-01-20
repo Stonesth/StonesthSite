@@ -2,6 +2,14 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.5.2] - 2025-01-20
+
+### Ajouté
+- Nouvelle section "Idées Repas" (protégée) :
+  - Page de base avec authentification requise
+  - Structure initiale pour les futures fonctionnalités
+  - Intégration avec le système d'authentification existant
+
 ## [0.5.1] - 2025-01-20
 
 ### Ajouté
