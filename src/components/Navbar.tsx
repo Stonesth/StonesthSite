@@ -1,8 +1,11 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
+import { AppBar, Toolbar, Button, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 const Navbar = () => {
+  const { currentUser } = useAuth();
+  
   const pages = [
     { title: 'Accueil', path: '/' },
     { title: 'Impression 3D', path: '/impression3d' },
@@ -17,17 +20,17 @@ const Navbar = () => {
     { title: 'Idées Repas', path: '/ideas-repas' },
   ];
 
-  const currentUser = true; // Assuming currentUser is defined somewhere in your code
-
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Stonesth Site
-        </Typography>
-        <Box>
-          {pages.map((page, index) => (
-            <Button key={index} color="inherit" component={Link} to={page.path}>
+        <Box sx={{ flexGrow: 1, display: 'flex', gap: 2 }}>
+          {pages.map((page) => (
+            <Button
+              key={page.path}
+              component={Link}
+              to={page.path}
+              sx={{ color: 'white' }}
+            >
               {page.title}
             </Button>
           ))}
@@ -36,7 +39,7 @@ const Navbar = () => {
               key={page.path}
               component={Link}
               to={page.path}
-              sx={{ color: 'white', display: 'block' }}
+              sx={{ color: 'white' }}
             >
               {page.title}
             </Button>

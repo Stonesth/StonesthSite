@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Typography, Paper } from '@mui/material';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import { Navigate } from 'react-router-dom';
 
 const IdeasRepas: React.FC = () => {
