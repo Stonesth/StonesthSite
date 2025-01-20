@@ -16,6 +16,7 @@ import BlockchainEnergyAnalysis from './pages/BlockchainEnergyAnalysis';
 import Resources from './pages/Resources';
 import MicrosoftOffice from './pages/MicrosoftOffice';
 import MentionsLegales from './pages/MentionsLegales';
+import IdeasRepas from './pages/IdeasRepas';
 
 const theme = createTheme({
   palette: {
@@ -56,6 +57,7 @@ function App() {
                 </PrivateRoute>
               } 
             />
+            <Route path="/ideas-repas" element={<IdeasRepas />} />
           </Routes>
         </Layout>
       </Router>
