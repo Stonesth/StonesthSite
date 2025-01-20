@@ -8,6 +8,8 @@ import AIProjects from './pages/AIProjects';
 import TechYoutubers from './pages/TechYoutubers';
 import ThreeDPrinting from './pages/3DPrinting';
 import Admin from './pages/Admin';
+import AdminDashboard from './pages/AdminDashboard';
+import PrivateRoute from './components/PrivateRoute';
 import Blockchain from './pages/Blockchain';
 import BlockchainSources from './pages/BlockchainSources';
 import BlockchainEnergyAnalysis from './pages/BlockchainEnergyAnalysis';
@@ -44,6 +46,14 @@ function App() {
           <Route path="/resources" element={<Resources />} />
           <Route path="/resources/microsoft-office" element={<MicrosoftOffice />} />
           <Route path="/admin" element={<Admin />} />
+          <Route 
+            path="/admin-dashboard" 
+            element={
+              <PrivateRoute>
+                <AdminDashboard />
+              </PrivateRoute>
+            } 
+          />
         </Routes>
       </Router>
     </ThemeProvider>

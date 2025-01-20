@@ -2,6 +2,24 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.5.0] - 2025-01-20
+
+### Ajouté
+- Nouvelle interface d'administration sécurisée :
+  - Système de connexion avec authentification Firebase
+  - Page de connexion admin avec gestion des erreurs
+  - Tableau de bord administrateur avec :
+    - Vue d'ensemble des statistiques (visiteurs, articles, commentaires, utilisateurs)
+    - Section d'actions rapides (création d'articles, gestion des médias, modération)
+    - Historique d'activité récente
+    - Interface responsive et moderne avec Material-UI
+  - Protection des routes administratives
+  - Gestion de la persistance de connexion
+
+### Modifié
+- Amélioration de la gestion des erreurs d'authentification
+- Optimisation des messages d'erreur pour les utilisateurs avec bloqueurs de publicités
+
 ## [0.4.0] - 2025-01-04
 
 ### Ajouté

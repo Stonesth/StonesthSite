@@ -79,8 +79,22 @@
 - [ ] Règles de sécurité Firestore
 
 ### Administration
-- [ ] Système de connexion complet
-- [ ] Interface d'administration
+- [x] Système de connexion complet
+- [x] Interface d'administration de base
+- [ ] Fonctionnalités du tableau de bord admin :
+  - [ ] Connexion des statistiques réelles :
+    - [ ] Nombre de visiteurs
+    - [ ] Nombre d'articles
+    - [ ] Nombre de commentaires
+    - [ ] Nombre d'utilisateurs
+  - [ ] Implémentation des actions rapides :
+    - [ ] Création et édition d'articles
+    - [ ] Système de gestion des médias
+    - [ ] Système de modération des commentaires
+  - [ ] Activité récente :
+    - [ ] Logging des actions administratives
+    - [ ] Historique des modifications
+    - [ ] Système de notifications
 - [ ] Gestion du contenu
 - [ ] Tableau de bord
 
