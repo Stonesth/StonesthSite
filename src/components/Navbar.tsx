@@ -25,7 +25,7 @@ const Navbar = () => {
   ];
 
   const authenticatedPages = [
-    { title: 'Admin', path: '/admin' },
+    { title: 'Dashboard Admin', path: '/admin-dashboard' },
     { title: 'Idées Repas', path: '/ideas-repas' },
   ];
 
@@ -43,6 +43,17 @@ const Navbar = () => {
               {page.title}
             </Button>
           ))}
+        </Box>
+        <Box sx={{ display: 'flex', gap: 2 }}>
+          {!user && (
+            <Button
+              component={Link}
+              to="/admin"
+              sx={{ color: 'white' }}
+            >
+              Connexion
+            </Button>
+          )}
           {user && authenticatedPages.map((page) => (
             <Button
               key={page.path}
