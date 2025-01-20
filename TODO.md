@@ -126,6 +126,40 @@
   - [ ] Gestion des médias (images)
   - [ ] Système de sauvegarde
 
+### Section Idées Repas
+- [ ] Ajouter un formulaire de création de recettes
+- [ ] Implémenter un système de catégories pour les recettes
+- [ ] Ajouter une fonction de recherche
+- [ ] Permettre l'ajout d'images pour les recettes
+- [ ] Créer un système de planification hebdomadaire
+- [ ] Ajouter une liste de courses automatique
+
+### Section Admin
+- [ ] Ajouter des statistiques d'utilisation
+- [ ] Implémenter la gestion des utilisateurs
+- [ ] Créer un système de logs
+- [ ] Ajouter la possibilité de modérer les contenus
+
+### Améliorations Générales
+- [ ] Optimiser le chargement des images
+- [ ] Améliorer la réactivité mobile
+- [ ] Ajouter des tests automatisés
+- [ ] Implémenter un système de cache
+- [ ] Ajouter des animations de transition
+- [ ] Mettre en place un système de notifications
+
+### Documentation
+- [ ] Créer une documentation technique
+- [ ] Rédiger un guide d'utilisation
+- [ ] Documenter l'API
+- [ ] Ajouter des commentaires dans le code
+
+### Sécurité
+- [ ] Renforcer la sécurité des routes protégées
+- [ ] Ajouter une validation des données
+- [ ] Mettre en place un système de backup
+- [ ] Implémenter la récupération de mot de passe
+
 ### Configuration Firebase
 - [ ] Configuration des clés d'API
 - [ ] Configuration de la base de données

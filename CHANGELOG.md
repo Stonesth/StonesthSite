@@ -2,6 +2,17 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.5.3] - 2025-01-20
+
+### Ajouté
+- Ajout des dates de dernière mise à jour sur les pages
+- Réorganisation de la section Resources
+
+### Modifié
+- Correction des chemins de navigation dans le Navbar
+- Déplacement du lien Microsoft Office dans la section Resources
+- Ajout de la section Blockchain dans Resources
+
 ## [0.5.2] - 2025-01-20
 
 ### Ajouté

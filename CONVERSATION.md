@@ -140,3 +140,47 @@
 1. Implémentation de la page de base
 2. Mise en place de la protection par authentification
 3. Développement progressif des fonctionnalités
+
+# Journal des Conversations et Décisions
+
+## 20 janvier 2025
+
+### Améliorations de Navigation et Organisation
+- Correction des chemins de navigation dans le Navbar
+- Déplacement du lien Microsoft Office dans la section Resources
+- Ajout de la section Blockchain dans Resources
+- Ajout des dates de dernière mise à jour sur toutes les pages
+
+### Section Idées Repas
+- Implémentation de la protection par authentification
+- Ajout de la redirection vers la page de connexion
+- Intégration du composant de chargement
+
+### Prochaines Étapes
+1. Développer les fonctionnalités de la section Idées Repas
+2. Améliorer l'interface d'administration
+3. Optimiser les performances du site
+
+## 19 janvier 2025
+
+### Section Admin
+- Mise en place de l'authentification Firebase
+- Protection des routes sensibles
+- Création du dashboard administrateur
+
+### Décisions Techniques
+- Utilisation de Firebase Auth pour la gestion des utilisateurs
+- Implémentation des routes protégées avec React Router
+- Structure de navigation adaptative selon l'état de connexion
+
+## 5 janvier 2025
+
+### Section Microsoft Office
+- Création du guide de choix Microsoft Office
+- Intégration dans la section Resources
+- Mise en place de la navigation
+
+### Améliorations Générales
+- Optimisation de la structure du site
+- Amélioration de l'expérience utilisateur
+- Mise à jour de la documentation

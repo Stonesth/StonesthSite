@@ -39,6 +39,9 @@ const IdeasRepas: React.FC = () => {
           Bienvenue dans votre espace culinaire personnel ! 
           Ici, vous pourrez bientôt gérer vos recettes et planifier vos repas.
         </Typography>
+        <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 2 }}>
+          Dernière mise à jour : 20 janvier 2025
+        </Typography>
       </Paper>
     </Container>
   );
