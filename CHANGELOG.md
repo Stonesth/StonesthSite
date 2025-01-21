@@ -2,6 +2,19 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.5.5] - 2025-01-21
+
+### Ajouté
+- Filtres avancés pour les recettes
+  - Filtrage par temps de préparation avec slider (0-3h)
+  - Filtrage par temps de cuisson avec slider (0-3h)
+  - Switch pour afficher/masquer les filtres avancés
+  - Formatage intelligent des durées (ex: 1h30min)
+
+### Modifié
+- Amélioration de l'interface de filtrage
+- Optimisation de la logique de filtrage combiné (texte + temps)
+
 ## [0.5.4] - 2025-01-22
 
 ### Ajouté

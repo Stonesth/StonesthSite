@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Typography, Paper, CircularProgress, Box, Button, Grid, TextField, InputAdornment } from '@mui/material';
+import { Container, Typography, Paper, CircularProgress, Box, Button, Grid, TextField, InputAdornment, Slider, FormControl, FormGroup, FormControlLabel, Switch } from '@mui/material';
 import { Navigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -17,6 +17,11 @@ const IdeasRepas: React.FC = () => {
   const [loadingRecipes, setLoadingRecipes] = useState(false);
   const [editingRecipe, setEditingRecipe] = useState<Recipe | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [timeFilters, setTimeFilters] = useState({
+    prepTime: [0, 180],
+    cookTime: [0, 180],
+    showAdvancedFilters: false
+  });
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -99,7 +104,7 @@ const IdeasRepas: React.FC = () => {
 
   const filteredRecipes = recipes.filter(recipe => {
     const searchLower = searchQuery.toLowerCase();
-    return (
+    const matchesSearch = (
       recipe.title.toLowerCase().includes(searchLower) ||
       recipe.description.toLowerCase().includes(searchLower) ||
       recipe.ingredients.some(ing => 
@@ -110,7 +115,36 @@ const IdeasRepas: React.FC = () => {
         inst.toLowerCase().includes(searchLower)
       )
     );
+
+    if (!matchesSearch) return false;
+
+    // Convertir les temps en nombres pour la comparaison
+    const prepTimeNum = parseInt(recipe.prepTime) || 0;
+    const cookTimeNum = parseInt(recipe.cookTime) || 0;
+
+    return (
+      prepTimeNum >= timeFilters.prepTime[0] &&
+      prepTimeNum <= timeFilters.prepTime[1] &&
+      cookTimeNum >= timeFilters.cookTime[0] &&
+      cookTimeNum <= timeFilters.cookTime[1]
+    );
   });
+
+  const handleTimeFilterChange = (type: 'prepTime' | 'cookTime') => (event: Event, newValue: number | number[]) => {
+    setTimeFilters(prev => ({
+      ...prev,
+      [type]: newValue as number[]
+    }));
+  };
+
+  const formatTime = (value: number) => {
+    if (value >= 60) {
+      const hours = Math.floor(value / 60);
+      const minutes = value % 60;
+      return minutes > 0 ? `${hours}h${minutes}min` : `${hours}h`;
+    }
+    return `${value}min`;
+  };
 
   if (loading) {
     return (
@@ -156,21 +190,66 @@ const IdeasRepas: React.FC = () => {
         )}
 
         <Grid item xs={12}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            placeholder="Rechercher une recette par titre, ingrédients ou instructions..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-            sx={{ mb: 3 }}
-          />
+          <Box sx={{ mb: 3 }}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              placeholder="Rechercher une recette par titre, ingrédients ou instructions..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Box>
+
+          <Box sx={{ mb: 3 }}>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={timeFilters.showAdvancedFilters}
+                  onChange={(e) => setTimeFilters(prev => ({
+                    ...prev,
+                    showAdvancedFilters: e.target.checked
+                  }))}
+                />
+              }
+              label="Filtres avancés"
+            />
+
+            {timeFilters.showAdvancedFilters && (
+              <Paper sx={{ p: 3, mt: 2 }}>
+                <Typography gutterBottom>
+                  Temps de préparation : {formatTime(timeFilters.prepTime[0])} - {formatTime(timeFilters.prepTime[1])}
+                </Typography>
+                <Slider
+                  value={timeFilters.prepTime}
+                  onChange={handleTimeFilterChange('prepTime')}
+                  valueLabelDisplay="auto"
+                  valueLabelFormat={formatTime}
+                  min={0}
+                  max={180}
+                  sx={{ mb: 4 }}
+                />
+
+                <Typography gutterBottom>
+                  Temps de cuisson : {formatTime(timeFilters.cookTime[0])} - {formatTime(timeFilters.cookTime[1])}
+                </Typography>
+                <Slider
+                  value={timeFilters.cookTime}
+                  onChange={handleTimeFilterChange('cookTime')}
+                  valueLabelDisplay="auto"
+                  valueLabelFormat={formatTime}
+                  min={0}
+                  max={180}
+                />
+              </Paper>
+            )}
+          </Box>
         </Grid>
 
         <Grid item xs={12}>

@@ -192,6 +192,7 @@
 - Permettre la création, modification et suppression des recettes
 - Mettre en place une interface utilisateur intuitive
 - Ajouter une fonctionnalité de recherche complète
+- Implémenter des filtres avancés pour le temps de préparation et de cuisson
 
 ### Actions Réalisées
 1. **Création des Composants**
@@ -221,8 +222,13 @@
    - Recherche dans multiples champs (titre, description, ingrédients, instructions)
    - Messages personnalisés selon les résultats
 
+6. **Filtres Avancés**
+   - Ajout d'un switch pour afficher/masquer les filtres
+   - Implémentation des sliders de temps (0-3h)
+   - Formatage intelligent des durées
+   - Combinaison avec la recherche textuelle
+
 ### Prochaines Étapes
-1. Implémenter le filtrage par temps de préparation/cuisson
-2. Ajouter le tri par date ou titre
-3. Créer un système de catégories pour les recettes
-4. Permettre le partage de recettes
+1. Ajouter le tri par date ou titre
+2. Créer un système de catégories pour les recettes
+3. Permettre le partage de recettes

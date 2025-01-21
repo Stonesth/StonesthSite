@@ -20,6 +20,11 @@
   - [x] Recherche par description
   - [x] Recherche par ingrédients
   - [x] Recherche par instructions
+- [x] Ajout des filtres de temps
+  - [x] Filtre par temps de préparation
+  - [x] Filtre par temps de cuisson
+  - [x] Interface avec sliders
+  - [x] Formatage intelligent des durées
 
 ## Fait ✅ (20/01/2025)
 - [x] Système de connexion complet
@@ -75,7 +80,6 @@
 - [-] Documentation du code
 
 ### Haute priorité
-- [ ] Ajouter le filtrage par temps de préparation/cuisson
 - [ ] Ajouter le tri par date ou titre
 - [ ] Créer un système de catégories pour les recettes
 - [ ] Ajouter la possibilité de partager des recettes
