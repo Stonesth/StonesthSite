@@ -2,6 +2,23 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [Planifié]
+### À venir
+- Système de suivi des recettes
+  - Compteur de réalisations
+  - Historique des préparations
+  - Statistiques d'utilisation
+- Liste de courses intelligente
+  - Sélection multiple de recettes
+  - Génération automatique de la liste
+  - Envoi par email
+- Sélection aléatoire de recettes
+  - Algorithme basé sur l'historique
+  - Filtres personnalisables
+- Intégration Google Calendar
+  - Planification des repas
+  - Rappels automatiques
+
 ## [0.5.5] - 2025-01-21
 
 ### Ajouté

@@ -219,7 +219,7 @@
 5. **Fonctionnalité de Recherche**
    - Ajout d'une barre de recherche avec icône
    - Implémentation de la recherche en temps réel
-   - Recherche dans multiples champs (titre, description, ingrédients, instructions)
+   - Recherche dans multiple champs (titre, description, ingrédients, instructions)
    - Messages personnalisés selon les résultats
 
 6. **Filtres Avancés**
@@ -232,3 +232,51 @@
 1. Ajouter le tri par date ou titre
 2. Créer un système de catégories pour les recettes
 3. Permettre le partage de recettes
+
+## 2025-01-21 - Planification des Nouvelles Fonctionnalités
+
+### Objectifs Définis
+- Améliorer la gestion des recettes avec un système de suivi
+- Faciliter la planification des repas
+- Optimiser la génération des listes de courses
+- Intégrer un système de calendrier
+
+### Nouvelles Fonctionnalités Planifiées
+
+1. **Système de Suivi des Recettes**
+   - Compteur de réalisations par recette
+   - Historique des préparations avec dates
+   - Mise à jour automatique via la validation du panier
+   - Base pour la sélection aléatoire intelligente
+
+2. **Liste de Courses Intelligente**
+   - Sélection multiple de recettes
+   - Génération automatique de la liste d'ingrédients
+   - Fusion des ingrédients similaires
+   - Validation du panier avec mise à jour des compteurs
+   - Envoi par email de la liste
+   - Export au format PDF
+
+3. **Sélection Aléatoire**
+   - Page dédiée à la suggestion de recettes
+   - Algorithme basé sur la fréquence de réalisation
+   - Filtres personnalisables (temps, catégorie)
+   - Affichage des statistiques
+
+4. **Intégration Calendrier**
+   - Connexion avec Google Calendar
+   - Planification des repas
+   - Rappels de préparation
+   - Synchronisation mobile
+
+### Prochaines Étapes
+1. Implémenter le système de suivi des recettes
+2. Développer la gestion de la liste de courses
+3. Créer l'algorithme de sélection aléatoire
+4. Intégrer Google Calendar
+
+### Notes Techniques
+- Nécessité de modifier le modèle de données des recettes
+- Besoin d'une nouvelle collection Firestore pour l'historique
+- Intégration de l'API Google Calendar à prévoir
+- Système d'envoi d'emails à mettre en place
