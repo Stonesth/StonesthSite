@@ -88,8 +88,35 @@
 - [ ] Ajouter plus de ressources pour chaque catégorie
 - [ ] Implémenter un système de favoris
 - [ ] Ajouter des descriptions détaillées pour chaque ressource
+- [ ] Système de suivi des recettes réalisées
+  - [ ] Ajouter un compteur de réalisations pour chaque recette
+  - [ ] Mettre à jour le compteur lors de la validation du panier
+  - [ ] Stocker l'historique des réalisations avec dates
 
-### Général
+### Gestion des Courses
+- [ ] Système de liste de courses
+  - [ ] Sélection des recettes à préparer
+  - [ ] Génération automatique de la liste d'ingrédients
+  - [ ] Fusion des ingrédients similaires
+  - [ ] Bouton de validation du panier
+  - [ ] Envoi de la liste par email
+  - [ ] Export de la liste au format PDF
+
+### Sélection Aléatoire
+- [ ] Page de sélection aléatoire de recettes
+  - [ ] Algorithme de sélection basé sur le nombre de réalisations
+  - [ ] Filtres pour la sélection aléatoire (temps, catégorie)
+  - [ ] Possibilité de régénérer une suggestion
+  - [ ] Affichage des statistiques de réalisation
+
+### Intégration Calendrier
+- [ ] Intégration avec Google Calendar
+  - [ ] Ajout des recettes sélectionnées au calendrier
+  - [ ] Choix de la date et heure du repas
+  - [ ] Rappels automatiques pour la préparation
+  - [ ] Synchronisation avec l'application mobile
+
+### Améliorations Générales
 - [ ] Améliorer le design responsive
 - [ ] Implémenter un mode sombre/clair
 - [ ] Ajouter des animations de transition
@@ -108,6 +135,8 @@
 
 ## Documentation
 - [ ] Créer une documentation technique
+- [ ] Rédiger un guide d'utilisation
+- [ ] Documenter l'API
 - [ ] Ajouter des commentaires dans le code
 - [ ] Documenter les composants React
 - [ ] Créer un guide d'utilisation
