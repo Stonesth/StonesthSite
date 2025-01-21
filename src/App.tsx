@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
+import { AuthProvider } from './contexts/AuthContext';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import AIExperts from './pages/AIExperts';
@@ -34,33 +35,42 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/ai-experts" element={<AIExperts />} />
-            <Route path="/ai-projects" element={<AIProjects />} />
-            <Route path="/tech-youtubers" element={<TechYoutubers />} />
-            <Route path="/3d-printing" element={<ThreeDPrinting />} />
-            <Route path="/blockchain" element={<Blockchain />} />
-            <Route path="/blockchain-sources" element={<BlockchainSources />} />
-            <Route path="/blockchain-energy-analysis" element={<BlockchainEnergyAnalysis />} />
-            <Route path="/resources" element={<Resources />} />
-            <Route path="/resources/microsoft-office" element={<MicrosoftOffice />} />
-            <Route path="/mentions-legales" element={<MentionsLegales />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route 
-              path="/admin-dashboard" 
-              element={
-                <PrivateRoute>
-                  <AdminDashboard />
-                </PrivateRoute>
-              } 
-            />
-            <Route path="/ideas-repas" element={<IdeasRepas />} />
-          </Routes>
-        </Layout>
-      </Router>
+      <AuthProvider>
+        <Router>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/ai-experts" element={<AIExperts />} />
+              <Route path="/ai-projects" element={<AIProjects />} />
+              <Route path="/tech-youtubers" element={<TechYoutubers />} />
+              <Route path="/3d-printing" element={<ThreeDPrinting />} />
+              <Route path="/blockchain" element={<Blockchain />} />
+              <Route path="/blockchain-sources" element={<BlockchainSources />} />
+              <Route path="/blockchain-energy-analysis" element={<BlockchainEnergyAnalysis />} />
+              <Route path="/resources" element={<Resources />} />
+              <Route path="/resources/microsoft-office" element={<MicrosoftOffice />} />
+              <Route path="/mentions-legales" element={<MentionsLegales />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route 
+                path="/admin-dashboard" 
+                element={
+                  <PrivateRoute>
+                    <AdminDashboard />
+                  </PrivateRoute>
+                } 
+              />
+              <Route 
+                path="/ideas-repas" 
+                element={
+                  <PrivateRoute>
+                    <IdeasRepas />
+                  </PrivateRoute>
+                } 
+              />
+            </Routes>
+          </Layout>
+        </Router>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

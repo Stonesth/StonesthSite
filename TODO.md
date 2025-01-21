@@ -7,6 +7,15 @@
 # 5. Chaque mise à jour doit conserver les tâches terminées en haut du fichier avec la date de la mise à jour
 
 ## Fait ✅ (21/01/2025)
+- [x] Correction des problèmes d'authentification
+  - [x] Initialisation correcte de la persistance Firebase
+  - [x] Meilleure gestion de l'état de connexion
+  - [x] Correction de l'affichage des recettes
+  - [x] Ajout de logs pour le débogage
+- [x] Amélioration de la gestion des routes protégées
+  - [x] Protection de la route /ideas-repas
+  - [x] Meilleure gestion des états de chargement
+  - [x] Messages d'erreur plus clairs
 - [x] Implémentation du CRUD complet des recettes
 - [x] Création du composant RecipeForm pour l'édition des recettes
 - [x] Création du composant RecipeCard pour l'affichage des recettes
@@ -49,25 +58,11 @@
 - [x] Configuration de base de Material-UI
 - [x] Mise en place du routage
 - [x] Création de la barre de navigation
-- [x] Création des pages de base
-- [x] Structure pour l'authentification Firebase
-- [x] Section Impression 3D :
-  - [x] Organisation du contenu en sections (accordéons)
-  - [x] Ajout des liens vers les tutoriels
-  - [x] Ajout des liens vers les projets
-  - [x] Section équipement
-  - [x] Section DragonBlade
-
-## Fait ✅ (Non daté)
-- [x] Création de la page des YouTubeurs Tech
-- [x] Implémenter les cartes de profil
-- [x] Ajouter la séparation Francophone/Anglophone
-- [x] Mettre en place les avatars temporaires avec initiales
-- [x] Créer le script de téléchargement des avatars YouTube
-- [x] Création de la page des projets IA
-- [x] Ajout du projet de génération d'histoires avec clone vocal
-- [x] Amélioration du design et de l'organisation des projets
-- [x] Ajout des liens vers la documentation
+- [x] Ajouter l'affichage de la version de l'application en bas de chaque page
+  - [x] Créer un composant Footer réutilisable
+  - [x] Afficher la version depuis package.json
+  - [x] Implémenter le footer sur toutes les pages
+  - [x] Synchroniser la version avec CHANGELOG.md
 
 ## TODO List
 
@@ -83,6 +78,12 @@
 - [ ] Ajouter le tri par date ou titre
 - [ ] Créer un système de catégories pour les recettes
 - [ ] Ajouter la possibilité de partager des recettes
+- [ ] Ajouter une option végétarien pour les recettes
+  - [ ] Ajouter un champ booléen "isVegetarian" dans le type Recipe
+  - [ ] Mettre à jour le formulaire RecipeForm avec une case à cocher
+  - [ ] Ajouter un badge ou une icône dans RecipeCard pour indiquer si la recette est végétarienne
+  - [ ] Ajouter un filtre pour afficher uniquement les recettes végétariennes
+  - [ ] Mettre à jour la base de données avec le nouveau champ
 
 ### Resources
 - [ ] Ajouter plus de ressources pour chaque catégorie

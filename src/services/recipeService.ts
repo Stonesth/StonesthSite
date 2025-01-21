@@ -1,241 +1,120 @@
-import { auth } from '../firebase';
+import { db } from '../firebase';
+import { collection, addDoc, getDocs, query, where, updateDoc, deleteDoc, doc, Timestamp, increment, arrayUnion } from 'firebase/firestore';
+import type { Recipe, CookingHistoryEntry } from '../types/Recipe';
 
-export interface Recipe {
-  id?: string;
-  title: string;
-  description: string;
-  prepTime: string;
-  cookTime: string;
-  servings: string;
-  ingredients: {
-    name: string;
-    quantity: string;
-    unit: string;
-  }[];
-  instructions: string[];
-  userId: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+export const createRecipe = async (recipe: Omit<Recipe, 'id' | 'timesCooked' | 'cookingHistory' | 'createdAt' | 'updatedAt'>): Promise<Recipe> => {
+  try {
+    console.log('Creating recipe with data:', recipe);
+    const newRecipe = {
+      ...recipe,
+      timesCooked: 0,
+      cookingHistory: [],
+      createdAt: Timestamp.now(),
+      updatedAt: Timestamp.now()
+    };
+    
+    const docRef = await addDoc(collection(db, 'recipes'), newRecipe);
+    console.log('Recipe created with ID:', docRef.id);
 
-const PROJECT_ID = 'monsite-5f920';
-const BASE_URL = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents`;
+    return { 
+      ...newRecipe, 
+      id: docRef.id
+    } as Recipe;
+  } catch (error) {
+    console.error('Error creating recipe:', error);
+    throw error;
+  }
+};
 
-export const recipeService = {
-  async createRecipe(recipe: Omit<Recipe, 'id' | 'createdAt' | 'updatedAt'>): Promise<string> {
-    try {
-      const idToken = await auth.currentUser?.getIdToken();
-      if (!idToken) throw new Error('User not authenticated');
+export const getUserRecipes = async (userId: string): Promise<Recipe[]> => {
+  try {
+    console.log('Getting recipes for user:', userId);
+    const q = query(collection(db, 'recipes'), where('userId', '==', userId));
+    const querySnapshot = await getDocs(q);
+    console.log('Found recipes:', querySnapshot.docs.length);
+    
+    return querySnapshot.docs.map(doc => {
+      const data = doc.data();
+      console.log('Recipe data:', data);
+      return {
+        ...data,
+        id: doc.id,
+        ingredients: data.ingredients || [],
+        instructions: data.instructions || [],
+        timesCooked: data.timesCooked || 0,
+        cookingHistory: (data.cookingHistory || []).map((entry: any) => ({
+          date: entry.date,
+          note: entry.note
+        })),
+        createdAt: data.createdAt || Timestamp.now(),
+        updatedAt: data.updatedAt || Timestamp.now()
+      } as Recipe;
+    });
+  } catch (error) {
+    console.error('Error getting recipes:', error);
+    throw error;
+  }
+};
 
-      const response = await fetch(`${BASE_URL}/recipes`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${idToken}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          fields: {
-            title: { stringValue: recipe.title },
-            description: { stringValue: recipe.description },
-            prepTime: { stringValue: recipe.prepTime },
-            cookTime: { stringValue: recipe.cookTime },
-            servings: { stringValue: recipe.servings },
-            ingredients: {
-              arrayValue: {
-                values: recipe.ingredients.map(ing => ({
-                  mapValue: {
-                    fields: {
-                      name: { stringValue: ing.name },
-                      quantity: { stringValue: ing.quantity },
-                      unit: { stringValue: ing.unit }
-                    }
-                  }
-                }))
-              }
-            },
-            instructions: {
-              arrayValue: {
-                values: recipe.instructions.map(inst => ({
-                  stringValue: inst
-                }))
-              }
-            },
-            userId: { stringValue: recipe.userId },
-            createdAt: { timestampValue: new Date().toISOString() },
-            updatedAt: { timestampValue: new Date().toISOString() }
-          }
-        })
-      });
+export const updateRecipe = async (id: string, recipe: Partial<Recipe>): Promise<void> => {
+  try {
+    console.log('Updating recipe:', id, recipe);
+    const recipeRef = doc(db, 'recipes', id);
+    const updateData = {
+      ...recipe,
+      updatedAt: Timestamp.now()
+    };
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      return data.name.split('/').pop();
-    } catch (error) {
-      console.error('Error creating recipe:', error);
-      throw error;
+    if (updateData.createdAt instanceof Date) {
+      updateData.createdAt = Timestamp.fromDate(updateData.createdAt);
     }
-  },
-
-  async getUserRecipes(userId: string): Promise<Recipe[]> {
-    try {
-      const idToken = await auth.currentUser?.getIdToken();
-      if (!idToken) throw new Error('User not authenticated');
-
-      const response = await fetch(`${BASE_URL}/recipes`, {
-        headers: {
-          'Authorization': `Bearer ${idToken}`,
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      
-      // Si aucun document n'existe, retourner un tableau vide
-      if (!data.documents) {
-        return [];
-      }
-
-      return data.documents
-        .filter((doc: any) => {
-          try {
-            return doc.fields?.userId?.stringValue === userId;
-          } catch (e) {
-            console.error('Error filtering document:', e);
-            return false;
-          }
-        })
-        .map((doc: any) => {
-          try {
-            const fields = doc.fields || {};
-            return {
-              id: doc.name.split('/').pop(),
-              title: fields.title?.stringValue || '',
-              description: fields.description?.stringValue || '',
-              prepTime: fields.prepTime?.stringValue || '',
-              cookTime: fields.cookTime?.stringValue || '',
-              servings: fields.servings?.stringValue || '',
-              ingredients: fields.ingredients?.arrayValue?.values?.map((ing: any) => ({
-                name: ing.mapValue?.fields?.name?.stringValue || '',
-                quantity: ing.mapValue?.fields?.quantity?.stringValue || '',
-                unit: ing.mapValue?.fields?.unit?.stringValue || ''
-              })) || [],
-              instructions: fields.instructions?.arrayValue?.values?.map((inst: any) => 
-                inst.stringValue || ''
-              ) || [],
-              userId: fields.userId?.stringValue || '',
-              createdAt: new Date(fields.createdAt?.timestampValue || new Date()),
-              updatedAt: new Date(fields.updatedAt?.timestampValue || new Date())
-            };
-          } catch (e) {
-            console.error('Error mapping document:', e);
-            return null;
-          }
-        })
-        .filter((recipe: Recipe | null): recipe is Recipe => recipe !== null);
-    } catch (error) {
-      console.error('Error getting recipes:', error);
-      throw error;
+    if (updateData.updatedAt instanceof Date) {
+      updateData.updatedAt = Timestamp.fromDate(updateData.updatedAt);
     }
-  },
-
-  async updateRecipe(id: string, recipe: Partial<Recipe>): Promise<void> {
-    try {
-      const idToken = await auth.currentUser?.getIdToken();
-      if (!idToken) throw new Error('User not authenticated');
-
-      // L'ID de la recette doit être le dernier segment du chemin
-      const documentPath = `recipes/${id}`;
-
-      // Préparation des données pour l'API Firestore
-      const fields: any = {
-        updatedAt: { timestampValue: new Date().toISOString() }
-      };
-
-      // Ajout conditionnel des champs à mettre à jour
-      if (recipe.title) fields.title = { stringValue: recipe.title };
-      if (recipe.description) fields.description = { stringValue: recipe.description };
-      if (recipe.prepTime) fields.prepTime = { stringValue: recipe.prepTime };
-      if (recipe.cookTime) fields.cookTime = { stringValue: recipe.cookTime };
-      if (recipe.servings) fields.servings = { stringValue: recipe.servings };
-      
-      if (recipe.ingredients && recipe.ingredients.length > 0) {
-        fields.ingredients = {
-          arrayValue: {
-            values: recipe.ingredients.map(ing => ({
-              mapValue: {
-                fields: {
-                  name: { stringValue: ing.name },
-                  quantity: { stringValue: ing.quantity },
-                  unit: { stringValue: ing.unit }
-                }
-              }
-            }))
-          }
-        };
-      }
-
-      if (recipe.instructions && recipe.instructions.length >= 0) {
-        fields.instructions = {
-          arrayValue: {
-            values: recipe.instructions.map(inst => ({
-              stringValue: inst
-            }))
-          }
-        };
-      }
-
-      // Construction des champs à mettre à jour dans l'URL
-      const updateMask = Object.keys(fields)
-        .map(field => `updateMask.fieldPaths=${field}`)
-        .join('&');
-
-      const response = await fetch(`${BASE_URL}/${documentPath}?${updateMask}`, {
-        method: 'PATCH',
-        headers: {
-          'Authorization': `Bearer ${idToken}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ fields })
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Server error:', errorData);
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const responseData = await response.json();
-      console.log('Update response:', responseData);
-    } catch (error) {
-      console.error('Error updating recipe:', error);
-      throw error;
+    if (updateData.cookingHistory) {
+      updateData.cookingHistory = updateData.cookingHistory.map(entry => ({
+        ...entry,
+        date: entry.date instanceof Date ? Timestamp.fromDate(entry.date) : entry.date
+      }));
     }
-  },
 
-  async deleteRecipe(id: string): Promise<void> {
-    try {
-      const idToken = await auth.currentUser?.getIdToken();
-      if (!idToken) throw new Error('User not authenticated');
+    await updateDoc(recipeRef, updateData);
+    console.log('Recipe updated successfully');
+  } catch (error) {
+    console.error('Error updating recipe:', error);
+    throw error;
+  }
+};
 
-      const response = await fetch(`${BASE_URL}/recipes/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${idToken}`,
-        }
-      });
+export const deleteRecipe = async (id: string): Promise<void> => {
+  try {
+    console.log('Deleting recipe:', id);
+    const recipeRef = doc(db, 'recipes', id);
+    await deleteDoc(recipeRef);
+    console.log('Recipe deleted successfully');
+  } catch (error) {
+    console.error('Error deleting recipe:', error);
+    throw error;
+  }
+};
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-    } catch (error) {
-      console.error('Error deleting recipe:', error);
-      throw error;
-    }
-  },
+export const incrementTimesCooked = async (recipeId: string, note?: string): Promise<void> => {
+  try {
+    console.log('Incrementing times cooked for recipe:', recipeId);
+    const recipeRef = doc(db, 'recipes', recipeId);
+    const historyEntry = {
+      date: Timestamp.now(),
+      note
+    };
+    
+    await updateDoc(recipeRef, {
+      timesCooked: increment(1),
+      cookingHistory: arrayUnion(historyEntry),
+      updatedAt: Timestamp.now()
+    });
+    console.log('Times cooked incremented successfully');
+  } catch (error) {
+    console.error('Error incrementing times cooked:', error);
+    throw error;
+  }
 };

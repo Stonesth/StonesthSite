@@ -19,6 +19,21 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
   - Planification des repas
   - Rappels automatiques
 
+## [0.5.6] - 2025-01-21
+
+### Corrigé
+- Correction des problèmes d'authentification persistante :
+  - Initialisation correcte de la persistance Firebase
+  - Meilleure gestion de l'état de connexion
+  - Correction de l'affichage des recettes pour les utilisateurs connectés
+  - Ajout de logs pour le débogage
+
+### Modifié
+- Amélioration de la gestion des routes protégées :
+  - Protection de la route /ideas-repas avec PrivateRoute
+  - Meilleure gestion des états de chargement
+  - Messages d'erreur plus clairs pour les utilisateurs
+
 ## [0.5.5] - 2025-01-21
 
 ### Ajouté

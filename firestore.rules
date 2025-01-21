@@ -3,21 +3,29 @@ service cloud.firestore {
   match /databases/{database}/documents {
     // Règles pour la collection recipes
     match /recipes/{recipeId} {
-      // Autoriser la lecture si l'utilisateur est authentifié
-      allow list: if request.auth != null;
-      allow get: if request.auth != null;
-      
+      // Autoriser la lecture si l'utilisateur est authentifié et propriétaire
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
       // Autoriser la création si l'utilisateur est authentifié et qu'il est le propriétaire
       allow create: if request.auth != null && 
-                   request.resource.data.userId == request.auth.uid;
+                   request.resource.data.userId == request.auth.uid &&
+                   request.resource.data.timesCooked == 0 &&
+                   request.resource.data.cookingHistory == [];
       
       // Autoriser la mise à jour si l'utilisateur est authentifié et propriétaire
       allow update: if request.auth != null && 
-                   resource.data.userId == request.auth.uid;
+                   resource.data.userId == request.auth.uid &&
+                   request.resource.data.userId == request.auth.uid &&
+                   (
+                     // Autoriser la mise à jour du compteur et de l'historique
+                     (request.resource.data.timesCooked == resource.data.timesCooked + 1 &&
+                      request.resource.data.cookingHistory.size() == resource.data.cookingHistory.size() + 1) ||
+                     // Ou autoriser les autres mises à jour normales
+                     (request.resource.data.timesCooked == resource.data.timesCooked &&
+                      request.resource.data.cookingHistory == resource.data.cookingHistory)
+                   );
       
       // Autoriser la suppression si l'utilisateur est authentifié et propriétaire
-      allow delete: if request.auth != null && 
-                   resource.data.userId == request.auth.uid;
+      allow delete: if request.auth != null && resource.data.userId == request.auth.uid;
     }
   }
 }

@@ -19,13 +19,19 @@ const app = initializeApp(firebaseConfig);
 // Initialize Firebase Authentication and get a reference to the service
 export const auth = getAuth(app);
 
-// Configure la persistance locale pour éviter trop de requêtes à l'API
-setPersistence(auth, browserLocalPersistence)
-  .catch((error) => {
+// Configure la persistance locale et initialise l'authentification
+export const initializeAuth = async () => {
+  try {
+    console.log('Initializing auth persistence...');
+    await setPersistence(auth, browserLocalPersistence);
+    auth.useDeviceLanguage(); // Pour avoir les messages d'erreur en français
+    console.log('Auth persistence initialized successfully');
+    return true;
+  } catch (error) {
     console.error("Erreur de configuration de la persistance:", error);
-  });
-
-auth.useDeviceLanguage(); // Pour avoir les messages d'erreur en français
+    return false;
+  }
+};
 
 export const db = getFirestore(app);
 

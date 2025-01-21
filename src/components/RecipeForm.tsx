@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Box,
-  TextField,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
   Button,
-  Typography,
-  Paper,
-  Grid,
+  TextField,
   IconButton,
   List,
   ListItem,
-  ListItemText,
   ListItemSecondaryAction,
+  Box
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import { Recipe } from '../services/recipeService';
+import { Recipe, Ingredient } from '../types/Recipe';
+import { useAuth } from '../contexts/AuthContext';
 
-interface Ingredient {
-  name: string;
-  quantity: string;
-  unit: string;
+interface RecipeFormProps {
+  open: boolean;
+  onClose: () => void;
+  onSubmit: (recipe: Omit<Recipe, 'id' | 'timesCooked' | 'cookingHistory' | 'createdAt' | 'updatedAt'>) => void;
+  initialData?: Recipe;
 }
 
 interface RecipeFormData {
@@ -32,249 +34,244 @@ interface RecipeFormData {
   instructions: string[];
 }
 
-interface RecipeFormProps {
-  onSubmit: (recipe: Omit<Recipe, 'id' | 'userId' | 'createdAt' | 'updatedAt'>) => void;
-  initialRecipe?: Recipe | null;
-}
-
-const initialFormData: RecipeFormData = {
-  title: '',
-  description: '',
-  prepTime: '',
-  cookTime: '',
-  servings: '',
-  ingredients: [],
-  instructions: [],
-};
-
-const RecipeForm: React.FC<RecipeFormProps> = ({ onSubmit, initialRecipe }) => {
-  const [formData, setFormData] = useState<RecipeFormData>(
-    initialRecipe ? {
-      title: initialRecipe.title,
-      description: initialRecipe.description,
-      prepTime: initialRecipe.prepTime,
-      cookTime: initialRecipe.cookTime,
-      servings: initialRecipe.servings,
-      ingredients: initialRecipe.ingredients,
-      instructions: initialRecipe.instructions,
-    } : initialFormData
-  );
-  const [newIngredient, setNewIngredient] = useState<Ingredient>({ name: '', quantity: '', unit: '' });
-  const [newInstruction, setNewInstruction] = useState('');
+const RecipeForm: React.FC<RecipeFormProps> = ({ open, onClose, onSubmit, initialData }) => {
+  const { currentUser } = useAuth();
+  const [formData, setFormData] = useState<RecipeFormData>({
+    title: '',
+    description: '',
+    prepTime: '',
+    cookTime: '',
+    servings: '',
+    ingredients: [{ name: '', quantity: 0, unit: '' }],
+    instructions: ['']
+  });
 
   useEffect(() => {
-    if (initialRecipe) {
+    if (initialData) {
       setFormData({
-        title: initialRecipe.title,
-        description: initialRecipe.description,
-        prepTime: initialRecipe.prepTime,
-        cookTime: initialRecipe.cookTime,
-        servings: initialRecipe.servings,
-        ingredients: initialRecipe.ingredients,
-        instructions: initialRecipe.instructions,
+        title: initialData.title,
+        description: initialData.description,
+        prepTime: initialData.prepTime,
+        cookTime: initialData.cookTime,
+        servings: initialData.servings,
+        ingredients: initialData.ingredients,
+        instructions: initialData.instructions
       });
-    } else {
-      setFormData(initialFormData);
     }
-  }, [initialRecipe]);
+  }, [initialData]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
-      [name]: value,
+      [name]: value
     }));
+  };
+
+  const handleIngredientChange = (index: number, field: keyof Ingredient, value: string) => {
+    setFormData(prev => {
+      const newIngredients = [...prev.ingredients];
+      newIngredients[index] = {
+        ...newIngredients[index],
+        [field]: field === 'quantity' ? Number(value) : value
+      };
+      return {
+        ...prev,
+        ingredients: newIngredients
+      };
+    });
   };
 
   const handleAddIngredient = () => {
-    if (newIngredient.name && newIngredient.quantity) {
-      setFormData((prev) => ({
-        ...prev,
-        ingredients: [...prev.ingredients, newIngredient],
-      }));
-      setNewIngredient({ name: '', quantity: '', unit: '' });
-    }
+    setFormData(prev => ({
+      ...prev,
+      ingredients: [...prev.ingredients, { name: '', quantity: 0, unit: '' }]
+    }));
   };
 
   const handleRemoveIngredient = (index: number) => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
-      ingredients: prev.ingredients.filter((_, i) => i !== index),
+      ingredients: prev.ingredients.filter((_, i) => i !== index)
     }));
+  };
+
+  const handleInstructionChange = (index: number, value: string) => {
+    setFormData(prev => {
+      const newInstructions = [...prev.instructions];
+      newInstructions[index] = value;
+      return {
+        ...prev,
+        instructions: newInstructions
+      };
+    });
   };
 
   const handleAddInstruction = () => {
-    if (newInstruction.trim()) {
-      setFormData((prev) => ({
-        ...prev,
-        instructions: [...prev.instructions, newInstruction.trim()],
-      }));
-      setNewInstruction('');
-    }
-  };
-
-  const handleRemoveInstruction = (index: number) => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
-      instructions: prev.instructions.filter((_, i) => i !== index),
+      instructions: [...prev.instructions, '']
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit(formData);
+  const handleRemoveInstruction = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      instructions: prev.instructions.filter((_, i) => i !== index)
+    }));
+  };
+
+  const handleSubmit = () => {
+    if (!currentUser) return;
+    onSubmit({
+      ...formData,
+      userId: currentUser.uid
+    });
+    onClose();
   };
 
   return (
-    <Paper sx={{ p: 3 }}>
-      <form onSubmit={handleSubmit}>
-        <Typography variant="h6" gutterBottom>
-          {initialRecipe ? 'Modifier la recette' : 'Nouvelle Recette'}
-        </Typography>
-
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
+    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+      <DialogTitle>{initialData ? 'Modifier la recette' : 'Nouvelle recette'}</DialogTitle>
+      <DialogContent>
+        <Box component="form" sx={{ mt: 2 }}>
+          <TextField
+            fullWidth
+            label="Titre"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            margin="normal"
+          />
+          <TextField
+            fullWidth
+            label="Description"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            margin="normal"
+            multiline
+            rows={3}
+          />
+          <Box display="flex" gap={2} mt={2}>
             <TextField
-              fullWidth
-              required
-              label="Titre de la recette"
-              name="title"
-              value={formData.title}
-              onChange={handleInputChange}
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              multiline
-              rows={3}
-              label="Description"
-              name="description"
-              value={formData.description}
-              onChange={handleInputChange}
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={4}>
-            <TextField
-              fullWidth
-              label="Temps de préparation (min)"
+              label="Temps de préparation"
               name="prepTime"
-              type="number"
               value={formData.prepTime}
-              onChange={handleInputChange}
+              onChange={handleChange}
+              margin="normal"
             />
-          </Grid>
-
-          <Grid item xs={12} sm={4}>
             <TextField
-              fullWidth
-              label="Temps de cuisson (min)"
+              label="Temps de cuisson"
               name="cookTime"
-              type="number"
               value={formData.cookTime}
-              onChange={handleInputChange}
+              onChange={handleChange}
+              margin="normal"
             />
-          </Grid>
-
-          <Grid item xs={12} sm={4}>
             <TextField
-              fullWidth
               label="Nombre de portions"
               name="servings"
-              type="number"
               value={formData.servings}
-              onChange={handleInputChange}
+              onChange={handleChange}
+              margin="normal"
             />
-          </Grid>
+          </Box>
 
-          <Grid item xs={12}>
-            <Typography variant="subtitle1" gutterBottom>
-              Ingrédients
-            </Typography>
-            <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
-              <TextField
-                label="Ingrédient"
-                value={newIngredient.name}
-                onChange={(e) => setNewIngredient({ ...newIngredient, name: e.target.value })}
-              />
-              <TextField
-                label="Quantité"
-                value={newIngredient.quantity}
-                onChange={(e) => setNewIngredient({ ...newIngredient, quantity: e.target.value })}
-              />
-              <TextField
-                label="Unité"
-                value={newIngredient.unit}
-                onChange={(e) => setNewIngredient({ ...newIngredient, unit: e.target.value })}
-              />
-              <IconButton onClick={handleAddIngredient} color="primary">
-                <AddIcon />
-              </IconButton>
+          <Box mt={3}>
+            <Box display="flex" alignItems="center" justifyContent="space-between">
+              <h3>Ingrédients</h3>
+              <Button
+                startIcon={<AddIcon />}
+                onClick={handleAddIngredient}
+                variant="outlined"
+                size="small"
+              >
+                Ajouter un ingrédient
+              </Button>
             </Box>
             <List>
               {formData.ingredients.map((ingredient, index) => (
-                <ListItem key={index}>
-                  <ListItemText 
-                    primary={`${ingredient.quantity} ${ingredient.unit} ${ingredient.name}`}
-                  />
+                <ListItem key={index} dense>
+                  <Box display="flex" gap={2} width="100%">
+                    <TextField
+                      label="Quantité"
+                      value={ingredient.quantity}
+                      onChange={(e) => handleIngredientChange(index, 'quantity', e.target.value)}
+                      type="number"
+                      size="small"
+                    />
+                    <TextField
+                      label="Unité"
+                      value={ingredient.unit}
+                      onChange={(e) => handleIngredientChange(index, 'unit', e.target.value)}
+                      size="small"
+                    />
+                    <TextField
+                      label="Ingrédient"
+                      value={ingredient.name}
+                      onChange={(e) => handleIngredientChange(index, 'name', e.target.value)}
+                      fullWidth
+                      size="small"
+                    />
+                  </Box>
                   <ListItemSecondaryAction>
-                    <IconButton edge="end" onClick={() => handleRemoveIngredient(index)}>
+                    <IconButton
+                      edge="end"
+                      onClick={() => handleRemoveIngredient(index)}
+                      disabled={formData.ingredients.length === 1}
+                    >
                       <DeleteIcon />
                     </IconButton>
                   </ListItemSecondaryAction>
                 </ListItem>
               ))}
             </List>
-          </Grid>
+          </Box>
 
-          <Grid item xs={12}>
-            <Typography variant="subtitle1" gutterBottom>
-              Instructions
-            </Typography>
-            <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
-              <TextField
-                fullWidth
-                multiline
-                label="Étape"
-                value={newInstruction}
-                onChange={(e) => setNewInstruction(e.target.value)}
-              />
-              <IconButton onClick={handleAddInstruction} color="primary">
-                <AddIcon />
-              </IconButton>
+          <Box mt={3}>
+            <Box display="flex" alignItems="center" justifyContent="space-between">
+              <h3>Instructions</h3>
+              <Button
+                startIcon={<AddIcon />}
+                onClick={handleAddInstruction}
+                variant="outlined"
+                size="small"
+              >
+                Ajouter une instruction
+              </Button>
             </Box>
             <List>
               {formData.instructions.map((instruction, index) => (
-                <ListItem key={index}>
-                  <ListItemText 
-                    primary={`${index + 1}. ${instruction}`}
+                <ListItem key={index} dense>
+                  <TextField
+                    fullWidth
+                    multiline
+                    label={`Étape ${index + 1}`}
+                    value={instruction}
+                    onChange={(e) => handleInstructionChange(index, e.target.value)}
                   />
                   <ListItemSecondaryAction>
-                    <IconButton edge="end" onClick={() => handleRemoveInstruction(index)}>
+                    <IconButton
+                      edge="end"
+                      onClick={() => handleRemoveInstruction(index)}
+                      disabled={formData.instructions.length === 1}
+                    >
                       <DeleteIcon />
                     </IconButton>
                   </ListItemSecondaryAction>
                 </ListItem>
               ))}
             </List>
-          </Grid>
-
-          <Grid item xs={12}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              size="large"
-              fullWidth
-            >
-              {initialRecipe ? 'Mettre à jour' : 'Enregistrer la recette'}
-            </Button>
-          </Grid>
-        </Grid>
-      </form>
-    </Paper>
+          </Box>
+        </Box>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>Annuler</Button>
+        <Button onClick={handleSubmit} variant="contained" color="primary">
+          {initialData ? 'Modifier' : 'Créer'}
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 
