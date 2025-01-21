@@ -1,4 +1,25 @@
-# Liste des tâches
+# Format du fichier TODO
+# Ce fichier suit une structure spécifique :
+# 1. Les tâches terminées sont marquées avec [x]
+# 2. Les tâches en cours sont marquées avec un tiret [-]
+# 3. Les tâches à faire sont marquées avec [ ]
+# 4. Les tâches sont regroupées par date
+# 5. Chaque mise à jour doit conserver les tâches terminées en haut du fichier avec la date de la mise à jour
+
+## Fait ✅ (21/01/2025)
+- [x] Implémentation du CRUD complet des recettes
+- [x] Création du composant RecipeForm pour l'édition des recettes
+- [x] Création du composant RecipeCard pour l'affichage des recettes
+- [x] Mise en place des règles Firestore pour les recettes
+- [x] Configuration de l'API REST Firestore
+- [x] Correction du bug d'édition des recettes
+- [x] Amélioration de la gestion des erreurs Firestore
+- [x] Optimisation des requêtes API pour les recettes
+- [x] Ajout de la fonctionnalité de recherche dans les recettes
+  - [x] Recherche par titre
+  - [x] Recherche par description
+  - [x] Recherche par ingrédients
+  - [x] Recherche par instructions
 
 ## Fait ✅ (20/01/2025)
 - [x] Système de connexion complet
@@ -44,25 +65,48 @@
 - [x] Ajout des liens vers la documentation
 
 ## TODO List
+
 ### En cours
+- [-] Optimisation des performances de chargement :
+  - [-] Implémenter le code splitting avec dynamic imports
+  - [-] Optimiser la taille des chunks JavaScript
+  - [-] Ajuster les limites de taille des chunks
+- [-] Amélioration de l'interface utilisateur
+- [-] Documentation du code
 
 ### Haute priorité
-- [ ] Optimiser les performances de chargement :
-  - [ ] Implémenter le code splitting avec dynamic imports
-  - [ ] Optimiser la taille des chunks JavaScript
-  - [ ] Ajuster les limites de taille des chunks
-- [ ] Obtenir une clé API YouTube Data v3 pour les images de profil
-- [ ] Exécuter le script de téléchargement des avatars
-- [ ] Intégrer les images de profil dans le composant TechYoutubers
+- [ ] Ajouter le filtrage par temps de préparation/cuisson
+- [ ] Ajouter le tri par date ou titre
+- [ ] Créer un système de catégories pour les recettes
+- [ ] Ajouter la possibilité de partager des recettes
 
-### Priorité Moyenne
-- [ ] Ajouter des filtres de recherche pour les YouTubeurs (par catégorie, langue)
-- [ ] Implémenter un système de favoris persistant
-- [ ] Ajouter des liens vers les dernières vidéos
+### Resources
+- [ ] Ajouter plus de ressources pour chaque catégorie
+- [ ] Implémenter un système de favoris
+- [ ] Ajouter des descriptions détaillées pour chaque ressource
+
+### Général
+- [ ] Améliorer le design responsive
+- [ ] Implémenter un mode sombre/clair
+- [ ] Ajouter des animations de transition
 
 ### Priorité Basse
-- [ ] Ajouter des animations de transition
-- [ ] Implémenter un mode sombre/clair
+- [ ] Implémenter un système de notifications
+- [ ] Optimiser les performances de l'application
+- [ ] Ajouter des tests unitaires et d'intégration
+
+## Améliorations Techniques
+- [ ] Mettre en place le code splitting pour réduire la taille du bundle
+- [ ] Améliorer la gestion des erreurs
+- [ ] Ajouter des logs pour le débogage
+- [ ] Optimiser les requêtes Firestore
+- [ ] Mettre en place un système de cache
+
+## Documentation
+- [ ] Créer une documentation technique
+- [ ] Ajouter des commentaires dans le code
+- [ ] Documenter les composants React
+- [ ] Créer un guide d'utilisation
 
 ## À Faire 
 
@@ -191,3 +235,11 @@
 - [ ] Mode sombre
 - [ ] Animations
 - [ ] Optimisation des images
+
+### Optimisation
+- [ ] Obtenir une clé API YouTube Data v3 pour les images de profil
+- [ ] Exécuter le script de téléchargement des avatars
+- [ ] Intégrer les images de profil dans le composant TechYoutubers
+- [ ] Ajouter des filtres de recherche pour les YouTubeurs (par catégorie, langue)
+- [ ] Implémenter un système de favoris persistant
+- [ ] Ajouter des liens vers les dernières vidéos

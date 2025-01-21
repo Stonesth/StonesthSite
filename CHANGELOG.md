@@ -2,6 +2,19 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.5.4] - 2025-01-22
+
+### Ajouté
+- Fonctionnalité de recherche dans les recettes
+  - Recherche par titre, description, ingrédients et instructions
+  - Interface utilisateur avec barre de recherche et icône
+  - Filtrage en temps réel des résultats
+  - Messages personnalisés selon les résultats
+
+### Modifié
+- Optimisation de l'interface utilisateur de la page IdeasRepas
+- Amélioration des retours utilisateur lors de la recherche
+
 ## [0.5.3] - 2025-01-20
 
 ### Ajouté
@@ -13,13 +26,29 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
 - Déplacement du lien Microsoft Office dans la section Resources
 - Ajout de la section Blockchain dans Resources
 
-## [0.5.2] - 2025-01-20
+## [0.5.2] - 2025-01-21
 
 ### Ajouté
+- Fonctionnalité complète de gestion des recettes
+  - Création de nouvelles recettes avec titre, description, temps de préparation/cuisson
+  - Affichage des recettes dans des cartes élégantes
+  - Modification des recettes existantes
+  - Suppression des recettes
+- Composants pour la gestion des recettes
+  - RecipeForm pour la création/modification
+  - RecipeCard pour l'affichage
+- Service recipeService pour interagir avec Firestore
+- Règles de sécurité Firestore pour les recettes
 - Nouvelle section "Idées Repas" (protégée) :
   - Page de base avec authentification requise
   - Structure initiale pour les futures fonctionnalités
   - Intégration avec le système d'authentification existant
+
+### Modifié
+- Page IdeasRepas pour intégrer la gestion des recettes
+- Configuration Firebase pour inclure les règles Firestore
+- Restructuration de l'application avec Layout commun
+- Synchronisation de la version entre package.json et CHANGELOG.md
 
 ## [0.5.1] - 2025-01-20
 
