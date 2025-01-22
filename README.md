@@ -1,4 +1,5 @@
 # StonesthSite - Documentation Technique
+Ne jamais supprimer des données de cette page. Elles sont essentielles à la fonctionnalité du site.
 
 Site personnel présentant mes projets en IA, LLMs, impression 3D et gestion de recettes.
 
