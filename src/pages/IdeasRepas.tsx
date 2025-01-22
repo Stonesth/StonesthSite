@@ -318,11 +318,12 @@ const IdeasRepas: React.FC = () => {
       ) : (
         <Grid container spacing={3}>
           {filteredRecipes.map((recipe) => (
-            <Grid item xs={12} sm={6} md={4} key={recipe.id}>
+            <Grid item xs={12} md={6} lg={4} key={recipe.id}>
               <RecipeCard
                 recipe={recipe}
-                onEdit={() => handleEditRecipe(recipe)}
-                onDelete={() => handleDeleteRecipe(recipe.id!)}
+                onEdit={handleEditRecipe}
+                onDelete={handleDeleteRecipe}
+                onUpdate={loadRecipes}
               />
             </Grid>
           ))}

@@ -19,6 +19,16 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
   - Planification des repas
   - Rappels automatiques
 
+## [0.6.0] - 2025-01-22
+
+### Ajouté
+- Système de suivi des recettes réalisées
+  - Historique complet des réalisations avec dates
+  - Possibilité d'ajouter des notes pour chaque réalisation
+  - Badge interactif montrant le nombre de réalisations
+  - Nouveau bouton "Marquer comme réalisée"
+  - Interface dédiée pour visualiser l'historique
+
 ## [0.5.9] - 2025-01-22
 
 ### Corrigé

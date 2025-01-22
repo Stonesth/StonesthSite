@@ -6,6 +6,13 @@
 # 4. Les tâches sont regroupées par date
 # 5. Chaque mise à jour doit conserver les tâches terminées en haut du fichier avec la date de la mise à jour
 
+## Fait ✅ (22/01/2025)
+- [x] Système de suivi des recettes réalisées
+  - [x] Ajouter un compteur de réalisations pour chaque recette
+  - [x] Stocker l'historique des réalisations avec dates
+  - [x] Ajouter la possibilité d'ajouter des notes
+  - [x] Interface dédiée pour visualiser l'historique
+
 ## Fait ✅ (21/01/2025)
 - [x] Correction des problèmes d'authentification
   - [x] Initialisation correcte de la persistance Firebase
