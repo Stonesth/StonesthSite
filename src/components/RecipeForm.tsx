@@ -159,6 +159,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ open, onClose, onSubmit, initia
             <TextField
               fullWidth
               label="Description"
+              name="description"
               value={formData.description}
               onChange={handleChange}
               multiline

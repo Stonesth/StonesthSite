@@ -5,13 +5,24 @@ import type { Recipe, CookingHistoryEntry } from '../types/Recipe';
 export const createRecipe = async (recipe: Omit<Recipe, 'id' | 'timesCooked' | 'cookingHistory' | 'createdAt' | 'updatedAt'>): Promise<Recipe> => {
   try {
     console.log('Creating recipe with data:', recipe);
-    const newRecipe = {
+    // Nettoyer les champs vides
+    const cleanedRecipe = {
       ...recipe,
+      description: recipe.description || '',  // Utiliser une chaîne vide si null ou undefined
+      prepTime: recipe.prepTime || '0',
+      cookTime: recipe.cookTime || '0',
+      servings: recipe.servings || '1',
+      ingredients: recipe.ingredients?.filter(ing => ing.name.trim() !== '') || [],
+      instructions: recipe.instructions?.filter(inst => inst.trim() !== '') || [],
+      isVegetarian: recipe.isVegetarian || false
+    };
+
+    const newRecipe = {
+      ...cleanedRecipe,
       timesCooked: 0,
       cookingHistory: [],
       createdAt: Timestamp.now(),
-      updatedAt: Timestamp.now(),
-      isVegetarian: recipe.isVegetarian || false
+      updatedAt: Timestamp.now()
     };
     
     const docRef = await addDoc(collection(db, 'recipes'), newRecipe);

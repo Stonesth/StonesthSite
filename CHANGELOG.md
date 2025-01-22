@@ -19,6 +19,13 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
   - Planification des repas
   - Rappels automatiques
 
+## [0.5.9] - 2025-01-22
+
+### Corrigé
+- Correction du champ description dans le formulaire de recette
+- Correction de l'erreur de champs vides lors de la création d'une recette
+- Amélioration de la gestion des valeurs par défaut pour tous les champs
+
 ## [0.5.8] - 2025-01-22
 
 ### Ajouté
