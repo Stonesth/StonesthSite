@@ -13,19 +13,20 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import { Link as RouterLink } from 'react-router-dom';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const pages = [
     { title: 'Accueil', path: '/' },
-    { title: 'Idées Repas', path: '/ideas-repas' },
-    { title: 'Liste de Courses', path: '/shopping-lists' },
+    { title: 'Idées Repas', path: '/ideas-repas' }
 ];
 
 const Navigation = () => {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-    const { currentUser, signOut } = useAuth();
+    const { currentUser, logout } = useAuth();
+    const navigate = useNavigate();
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -45,11 +46,16 @@ const Navigation = () => {
 
     const handleLogout = async () => {
         try {
-            await signOut();
+            await logout();
             handleCloseUserMenu();
         } catch (error) {
             console.error('Erreur lors de la déconnexion:', error);
         }
+    };
+
+    const handleNavigate = (path: string) => {
+        handleCloseNavMenu();
+        navigate(path);
     };
 
     return (
@@ -103,13 +109,10 @@ const Navigation = () => {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem
-                                    key={page.path}
-                                    onClick={handleCloseNavMenu}
-                                    component={RouterLink}
-                                    to={page.path}
-                                >
-                                    <Typography textAlign="center">{page.title}</Typography>
+                                <MenuItem key={page.path} onClick={() => handleNavigate(page.path)}>
+                                    <Box display="flex" alignItems="center" gap={1}>
+                                        <Typography textAlign="center">{page.title}</Typography>
+                                    </Box>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -138,10 +141,8 @@ const Navigation = () => {
                         {pages.map((page) => (
                             <Button
                                 key={page.path}
-                                component={RouterLink}
-                                to={page.path}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
+                                onClick={() => handleNavigate(page.path)}
+                                sx={{ my: 2, color: 'white', display: 'flex', alignItems: 'center', gap: 1 }}
                             >
                                 {page.title}
                             </Button>

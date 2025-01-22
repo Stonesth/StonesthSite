@@ -2,22 +2,23 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
-## [Planifié]
-### À venir
-- Système de suivi des recettes
-  - Compteur de réalisations
-  - Historique des préparations
-  - Statistiques d'utilisation
-- Liste de courses intelligente
-  - Sélection multiple de recettes
-  - Génération automatique de la liste
-  - Envoi par email
-- Sélection aléatoire de recettes
-  - Algorithme basé sur l'historique
-  - Filtres personnalisables
-- Intégration Google Calendar
-  - Planification des repas
-  - Rappels automatiques
+## [0.8.0] - 2025-01-22
+### Ajouté
+- Système de gestion des listes de courses :
+  - Création et suppression de listes
+  - Ajout/suppression de recettes dans une liste
+  - Calcul automatique des ingrédients
+  - Fusion intelligente des ingrédients identiques
+  - Barre de recherche pour l'ajout de recettes
+- Navigation améliorée :
+  - Bouton de navigation directe entre recettes et listes
+  - Suppression de la barre de navigation redondante
+  - Interface plus intuitive et cohérente
+
+### Modifié
+- Simplification de l'interface utilisateur
+- Amélioration de l'expérience de navigation
+- Optimisation des performances de l'application
 
 ## [0.7.0] - 2025-01-22
 

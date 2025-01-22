@@ -12,6 +12,18 @@
   - [x] Stocker l'historique des réalisations avec dates
   - [x] Ajouter la possibilité d'ajouter des notes
   - [x] Interface dédiée pour visualiser l'historique
+- [x] Système de gestion des listes de courses
+  - [x] Création de listes de courses
+  - [x] Ajout/suppression de recettes dans une liste
+  - [x] Calcul automatique des ingrédients
+  - [x] Fusion des ingrédients identiques
+  - [x] Navigation fluide entre recettes et listes
+  - [x] Recherche de recettes lors de l'ajout à une liste
+- [x] Système de suivi des recettes réalisées
+  - [x] Ajouter un compteur de réalisations
+  - [x] Afficher le nombre de réalisations sur la carte de recette
+  - [x] Système de badge pour les recettes jamais réalisées
+  - [x] Filtres pour voir les recettes les plus/moins réalisées
 
 ## Fait ✅ (21/01/2025)
 - [x] Correction des problèmes d'authentification

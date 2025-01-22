@@ -1,6 +1,9 @@
 import { db } from '../firebase';
-import { collection, addDoc, getDocs, query, where, updateDoc, deleteDoc, doc, Timestamp, increment, arrayUnion } from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, where, updateDoc, deleteDoc, doc, Timestamp, increment, arrayUnion, orderBy } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 import type { Recipe, CookingHistoryEntry } from '../types/Recipe';
+
+const RECIPES_COLLECTION = 'recipes';
 
 export const createRecipe = async (recipe: Omit<Recipe, 'id' | 'timesCooked' | 'cookingHistory' | 'createdAt' | 'updatedAt'>): Promise<Recipe> => {
   try {
@@ -25,7 +28,7 @@ export const createRecipe = async (recipe: Omit<Recipe, 'id' | 'timesCooked' | '
       updatedAt: Timestamp.now()
     };
     
-    const docRef = await addDoc(collection(db, 'recipes'), newRecipe);
+    const docRef = await addDoc(collection(db, RECIPES_COLLECTION), newRecipe);
     console.log('Recipe created with ID:', docRef.id);
 
     return { 
@@ -41,7 +44,7 @@ export const createRecipe = async (recipe: Omit<Recipe, 'id' | 'timesCooked' | '
 export const getUserRecipes = async (userId: string): Promise<Recipe[]> => {
   try {
     console.log('Getting recipes for user:', userId);
-    const q = query(collection(db, 'recipes'), where('userId', '==', userId));
+    const q = query(collection(db, RECIPES_COLLECTION), where('userId', '==', userId));
     const querySnapshot = await getDocs(q);
     console.log('Found recipes:', querySnapshot.docs.length);
     
@@ -69,10 +72,31 @@ export const getUserRecipes = async (userId: string): Promise<Recipe[]> => {
   }
 };
 
+export const getAllRecipes = async (): Promise<Recipe[]> => {
+    const auth = getAuth();
+    const userId = auth.currentUser?.uid;
+
+    if (!userId) {
+        throw new Error('Utilisateur non connecté');
+    }
+
+    const q = query(
+        collection(db, RECIPES_COLLECTION),
+        where('userId', '==', userId),
+        orderBy('createdAt', 'desc')
+    );
+
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+    } as Recipe));
+};
+
 export const updateRecipe = async (id: string, recipe: Partial<Recipe>): Promise<void> => {
   try {
     console.log('Updating recipe:', id, recipe);
-    const recipeRef = doc(db, 'recipes', id);
+    const recipeRef = doc(db, RECIPES_COLLECTION, id);
     const updateData = {
       ...recipe,
       updatedAt: Timestamp.now(),
@@ -103,7 +127,7 @@ export const updateRecipe = async (id: string, recipe: Partial<Recipe>): Promise
 export const deleteRecipe = async (id: string): Promise<void> => {
   try {
     console.log('Deleting recipe:', id);
-    const recipeRef = doc(db, 'recipes', id);
+    const recipeRef = doc(db, RECIPES_COLLECTION, id);
     await deleteDoc(recipeRef);
     console.log('Recipe deleted successfully');
   } catch (error) {
@@ -115,7 +139,7 @@ export const deleteRecipe = async (id: string): Promise<void> => {
 export const incrementTimesCooked = async (recipeId: string, note?: string): Promise<void> => {
   try {
     console.log('Incrementing times cooked for recipe:', recipeId);
-    const recipeRef = doc(db, 'recipes', recipeId);
+    const recipeRef = doc(db, RECIPES_COLLECTION, recipeId);
     const historyEntry = {
       date: Timestamp.now(),
       note

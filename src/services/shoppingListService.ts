@@ -9,7 +9,8 @@ import {
     getDocs,
     getDoc,
     Timestamp,
-    orderBy
+    orderBy,
+    arrayUnion
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { ShoppingList, ShoppingListIngredient } from '../types/ShoppingList';
@@ -160,6 +161,93 @@ export const updateRecipeServings = async (
         recipes: updatedRecipes,
         ingredients,
         updatedAt: Timestamp.now()
+    });
+};
+
+// Ajouter une recette à une liste de courses
+export const addRecipeToList = async (listId: string, recipe: Recipe): Promise<void> => {
+    const listRef = doc(db, 'shoppingLists', listId);
+    const listDoc = await getDoc(listRef);
+    if (!listDoc.exists()) {
+        throw new Error('Liste non trouvée');
+    }
+
+    const list = listDoc.data() as ShoppingList;
+    
+    // Vérifier si la recette n'est pas déjà dans la liste
+    if (list.recipes.some(r => r.recipeId === recipe.id)) {
+        return;
+    }
+
+    // Ajouter la recette à la liste
+    const newRecipe = {
+        recipeId: recipe.id!,
+        title: recipe.title,
+        servings: recipe.servings,
+        originalServings: recipe.servings
+    };
+
+    // Fusionner les ingrédients
+    const updatedIngredients = [...list.ingredients];
+    recipe.ingredients.forEach(newIng => {
+        const existingIng = updatedIngredients.find(
+            ing => ing.name.toLowerCase() === newIng.name.toLowerCase() && ing.unit === newIng.unit
+        );
+
+        if (existingIng) {
+            existingIng.quantity += newIng.quantity;
+            existingIng.recipes.push(recipe.id!);
+        } else {
+            updatedIngredients.push({
+                name: newIng.name,
+                quantity: newIng.quantity,
+                unit: newIng.unit,
+                checked: false,
+                recipes: [recipe.id!]
+            });
+        }
+    });
+
+    await updateDoc(listRef, {
+        recipes: arrayUnion(newRecipe),
+        ingredients: updatedIngredients
+    });
+};
+
+// Supprimer une recette d'une liste de courses
+export const removeRecipeFromList = async (listId: string, recipeId: string): Promise<void> => {
+    const listRef = doc(db, 'shoppingLists', listId);
+    const listDoc = await getDoc(listRef);
+    if (!listDoc.exists()) {
+        throw new Error('Liste non trouvée');
+    }
+
+    const list = listDoc.data() as ShoppingList;
+    
+    // Retirer la recette de la liste
+    const updatedRecipes = list.recipes.filter(r => r.recipeId !== recipeId);
+    
+    // Mettre à jour les ingrédients
+    const updatedIngredients = list.ingredients
+        .map(ing => {
+            // Retirer la recette des références
+            const updatedRecipes = ing.recipes.filter(r => r !== recipeId);
+            
+            if (updatedRecipes.length === 0) {
+                // Si l'ingrédient n'est plus utilisé par aucune recette, le supprimer
+                return null;
+            }
+            
+            return {
+                ...ing,
+                recipes: updatedRecipes
+            };
+        })
+        .filter((ing): ing is ShoppingListIngredient => ing !== null);
+
+    await updateDoc(listRef, {
+        recipes: updatedRecipes,
+        ingredients: updatedIngredients
     });
 };
 

@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Container, Grid, Button, Box, CircularProgress, TextField, Slider, Typography, FormControlLabel, Switch, Checkbox, Chip, Badge } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import RecipeCard from '../components/RecipeCard';
 import RecipeForm from '../components/RecipeForm';
 import { Recipe } from '../types/Recipe';
 import { useAuth } from '../contexts/AuthContext';
 import { getUserRecipes, createRecipe, updateRecipe, deleteRecipe } from '../services/recipeService';
+import { useNavigate } from 'react-router-dom';
 
 const IdeasRepas: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -15,6 +17,7 @@ const IdeasRepas: React.FC = () => {
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
 
   // États pour la recherche et les filtres
   const [searchQuery, setSearchQuery] = useState('');
@@ -177,14 +180,45 @@ const IdeasRepas: React.FC = () => {
         <Typography variant="h4" component="h1">
           Idées Repas
         </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => setIsFormOpen(true)}
-          startIcon={<AddIcon />}
-        >
-          Ajouter une recette
-        </Button>
+        <Box display="flex" gap={2}>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => navigate('/shopping-lists')}
+            startIcon={<ShoppingCartIcon />}
+          >
+            Liste de courses
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => setIsFormOpen(true)}
+            startIcon={<AddIcon />}
+          >
+            Ajouter une recette
+          </Button>
+        </Box>
+      </Box>
+
+      {/* Barre de recherche */}
+      <Box mb={3}>
+        <TextField
+          fullWidth
+          label="Rechercher une recette..."
+          variant="outlined"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          sx={{ mb: 2 }}
+        />
+        <FormControlLabel
+          control={
+            <Switch
+              checked={showAdvancedFilters}
+              onChange={(e) => setShowAdvancedFilters(e.target.checked)}
+            />
+          }
+          label="Filtres avancés"
+        />
       </Box>
 
       <Box mb={3} p={2} bgcolor="background.paper" borderRadius={1}>
@@ -221,27 +255,6 @@ const IdeasRepas: React.FC = () => {
             <Typography variant="body2">: Recette réalisée (le nombre indique le total de réalisations)</Typography>
           </Box>
         </Box>
-      </Box>
-
-      {/* Barre de recherche */}
-      <Box mb={3}>
-        <TextField
-          fullWidth
-          label="Rechercher une recette..."
-          variant="outlined"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          sx={{ mb: 2 }}
-        />
-        <FormControlLabel
-          control={
-            <Switch
-              checked={showAdvancedFilters}
-              onChange={(e) => setShowAdvancedFilters(e.target.checked)}
-            />
-          }
-          label="Filtres avancés"
-        />
       </Box>
 
       {/* Filtres avancés */}

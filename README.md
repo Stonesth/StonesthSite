@@ -1,6 +1,11 @@
 # StonesthSite - Documentation Technique
 
-Site personnel présentant mes intérêts en IA, LLMs et impression 3D.
+Site personnel présentant mes projets en IA, LLMs, impression 3D et gestion de recettes.
+
+## Nouvelles fonctionnalités (22/01/2025)
+- Système de gestion des listes de courses
+- Système de suivi des réalisations de recettes
+- Navigation améliorée entre les pages
 
 ## Prérequis
 

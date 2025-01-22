@@ -17,13 +17,16 @@ import {
     Alert,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
 import { getUserShoppingLists, createShoppingList } from '../services/shoppingListService';
-import { getRecipes } from '../services/recipeService';
+import { getAllRecipes } from '../services/recipeService';
 import { Recipe } from '../types/Recipe';
 import { ShoppingList as ShoppingListType } from '../types/ShoppingList';
 import ShoppingList from '../components/ShoppingList';
+import { useNavigate } from 'react-router-dom';
 
 const ShoppingLists: React.FC = () => {
+    const navigate = useNavigate();
     const [shoppingLists, setShoppingLists] = useState<ShoppingListType[]>([]);
     const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [selectedRecipes, setSelectedRecipes] = useState<Recipe[]>([]);
@@ -42,10 +45,18 @@ const ShoppingLists: React.FC = () => {
             setLoading(true);
             const [listsData, recipesData] = await Promise.all([
                 getUserShoppingLists(),
-                getRecipes()
+                getAllRecipes()
             ]);
             setShoppingLists(listsData);
             setRecipes(recipesData);
+            
+            // Mettre à jour la liste sélectionnée si elle existe
+            if (selectedList) {
+                const updatedList = listsData.find(list => list.id === selectedList.id);
+                if (updatedList) {
+                    setSelectedList(updatedList);
+                }
+            }
         } catch (err) {
             setError('Erreur lors du chargement des données');
             console.error(err);
@@ -97,13 +108,23 @@ const ShoppingLists: React.FC = () => {
                 <Typography variant="h4" component="h1">
                     Listes de courses
                 </Typography>
-                <Button
-                    variant="contained"
-                    startIcon={<AddIcon />}
-                    onClick={() => setCreateDialogOpen(true)}
-                >
-                    Nouvelle liste
-                </Button>
+                <Box display="flex" gap={2}>
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={() => navigate('/ideas-repas')}
+                        startIcon={<RestaurantIcon />}
+                    >
+                        Retour aux recettes
+                    </Button>
+                    <Button
+                        variant="contained"
+                        startIcon={<AddIcon />}
+                        onClick={() => setCreateDialogOpen(true)}
+                    >
+                        Nouvelle liste
+                    </Button>
+                </Box>
             </Box>
 
             {selectedList ? (
@@ -114,18 +135,19 @@ const ShoppingLists: React.FC = () => {
                         setSelectedList(null);
                         loadData();
                     }}
+                    onBack={() => setSelectedList(null)}
                 />
             ) : (
                 <List>
                     {shoppingLists.map((list) => (
                         <ListItem
                             key={list.id}
-                            button
+                            component="div"
                             onClick={() => setSelectedList(list)}
-                            sx={{ border: 1, borderColor: 'divider', mb: 1, borderRadius: 1 }}
+                            sx={{ border: 1, borderColor: 'divider', mb: 1, borderRadius: 1, cursor: 'pointer' }}
                         >
                             <ListItemText
-                                primary={list.title}
+                                primary={list.name}
                                 secondary={`${list.recipes.length} recettes - ${list.ingredients.length} ingrédients`}
                             />
                         </ListItem>
