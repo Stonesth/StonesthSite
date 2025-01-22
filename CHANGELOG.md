@@ -19,6 +19,32 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
   - Planification des repas
   - Rappels automatiques
 
+## [0.5.8] - 2025-01-22
+
+### Ajouté
+- Amélioration de l'affichage des badges dans les cartes de recettes
+- Badge "Réalisée" visible sur toutes les recettes avec différents styles selon le statut
+- Légende explicative des badges dans la page des recettes
+- Meilleure documentation du code avec des commentaires détaillés
+
+### Modifié
+- Réorganisation de l'interface des cartes de recettes pour une meilleure lisibilité
+- Amélioration du titre de la page "Idées Repas"
+- Ajout d'une icône au bouton "Ajouter une recette"
+
+## [0.5.7] - 2025-01-22
+
+### Corrigé
+- Correction du filtrage des recettes par temps :
+  - Correction de la conversion des temps string vers number
+  - Meilleure gestion des valeurs nulles ou undefined
+  - Support des temps de préparation et de cuisson jusqu'à 3h
+  - Amélioration de l'interface des sliders avec des marques de temps
+
+### Modifié
+- Mise à jour de la version dans package.json pour correspondre au CHANGELOG
+- Amélioration de la documentation technique
+
 ## [0.5.6] - 2025-01-21
 
 ### Corrigé

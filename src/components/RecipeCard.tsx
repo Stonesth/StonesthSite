@@ -17,6 +17,7 @@ import {
 import { Recipe } from '../types/Recipe';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
 import { Timestamp } from 'firebase/firestore';
 
 interface RecipeCardProps {
@@ -44,37 +45,63 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, onEdit, onDelete }) => 
   return (
     <Card>
       <CardContent>
+        {/* Badges en haut */}
+        {/* Les badges indiquent le statut de la recette :
+            - Badge "Végétarien" (vert) : apparaît uniquement si la recette est végétarienne
+            - Badge "Réalisée" :
+              - Gris avec contour : recette jamais réalisée (timesCooked = 0)
+              - Bleu plein : recette réalisée au moins une fois (timesCooked > 0)
+              - Le nombre sur le badge indique le nombre total de réalisations
+        */}
+        <Box display="flex" justifyContent="flex-start" alignItems="center" gap={1} mb={2}>
+          {recipe.isVegetarian && (
+            <Chip
+              icon={<RestaurantIcon />}
+              label="Végétarien"
+              color="success"
+              size="small"
+            />
+          )}
+          <Chip
+            icon={<Badge badgeContent={recipe.timesCooked} color={recipe.timesCooked > 0 ? "primary" : "default"} max={99} />}
+            label="Réalisée"
+            color={recipe.timesCooked > 0 ? "primary" : "default"}
+            variant={recipe.timesCooked > 0 ? "filled" : "outlined"}
+            size="small"
+          />
+        </Box>
+
+        {/* Titre et actions */}
         <Box display="flex" justifyContent="space-between" alignItems="flex-start" mb={2}>
           <Typography variant="h5" component="div">
             {recipe.title}
           </Typography>
-          <Badge badgeContent={recipe.timesCooked} color="primary" max={999}>
-            <Chip label="Réalisée" color="primary" />
-          </Badge>
+          <Box>
+            <IconButton onClick={() => onEdit(recipe)} size="small" color="primary">
+              <EditIcon />
+            </IconButton>
+            <IconButton onClick={() => onDelete(recipe.id!)} size="small" color="error">
+              <DeleteIcon />
+            </IconButton>
+          </Box>
         </Box>
 
-        <Typography variant="body2" color="text.secondary" gutterBottom>
+        {/* Description */}
+        <Typography variant="body2" color="text.secondary" paragraph>
           {recipe.description}
         </Typography>
 
-        <Box display="flex" gap={1} mt={2} mb={2}>
-          <Chip
-            label={`Préparation: ${recipe.prepTime}`}
-            variant="outlined"
-            size="small"
-          />
-          <Chip
-            label={`Cuisson: ${recipe.cookTime}`}
-            variant="outlined"
-            size="small"
-          />
-          <Chip
-            label={`${recipe.servings} portions`}
-            variant="outlined"
-            size="small"
-          />
+        {/* Temps de préparation et cuisson */}
+        <Box display="flex" gap={2} mb={2}>
+          <Typography variant="body2">
+            Préparation : {recipe.prepTime}min
+          </Typography>
+          <Typography variant="body2">
+            Cuisson : {recipe.cookTime}min
+          </Typography>
         </Box>
 
+        {/* Ingrédients */}
         <Typography variant="subtitle2" gutterBottom>
           Ingrédients:
         </Typography>
@@ -88,6 +115,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, onEdit, onDelete }) => 
           ))}
         </List>
 
+        {/* Instructions */}
         <Typography variant="subtitle2" gutterBottom>
           Instructions:
         </Typography>
@@ -101,6 +129,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, onEdit, onDelete }) => 
           ))}
         </List>
 
+        {/* Historique des préparations */}
         {recipe.cookingHistory.length > 0 && (
           <>
             <Divider sx={{ my: 2 }} />
@@ -120,15 +149,6 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, onEdit, onDelete }) => 
           </>
         )}
       </CardContent>
-
-      <CardActions>
-        <IconButton onClick={() => onEdit(recipe)} color="primary">
-          <EditIcon />
-        </IconButton>
-        <IconButton onClick={() => onDelete(recipe.id!)} color="error">
-          <DeleteIcon />
-        </IconButton>
-      </CardActions>
     </Card>
   );
 };

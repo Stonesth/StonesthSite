@@ -10,7 +10,8 @@ export const createRecipe = async (recipe: Omit<Recipe, 'id' | 'timesCooked' | '
       timesCooked: 0,
       cookingHistory: [],
       createdAt: Timestamp.now(),
-      updatedAt: Timestamp.now()
+      updatedAt: Timestamp.now(),
+      isVegetarian: recipe.isVegetarian || false
     };
     
     const docRef = await addDoc(collection(db, 'recipes'), newRecipe);
@@ -47,7 +48,8 @@ export const getUserRecipes = async (userId: string): Promise<Recipe[]> => {
           note: entry.note
         })),
         createdAt: data.createdAt || Timestamp.now(),
-        updatedAt: data.updatedAt || Timestamp.now()
+        updatedAt: data.updatedAt || Timestamp.now(),
+        isVegetarian: data.isVegetarian || false
       } as Recipe;
     });
   } catch (error) {
@@ -62,7 +64,8 @@ export const updateRecipe = async (id: string, recipe: Partial<Recipe>): Promise
     const recipeRef = doc(db, 'recipes', id);
     const updateData = {
       ...recipe,
-      updatedAt: Timestamp.now()
+      updatedAt: Timestamp.now(),
+      isVegetarian: recipe.isVegetarian ?? false
     };
 
     if (updateData.createdAt instanceof Date) {

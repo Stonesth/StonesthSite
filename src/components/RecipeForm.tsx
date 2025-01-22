@@ -10,7 +10,9 @@ import {
   List,
   ListItem,
   ListItemSecondaryAction,
-  Box
+  Box,
+  FormControlLabel,
+  Checkbox
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
@@ -32,6 +34,7 @@ interface RecipeFormData {
   servings: string;
   ingredients: Ingredient[];
   instructions: string[];
+  isVegetarian: boolean;
 }
 
 const RecipeForm: React.FC<RecipeFormProps> = ({ open, onClose, onSubmit, initialData }) => {
@@ -43,19 +46,21 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ open, onClose, onSubmit, initia
     cookTime: '',
     servings: '',
     ingredients: [{ name: '', quantity: 0, unit: '' }],
-    instructions: ['']
+    instructions: [''],
+    isVegetarian: false
   });
 
   useEffect(() => {
     if (initialData) {
       setFormData({
-        title: initialData.title,
-        description: initialData.description,
-        prepTime: initialData.prepTime,
-        cookTime: initialData.cookTime,
-        servings: initialData.servings,
-        ingredients: initialData.ingredients,
-        instructions: initialData.instructions
+        title: initialData.title || '',
+        description: initialData.description || '',
+        prepTime: initialData.prepTime || '',
+        cookTime: initialData.cookTime || '',
+        servings: initialData.servings || '',
+        ingredients: initialData.ingredients || [{ name: '', quantity: 0, unit: '' }],
+        instructions: initialData.instructions || [''],
+        isVegetarian: initialData.isVegetarian || false
       });
     }
   }, [initialData]);
@@ -121,11 +126,18 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ open, onClose, onSubmit, initia
     }));
   };
 
+  const handleIsVegetarianChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      isVegetarian: e.target.checked
+    }));
+  };
+
   const handleSubmit = () => {
     if (!currentUser) return;
     onSubmit({
       ...formData,
-      userId: currentUser.uid
+      userId: currentUser.uid,
     });
     onClose();
   };
@@ -143,16 +155,17 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ open, onClose, onSubmit, initia
             onChange={handleChange}
             margin="normal"
           />
-          <TextField
-            fullWidth
-            label="Description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            margin="normal"
-            multiline
-            rows={3}
-          />
+          <Box sx={{ mb: 3 }}>
+            <TextField
+              fullWidth
+              label="Description"
+              value={formData.description}
+              onChange={handleChange}
+              multiline
+              rows={4}
+            />
+          </Box>
+
           <Box display="flex" gap={2} mt={2}>
             <TextField
               label="Temps de préparation"
@@ -174,6 +187,19 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ open, onClose, onSubmit, initia
               value={formData.servings}
               onChange={handleChange}
               margin="normal"
+            />
+          </Box>
+
+          <Box sx={{ mb: 3 }}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.isVegetarian}
+                  onChange={handleIsVegetarianChange}
+                  color="primary"
+                />
+              }
+              label="Recette végétarienne"
             />
           </Box>
 

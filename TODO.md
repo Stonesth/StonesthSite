@@ -198,20 +198,6 @@
   - [ ] Interface d'édition intuitive
   - [ ] Mode impression optimisé
 
-- [ ] Base de données :
-  - [ ] Structure pour les recettes
-  - [ ] Système de tags et catégories
-  - [ ] Gestion des médias (images)
-  - [ ] Système de sauvegarde
-
-### Section Idées Repas
-- [ ] Ajouter un formulaire de création de recettes
-- [ ] Implémenter un système de catégories pour les recettes
-- [ ] Ajouter une fonction de recherche
-- [ ] Permettre l'ajout d'images pour les recettes
-- [ ] Créer un système de planification hebdomadaire
-- [ ] Ajouter une liste de courses automatique
-
 ### Section Admin
 - [ ] Ajouter des statistiques d'utilisation
 - [ ] Implémenter la gestion des utilisateurs

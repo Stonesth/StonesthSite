@@ -14,6 +14,7 @@ export interface Recipe {
     cookingHistory: CookingHistoryEntry[];
     createdAt: Timestamp;
     updatedAt: Timestamp;
+    isVegetarian: boolean;
 }
 
 export interface Ingredient {
