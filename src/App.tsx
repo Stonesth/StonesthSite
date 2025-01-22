@@ -18,6 +18,7 @@ import Resources from './pages/Resources';
 import MicrosoftOffice from './pages/MicrosoftOffice';
 import MentionsLegales from './pages/MentionsLegales';
 import IdeasRepas from './pages/IdeasRepas';
+import ShoppingLists from './pages/ShoppingLists';
 
 const theme = createTheme({
   palette: {
@@ -64,6 +65,14 @@ function App() {
                 element={
                   <PrivateRoute>
                     <IdeasRepas />
+                  </PrivateRoute>
+                } 
+              />
+              <Route 
+                path="/shopping-lists" 
+                element={
+                  <PrivateRoute>
+                    <ShoppingLists />
                   </PrivateRoute>
                 } 
               />

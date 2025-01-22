@@ -19,6 +19,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import HistoryIcon from '@mui/icons-material/History';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Timestamp } from 'firebase/firestore';
 import CookingHistory from './CookingHistory';
 import { incrementTimesCooked } from '../services/recipeService';
@@ -140,7 +141,15 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, onEdit, onDelete, onUpd
           </List>
 
           {/* Actions en bas */}
-          <Box display="flex" justifyContent="flex-end" mt={2}>
+          <Box display="flex" justifyContent="flex-end" gap={2} mt={2}>
+            <Button
+              variant="outlined"
+              color="primary"
+              startIcon={<ShoppingCartIcon />}
+              onClick={() => window.location.href = '/shopping-lists?addRecipe=' + recipe.id}
+            >
+              Ajouter aux courses
+            </Button>
             <Button
               variant="contained"
               color="primary"

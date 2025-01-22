@@ -19,6 +19,17 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
   - Planification des repas
   - Rappels automatiques
 
+## [0.7.0] - 2025-01-22
+
+### Ajouté
+- Système de liste de courses
+  - Création de listes de courses à partir des recettes
+  - Fusion automatique des ingrédients similaires
+  - Ajustement des portions par recette
+  - Gestion des ingrédients (cocher/décocher)
+  - Bouton d'ajout rapide depuis les recettes
+  - Interface dédiée pour gérer les listes
+
 ## [0.6.0] - 2025-01-22
 
 ### Ajouté
