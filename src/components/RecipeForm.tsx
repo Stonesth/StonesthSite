@@ -39,7 +39,8 @@ interface RecipeFormData {
 
 const RecipeForm: React.FC<RecipeFormProps> = ({ open, onClose, onSubmit, initialData }) => {
   const { currentUser } = useAuth();
-  const [formData, setFormData] = useState<RecipeFormData>({
+
+  const initialFormState: RecipeFormData = {
     title: '',
     description: '',
     prepTime: '',
@@ -48,7 +49,9 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ open, onClose, onSubmit, initia
     ingredients: [{ name: '', quantity: 0, unit: '' }],
     instructions: [''],
     isVegetarian: false
-  });
+  };
+
+  const [formData, setFormData] = useState<RecipeFormData>(initialFormState);
 
   useEffect(() => {
     if (initialData) {
@@ -139,11 +142,18 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ open, onClose, onSubmit, initia
       ...formData,
       userId: currentUser.uid,
     });
+    // Réinitialiser le formulaire après la soumission
+    setFormData(initialFormState);
+    onClose();
+  };
+
+  const handleClose = () => {
+    setFormData(initialFormState);
     onClose();
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+    <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
       <DialogTitle>{initialData ? 'Modifier la recette' : 'Nouvelle recette'}</DialogTitle>
       <DialogContent>
         <Box component="form" sx={{ mt: 2 }}>
@@ -293,7 +303,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ open, onClose, onSubmit, initia
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Annuler</Button>
+        <Button onClick={handleClose}>Annuler</Button>
         <Button onClick={handleSubmit} variant="contained" color="primary">
           {initialData ? 'Modifier' : 'Créer'}
         </Button>
