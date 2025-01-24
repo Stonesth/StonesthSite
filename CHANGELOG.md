@@ -1,7 +1,19 @@
 # Changelog
 # Ne jamais supprimer des données de cette page. Elles sont essentielles à la fonctionnalité du site.
 # A chaque fois que on update la version il ne faut pas oublier de modifier le fichier package.json pour mettre la bonne version
+
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
+
+## [0.9.0] - 2025-01-24
+### Ajouté
+- Système de suggestion aléatoire de recettes :
+  - Algorithme de sélection basé sur le nombre de réalisations
+  - Filtres pour le temps de préparation et de cuisson
+  - Option végétarien
+  - Filtres sur le nombre de réalisations
+  - Possibilité de régénérer une suggestion
+  - Affichage des statistiques de la recette
+  - Navigation directe vers la recette sélectionnée
 
 ## [0.8.1] - 2025-01-24
 ### Corrigé

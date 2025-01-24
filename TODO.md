@@ -8,6 +8,11 @@
 # 5. Chaque mise à jour doit conserver les tâches terminées en haut du fichier avec la date de la mise à jour
 
 ## Fait ✅ (24/01/2025)
+- [x] Page de sélection aléatoire de recettes
+  - [x] Algorithme de sélection basé sur le nombre de réalisations
+  - [x] Filtres pour la sélection aléatoire (temps, catégorie)
+  - [x] Possibilité de régénérer une suggestion
+  - [x] Affichage des statistiques de réalisation
 - [x] Amélioration de l'expérience utilisateur :
   - [x] Réinitialisation automatique du formulaire de recette
   - [x] Nettoyage des champs après soumission

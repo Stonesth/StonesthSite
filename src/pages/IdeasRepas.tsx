@@ -9,6 +9,7 @@ import { Recipe } from '../types/Recipe';
 import { useAuth } from '../contexts/AuthContext';
 import { getUserRecipes, createRecipe, updateRecipe, deleteRecipe } from '../services/recipeService';
 import { useNavigate } from 'react-router-dom';
+import ShuffleIcon from '@mui/icons-material/Shuffle';
 
 const IdeasRepas: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -180,9 +181,17 @@ const IdeasRepas: React.FC = () => {
         <Typography variant="h4" component="h1">
           Idées Repas
         </Typography>
-        <Box display="flex" gap={2}>
+        <Box sx={{ display: 'flex', gap: 2, mb: 3 }}>
           <Button
-            variant="outlined"
+            variant="contained"
+            color="primary"
+            onClick={() => setIsFormOpen(true)}
+            startIcon={<AddIcon />}
+          >
+            Ajouter une recette
+          </Button>
+          <Button
+            variant="contained"
             color="primary"
             onClick={() => navigate('/shopping-lists')}
             startIcon={<ShoppingCartIcon />}
@@ -191,11 +200,11 @@ const IdeasRepas: React.FC = () => {
           </Button>
           <Button
             variant="contained"
-            color="primary"
-            onClick={() => setIsFormOpen(true)}
-            startIcon={<AddIcon />}
+            color="secondary"
+            onClick={() => navigate('/random-meal')}
+            startIcon={<ShuffleIcon />}
           >
-            Ajouter une recette
+            Suggestion aléatoire
           </Button>
         </Box>
       </Box>
