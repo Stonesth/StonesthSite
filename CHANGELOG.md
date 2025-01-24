@@ -1,5 +1,6 @@
 # Changelog
-
+# Ne jamais supprimer des données de cette page. Elles sont essentielles à la fonctionnalité du site.
+# A chaque fois que on update la version il ne faut pas oublier de modifier le fichier package.json pour mettre la bonne version
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
 ## [0.8.1] - 2025-01-24

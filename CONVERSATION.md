@@ -1,4 +1,5 @@
 # Journal des Sessions de Développement
+# Ne jamais supprimer des données de cette page. Elles sont essentielles à la fonctionnalité du site.
 
 ## Session du 07/03/2024 - Partie 2
 
