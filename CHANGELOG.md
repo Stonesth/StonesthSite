@@ -2,6 +2,13 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.8.1] - 2025-01-24
+### Corrigé
+- Réinitialisation des champs du formulaire de recette :
+  - Nettoyage des champs après l'ajout d'une recette
+  - Réinitialisation à la fermeture du dialogue
+  - Plus besoin de recharger la page pour avoir des champs vides
+
 ## [0.8.0] - 2025-01-22
 ### Ajouté
 - Système de gestion des listes de courses :

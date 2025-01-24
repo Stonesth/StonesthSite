@@ -141,6 +141,32 @@
 2. Mise en place de la protection par authentification
 3. Développement progressif des fonctionnalités
 
+## Session du 24/01/2025
+### Améliorations de l'interface utilisateur
+
+#### Modifications apportées :
+1. **Formulaire d'ajout de recette :**
+   - Réinitialisation automatique des champs après l'ajout d'une recette
+   - Nettoyage du formulaire à la fermeture du dialogue
+   - Suppression du besoin de recharger la page pour avoir des champs vides
+
+#### Processus de développement :
+1. Création d'un état initial réutilisable pour le formulaire
+2. Implémentation de la réinitialisation après soumission
+3. Ajout de la réinitialisation à la fermeture du dialogue
+4. Tests et validation des modifications
+5. Déploiement en production
+
+#### Décisions techniques :
+- Utilisation d'un état initial constant pour garantir la cohérence
+- Gestion de la fermeture du dialogue avec réinitialisation
+- Conservation de la logique de modification des recettes existantes
+
+#### Prochaines étapes suggérées :
+- Ajouter des animations de transition lors de la réinitialisation
+- Implémenter une confirmation avant la fermeture si des données ont été saisies
+- Ajouter la possibilité de sauvegarder des brouillons
+
 # Journal des Conversations et Décisions
 
 ## 20 janvier 2025

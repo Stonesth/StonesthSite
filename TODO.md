@@ -1,10 +1,17 @@
 # Format du fichier TODO
 # Ce fichier suit une structure spécifique :
+# Ne jamais supprimer des données de cette page. Elles sont essentielles à la fonctionnalité du site.
 # 1. Les tâches terminées sont marquées avec [x]
 # 2. Les tâches en cours sont marquées avec un tiret [-]
 # 3. Les tâches à faire sont marquées avec [ ]
 # 4. Les tâches sont regroupées par date
 # 5. Chaque mise à jour doit conserver les tâches terminées en haut du fichier avec la date de la mise à jour
+
+## Fait ✅ (24/01/2025)
+- [x] Amélioration de l'expérience utilisateur :
+  - [x] Réinitialisation automatique du formulaire de recette
+  - [x] Nettoyage des champs après soumission
+  - [x] Meilleure gestion de la fermeture du dialogue
 
 ## Fait ✅ (22/01/2025)
 - [x] Système de suivi des recettes réalisées
