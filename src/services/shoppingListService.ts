@@ -1,257 +1,234 @@
-import {
-    collection,
-    doc,
-    addDoc,
-    updateDoc,
-    deleteDoc,
-    query,
-    where,
-    getDocs,
-    getDoc,
-    Timestamp,
-    orderBy,
-    arrayUnion
+import { db } from '../firebase';
+import { 
+  collection, 
+  addDoc, 
+  query, 
+  where, 
+  getDocs, 
+  updateDoc, 
+  doc, 
+  deleteDoc,
+  getDoc,
+  arrayUnion,
+  Timestamp
 } from 'firebase/firestore';
-import { db } from '../config/firebase';
-import { ShoppingList, ShoppingListIngredient } from '../types/ShoppingList';
-import { Recipe, Ingredient } from '../types/Recipe';
-import { getAuth } from 'firebase/auth';
+import { Recipe } from '../types/Recipe';
+import { ShoppingList, ShoppingListIngredient, ShoppingListRecipe } from '../types/ShoppingList';
 
 const SHOPPING_LISTS_COLLECTION = 'shoppingLists';
 
-// Fonction pour fusionner les ingrédients similaires
-const mergeIngredients = (ingredients: Ingredient[], recipeId: string): ShoppingListIngredient[] => {
-    const mergedIngredients: { [key: string]: ShoppingListIngredient } = {};
+export const createShoppingList = async (userId: string, shoppingList: Omit<ShoppingList, 'id' | 'createdAt' | 'updatedAt' | 'status'>) => {
+  if (!userId) {
+    throw new Error('userId is required');
+  }
 
-    ingredients.forEach(ingredient => {
-        const key = `${ingredient.name.toLowerCase()}-${ingredient.unit.toLowerCase()}`;
-        if (mergedIngredients[key]) {
-            mergedIngredients[key].quantity += ingredient.quantity;
-            mergedIngredients[key].recipes.push(recipeId);
-        } else {
-            mergedIngredients[key] = {
-                name: ingredient.name,
-                quantity: ingredient.quantity,
-                unit: ingredient.unit,
-                checked: false,
-                recipes: [recipeId]
-            };
-        }
-    });
-
-    return Object.values(mergedIngredients);
-};
-
-// Créer une nouvelle liste de courses
-export const createShoppingList = async (name: string, recipes: Recipe[]): Promise<string> => {
-    const auth = getAuth();
-    const userId = auth.currentUser?.uid;
-
-    if (!userId) {
-        throw new Error('Utilisateur non connecté');
-    }
-
-    const shoppingListRecipes = recipes.map(recipe => ({
-        recipeId: recipe.id!,
-        title: recipe.title,
-        servings: recipe.servings,
-        originalServings: recipe.servings
-    }));
-
-    let allIngredients: ShoppingListIngredient[] = [];
-    recipes.forEach(recipe => {
-        const mergedIngredients = mergeIngredients(recipe.ingredients, recipe.id!);
-        allIngredients = [...allIngredients, ...mergedIngredients];
-    });
-
-    // Fusionner les ingrédients similaires entre les recettes
-    const finalIngredients = Object.values(
-        allIngredients.reduce((acc, ingredient) => {
-            const key = `${ingredient.name.toLowerCase()}-${ingredient.unit.toLowerCase()}`;
-            if (acc[key]) {
-                acc[key].quantity += ingredient.quantity;
-                acc[key].recipes = [...new Set([...acc[key].recipes, ...ingredient.recipes])];
-            } else {
-                acc[key] = ingredient;
-            }
-            return acc;
-        }, {} as { [key: string]: ShoppingListIngredient })
-    );
-
-    const newShoppingList: Omit<ShoppingList, 'id'> = {
-        userId,
-        name,
-        recipes: shoppingListRecipes,
-        ingredients: finalIngredients,
-        createdAt: Timestamp.now(),
-        updatedAt: Timestamp.now(),
-        status: 'active'
+  try {
+    const now = Timestamp.now();
+    const listWithMetadata = {
+      ...shoppingList,
+      userId,
+      createdAt: now,
+      updatedAt: now,
+      status: 'active' as const
     };
 
-    const docRef = await addDoc(collection(db, SHOPPING_LISTS_COLLECTION), newShoppingList);
-    return docRef.id;
+    const docRef = await addDoc(collection(db, SHOPPING_LISTS_COLLECTION), listWithMetadata);
+    return { ...listWithMetadata, id: docRef.id };
+  } catch (error) {
+    console.error('Error creating shopping list:', error);
+    throw error;
+  }
 };
 
-// Récupérer toutes les listes de courses de l'utilisateur
-export const getUserShoppingLists = async (): Promise<ShoppingList[]> => {
-    const auth = getAuth();
-    const userId = auth.currentUser?.uid;
+export const getUserShoppingLists = async (userId: string): Promise<ShoppingList[]> => {
+  if (!userId) {
+    console.error('getUserShoppingLists called without userId');
+    return [];
+  }
 
-    if (!userId) {
-        throw new Error('Utilisateur non connecté');
-    }
-
+  try {
     const q = query(
-        collection(db, SHOPPING_LISTS_COLLECTION),
-        where('userId', '==', userId),
-        orderBy('createdAt', 'desc')
+      collection(db, SHOPPING_LISTS_COLLECTION), 
+      where('userId', '==', userId)
     );
-
     const querySnapshot = await getDocs(q);
     return querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-    } as ShoppingList));
+      ...doc.data(),
+      id: doc.id
+    })) as ShoppingList[];
+  } catch (error) {
+    console.error('Error getting shopping lists:', error);
+    throw error;
+  }
 };
 
-// Récupérer une liste de courses spécifique
-export const getShoppingList = async (id: string): Promise<ShoppingList> => {
-    const docRef = doc(db, SHOPPING_LISTS_COLLECTION, id);
-    const docSnap = await getDoc(docRef);
-
-    if (!docSnap.exists()) {
-        throw new Error('Liste de courses non trouvée');
-    }
-
-    return {
-        id: docSnap.id,
-        ...docSnap.data()
-    } as ShoppingList;
-};
-
-// Mettre à jour le statut d'un ingrédient (coché/décoché)
-export const updateIngredientStatus = async (
-    listId: string,
-    ingredients: ShoppingListIngredient[]
-): Promise<void> => {
-    const docRef = doc(db, SHOPPING_LISTS_COLLECTION, listId);
-    await updateDoc(docRef, {
-        ingredients,
-        updatedAt: Timestamp.now()
+export const updateShoppingList = async (listId: string, updates: Partial<ShoppingList>) => {
+  try {
+    const listRef = doc(db, SHOPPING_LISTS_COLLECTION, listId);
+    await updateDoc(listRef, {
+      ...updates,
+      updatedAt: Timestamp.now()
     });
+  } catch (error) {
+    console.error('Error updating shopping list:', error);
+    throw error;
+  }
 };
 
-// Mettre à jour le nombre de portions d'une recette
-export const updateRecipeServings = async (
-    listId: string,
-    recipeId: string,
-    newServings: string,
-    ingredients: ShoppingListIngredient[]
-): Promise<void> => {
-    const docRef = doc(db, SHOPPING_LISTS_COLLECTION, listId);
-    const shoppingList = await getShoppingList(listId);
-    
-    const updatedRecipes = shoppingList.recipes.map(recipe => 
-        recipe.recipeId === recipeId
-            ? { ...recipe, servings: newServings }
-            : recipe
-    );
-
-    await updateDoc(docRef, {
-        recipes: updatedRecipes,
-        ingredients,
-        updatedAt: Timestamp.now()
-    });
+export const deleteShoppingList = async (listId: string) => {
+  try {
+    await deleteDoc(doc(db, SHOPPING_LISTS_COLLECTION, listId));
+  } catch (error) {
+    console.error('Error deleting shopping list:', error);
+    throw error;
+  }
 };
 
-// Ajouter une recette à une liste de courses
 export const addRecipeToList = async (listId: string, recipe: Recipe): Promise<void> => {
-    const listRef = doc(db, 'shoppingLists', listId);
-    const listDoc = await getDoc(listRef);
-    if (!listDoc.exists()) {
-        throw new Error('Liste non trouvée');
-    }
+  try {
+    const listRef = doc(db, SHOPPING_LISTS_COLLECTION, listId);
+    const listSnap = await getDoc(listRef);
+    if (!listSnap.exists()) throw new Error('Shopping list not found');
 
-    const list = listDoc.data() as ShoppingList;
-    
-    // Vérifier si la recette n'est pas déjà dans la liste
-    if (list.recipes.some(r => r.recipeId === recipe.id)) {
-        return;
-    }
-
-    // Ajouter la recette à la liste
-    const newRecipe = {
-        recipeId: recipe.id!,
-        title: recipe.title,
-        servings: recipe.servings,
-        originalServings: recipe.servings
+    const list = listSnap.data() as ShoppingList;
+    const newRecipe: ShoppingListRecipe = {
+      recipeId: recipe.id!,
+      title: recipe.title,
+      servings: '1',
+      originalServings: '1'
     };
 
-    // Fusionner les ingrédients
-    const updatedIngredients = [...list.ingredients];
-    recipe.ingredients.forEach(newIng => {
-        const existingIng = updatedIngredients.find(
-            ing => ing.name.toLowerCase() === newIng.name.toLowerCase() && ing.unit === newIng.unit
-        );
-
-        if (existingIng) {
-            existingIng.quantity += newIng.quantity;
-            existingIng.recipes.push(recipe.id!);
-        } else {
-            updatedIngredients.push({
-                name: newIng.name,
-                quantity: newIng.quantity,
-                unit: newIng.unit,
-                checked: false,
-                recipes: [recipe.id!]
-            });
-        }
-    });
-
+    const updatedRecipes = [...(list.recipes || []), newRecipe];
+    
     await updateDoc(listRef, {
-        recipes: arrayUnion(newRecipe),
-        ingredients: updatedIngredients
+      recipes: updatedRecipes,
+      updatedAt: Timestamp.now()
     });
+  } catch (error) {
+    console.error('Error adding recipe to list:', error);
+    throw error;
+  }
 };
 
-// Supprimer une recette d'une liste de courses
 export const removeRecipeFromList = async (listId: string, recipeId: string): Promise<void> => {
-    const listRef = doc(db, 'shoppingLists', listId);
-    const listDoc = await getDoc(listRef);
-    if (!listDoc.exists()) {
-        throw new Error('Liste non trouvée');
-    }
+  try {
+    console.log('Removing recipe:', recipeId, 'from list:', listId);
+    const listRef = doc(db, SHOPPING_LISTS_COLLECTION, listId);
+    const listSnap = await getDoc(listRef);
+    if (!listSnap.exists()) throw new Error('Shopping list not found');
 
-    const list = listDoc.data() as ShoppingList;
+    const list = listSnap.data() as ShoppingList;
+    console.log('Current list:', list);
     
-    // Retirer la recette de la liste
-    const updatedRecipes = list.recipes.filter(r => r.recipeId !== recipeId);
+    const updatedRecipes = list.recipes.filter(recipe => recipe.recipeId !== recipeId);
+    console.log('Updated recipes:', updatedRecipes);
     
     // Mettre à jour les ingrédients
-    const updatedIngredients = list.ingredients
-        .map(ing => {
-            // Retirer la recette des références
-            const updatedRecipes = ing.recipes.filter(r => r !== recipeId);
-            
-            if (updatedRecipes.length === 0) {
-                // Si l'ingrédient n'est plus utilisé par aucune recette, le supprimer
-                return null;
-            }
-            
-            return {
-                ...ing,
-                recipes: updatedRecipes
-            };
-        })
-        .filter((ing): ing is ShoppingListIngredient => ing !== null);
+    const updatedIngredients = list.ingredients.map(ingredient => {
+      if (ingredient.recipes.includes(recipeId)) {
+        // Si l'ingrédient n'est utilisé que par cette recette, on le supprime
+        if (ingredient.recipes.length === 1) {
+          return null;
+        }
+        // Sinon, on retire juste cette recette de la liste des recettes
+        return {
+          ...ingredient,
+          recipes: ingredient.recipes.filter(id => id !== recipeId)
+        };
+      }
+      return ingredient;
+    }).filter(ingredient => ingredient !== null) as ShoppingListIngredient[];
+
+    console.log('Updated ingredients:', updatedIngredients);
 
     await updateDoc(listRef, {
-        recipes: updatedRecipes,
-        ingredients: updatedIngredients
+      recipes: updatedRecipes,
+      ingredients: updatedIngredients,
+      updatedAt: Timestamp.now()
     });
+    console.log('Update successful');
+  } catch (error) {
+    console.error('Error removing recipe from list:', error);
+    throw error;
+  }
 };
 
-// Supprimer une liste de courses
-export const deleteShoppingList = async (id: string): Promise<void> => {
-    await deleteDoc(doc(db, SHOPPING_LISTS_COLLECTION, id));
+export const updateIngredientStatus = async (
+  listId: string,
+  updatedIngredients: ShoppingListIngredient[]
+): Promise<void> => {
+  try {
+    console.log('Updating ingredient status for list:', listId);
+    console.log('Updated ingredients:', updatedIngredients);
+    
+    const listRef = doc(db, SHOPPING_LISTS_COLLECTION, listId);
+    const listSnap = await getDoc(listRef);
+    if (!listSnap.exists()) throw new Error('Shopping list not found');
+
+    const list = listSnap.data() as ShoppingList;
+    
+    // Mettre à jour uniquement le statut checked des ingrédients
+    const mergedIngredients = list.ingredients.map(ingredient => {
+      const updatedIngredient = updatedIngredients.find(
+        i => i.name === ingredient.name && 
+        i.recipes.every(r => ingredient.recipes.includes(r)) &&
+        ingredient.recipes.every(r => i.recipes.includes(r))
+      );
+      return updatedIngredient ? { ...ingredient, checked: updatedIngredient.checked } : ingredient;
+    });
+
+    await updateDoc(listRef, {
+      ingredients: mergedIngredients,
+      updatedAt: Timestamp.now()
+    });
+    console.log('Update successful');
+  } catch (error) {
+    console.error('Error updating ingredient status:', error);
+    throw error;
+  }
+};
+
+export const updateRecipeServings = async (
+  listId: string,
+  recipeId: string,
+  newServings: number,
+  originalServings: number
+): Promise<void> => {
+  try {
+    const listRef = doc(db, SHOPPING_LISTS_COLLECTION, listId);
+    const listSnap = await getDoc(listRef);
+    if (!listSnap.exists()) throw new Error('Shopping list not found');
+
+    const list = listSnap.data() as ShoppingList;
+    const ratio = newServings / originalServings;
+
+    // Mettre à jour les portions de la recette
+    const updatedRecipes = list.recipes.map(recipe =>
+      recipe.recipeId === recipeId
+        ? { ...recipe, servings: newServings.toString(), originalServings: recipe.originalServings }
+        : recipe
+    );
+
+    // Mettre à jour les quantités des ingrédients
+    const updatedIngredients = list.ingredients.map(ingredient => {
+      if (ingredient.recipes.includes(recipeId)) {
+        const baseQuantity = ingredient.quantity / parseFloat(list.recipes.find(r => r.recipeId === recipeId)?.servings || '1');
+        const newQuantity = baseQuantity * newServings;
+        return {
+          ...ingredient,
+          quantity: newQuantity
+        };
+      }
+      return ingredient;
+    });
+
+    await updateDoc(listRef, {
+      recipes: updatedRecipes,
+      ingredients: updatedIngredients,
+      updatedAt: Timestamp.now()
+    });
+  } catch (error) {
+    console.error('Error updating recipe servings:', error);
+    throw error;
+  }
 };

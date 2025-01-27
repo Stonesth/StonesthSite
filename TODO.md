@@ -7,7 +7,21 @@
 # 4. Les tâches sont regroupées par date
 # 5. Chaque mise à jour doit conserver les tâches terminées en haut du fichier avec la date de la mise à jour
 
+## Fait ✅ (27/01/2025)
+- [x] Correction des bugs de la liste de courses
+  - [x] Correction des erreurs TypeScript
+  - [x] Amélioration de la gestion des quantités
+  - [x] Correction de la mise à jour des portions
+  - [x] Correction de la suppression des recettes
+  - [x] Correction du cochage/décochage des ingrédients
+  - [x] Amélioration de la synchronisation des données
+
 ## Fait ✅ (24/01/2025)
+- [x] Page de sélection aléatoire de recettes
+  - [x] Algorithme de sélection basé sur le nombre de réalisations
+  - [x] Filtres pour la sélection aléatoire (temps, catégorie)
+  - [x] Possibilité de régénérer une suggestion
+  - [x] Affichage des statistiques de réalisation
 - [x] Amélioration de l'expérience utilisateur :
   - [x] Réinitialisation automatique du formulaire de recette
   - [x] Nettoyage des champs après soumission

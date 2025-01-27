@@ -2,14 +2,23 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Règles pour la collection recipes
     match /recipes/{recipeId} {
       allow read, write: if request.auth != null && request.auth.uid == resource.data.userId;
       allow create: if request.auth != null && request.auth.uid == request.resource.data.userId;
     }
     
+    // Règles pour la collection shoppingLists
     match /shoppingLists/{listId} {
       allow read, write: if request.auth != null && request.auth.uid == resource.data.userId;
       allow create: if request.auth != null && request.auth.uid == request.resource.data.userId;
+    }
+    
+    // Règles pour la collection users
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null 
+                   && request.auth.uid == userId;
     }
   }
 }

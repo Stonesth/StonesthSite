@@ -19,6 +19,7 @@ import MicrosoftOffice from './pages/MicrosoftOffice';
 import MentionsLegales from './pages/MentionsLegales';
 import IdeasRepas from './pages/IdeasRepas';
 import ShoppingLists from './pages/ShoppingLists';
+import RandomMeal from './pages/RandomMeal';
 
 const theme = createTheme({
   palette: {
@@ -65,6 +66,14 @@ function App() {
                 element={
                   <PrivateRoute>
                     <IdeasRepas />
+                  </PrivateRoute>
+                } 
+              />
+              <Route 
+                path="/random-meal" 
+                element={
+                  <PrivateRoute>
+                    <RandomMeal />
                   </PrivateRoute>
                 } 
               />

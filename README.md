@@ -1,7 +1,17 @@
 # StonesthSite - Documentation Technique
-Ne jamais supprimer des données de cette page. Elles sont essentielles à la fonctionnalité du site.
+# Ne jamais supprimer des données de cette page. Elles sont essentielles à la fonctionnalité du site.
 
 Site personnel présentant mes projets en IA, LLMs, impression 3D et gestion de recettes.
+
+## Nouvelles fonctionnalités (27/01/2025)
+- Correction des bugs de la liste de courses
+- Amélioration de la gestion des quantités
+- Meilleure synchronisation des données
+
+## Nouvelles fonctionnalités (24/01/2025)
+- Système de suggestion aléatoire de recettes
+- Filtres avancés pour la sélection des recettes
+- Statistiques de réalisation des recettes
 
 ## Nouvelles fonctionnalités (22/01/2025)
 - Système de gestion des listes de courses
