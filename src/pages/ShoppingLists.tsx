@@ -100,7 +100,7 @@ const ShoppingLists: React.FC = () => {
         ingredients: selectedRecipes.flatMap(recipe => 
           recipe.ingredients?.map(ingredient => ({
             name: ingredient.name,
-            quantity: parseFloat(ingredient.quantity),
+            quantity: ingredient.quantity || 0,
             unit: ingredient.unit,
             checked: false,
             recipes: [recipe.id!]
@@ -196,7 +196,9 @@ const ShoppingLists: React.FC = () => {
           shoppingList={selectedList}
           onUpdate={loadData}
           onDelete={() => {
-            handleDeleteList(selectedList.id);
+            if (selectedList.id) {
+              handleDeleteList(selectedList.id);
+            }
             setSelectedList(null);
           }}
           onBack={() => setSelectedList(null)}

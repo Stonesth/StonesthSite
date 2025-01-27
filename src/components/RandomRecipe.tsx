@@ -59,6 +59,7 @@ const RandomRecipe: React.FC<RandomRecipeProps> = ({ onSelectRecipe }) => {
     maxTimesCooked: 100,
     numberOfRecipes: 3
   });
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     loadRecipes();
@@ -161,27 +162,31 @@ const RandomRecipe: React.FC<RandomRecipeProps> = ({ onSelectRecipe }) => {
   };
 
   const handleCreateShoppingList = async () => {
-    const selectedRecipesList = selectedRecipes.filter(recipe => recipe.isSelected);
-    if (selectedRecipesList.length === 0) {
+    if (!currentUser) {
+      setError("Vous devez être connecté pour créer une liste de courses");
       return;
     }
 
     try {
       const listName = `Liste du ${new Date().toLocaleDateString('fr-FR')}`;
-      await createShoppingList(currentUser?.uid || '', {
+      await createShoppingList(currentUser.uid, {
         name: listName,
-        recipes: selectedRecipesList,
-        createdAt: new Date().toISOString(),
-        items: selectedRecipesList.flatMap(recipe => 
+        recipes: selectedRecipes.filter(recipe => recipe.isSelected).map(recipe => ({
+          recipeId: recipe.id!,
+          title: recipe.title,
+          servings: recipe.servings,
+          originalServings: recipe.servings
+        })),
+        ingredients: selectedRecipes.filter(recipe => recipe.isSelected).flatMap(recipe => 
           recipe.ingredients?.map(ingredient => ({
             name: ingredient.name,
-            quantity: ingredient.quantity,
+            quantity: ingredient.quantity || 0,
             unit: ingredient.unit,
             checked: false,
-            recipeId: recipe.id,
-            recipeName: recipe.title
+            recipes: [recipe.id!]
           })) || []
-        )
+        ),
+        userId: currentUser.uid
       });
 
       // Rediriger vers la page des listes de courses
@@ -329,7 +334,7 @@ const RandomRecipe: React.FC<RandomRecipeProps> = ({ onSelectRecipe }) => {
                     control={
                       <Checkbox
                         checked={recipe.isSelected}
-                        onChange={() => toggleRecipeSelection(recipe.id)}
+                        onChange={() => recipe.id && toggleRecipeSelection(recipe.id)}
                       />
                     }
                     label={recipe.title}
@@ -379,6 +384,11 @@ const RandomRecipe: React.FC<RandomRecipeProps> = ({ onSelectRecipe }) => {
       {selectedRecipes.length === 0 && !loading && (
         <Typography color="text.secondary" align="center">
           Cliquez sur le bouton pour obtenir des suggestions de recettes
+        </Typography>
+      )}
+      {error && (
+        <Typography color="error" align="center">
+          {error}
         </Typography>
       )}
     </Box>
