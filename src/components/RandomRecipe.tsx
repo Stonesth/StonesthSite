@@ -14,12 +14,17 @@ import {
   FormControlLabel,
   Checkbox,
   Stack,
-  Chip
+  Chip,
+  Grid,
+  IconButton
 } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Recipe } from '../types/Recipe';
 import { useAuth } from '../contexts/AuthContext';
 import { getAllRecipes } from '../services/recipeService';
+import { createShoppingList } from '../services/shoppingListService';
+import { useNavigate } from 'react-router-dom';
 
 interface RandomRecipeProps {
   onSelectRecipe?: (recipe: Recipe) => void;
@@ -31,19 +36,28 @@ interface FilterOptions {
   isVegetarian: boolean;
   minTimesCooked: number;
   maxTimesCooked: number;
+  numberOfRecipes: number;
 }
+
+interface RecipeWithSelection extends Recipe {
+  isSelected: boolean;
+}
+
+const MAX_SUGGESTIONS = 7;
 
 const RandomRecipe: React.FC<RandomRecipeProps> = ({ onSelectRecipe }) => {
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
+  const [selectedRecipes, setSelectedRecipes] = useState<RecipeWithSelection[]>([]);
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState<FilterOptions>({
     maxPrepTime: 60,
     maxCookTime: 60,
     isVegetarian: false,
     minTimesCooked: 0,
-    maxTimesCooked: 100
+    maxTimesCooked: 100,
+    numberOfRecipes: 3
   });
 
   useEffect(() => {
@@ -53,8 +67,8 @@ const RandomRecipe: React.FC<RandomRecipeProps> = ({ onSelectRecipe }) => {
   const loadRecipes = async () => {
     if (!currentUser) return;
     try {
-      const loadedRecipes = await getAllRecipes(currentUser.uid);
-      setRecipes(loadedRecipes);
+      const loadedRecipes = await getAllRecipes();
+      setRecipes(loadedRecipes.filter(recipe => recipe.userId === currentUser.uid));
     } catch (error) {
       console.error('Error loading recipes:', error);
     }
@@ -76,49 +90,63 @@ const RandomRecipe: React.FC<RandomRecipeProps> = ({ onSelectRecipe }) => {
     });
   };
 
-  const selectRandomRecipe = () => {
+  const selectRandomRecipes = (keepSelected: boolean = false) => {
     setLoading(true);
     const filteredRecipes = filterRecipes(recipes);
     
     if (filteredRecipes.length === 0) {
-      setSelectedRecipe(null);
+      setSelectedRecipes([]);
       setLoading(false);
       return;
     }
 
-    // Algorithme de sélection basé sur le nombre de réalisations
-    const totalWeight = filteredRecipes.reduce((sum, recipe) => {
-      const timesCooked = recipe.timesCooked || 0;
-      // Moins une recette a été cuisinée, plus elle a de chances d'être sélectionnée
-      return sum + (100 - Math.min(timesCooked, 99));
-    }, 0);
+    // Garder les recettes sélectionnées si demandé
+    const keptRecipes = keepSelected ? selectedRecipes.filter(r => r.isSelected) : [];
+    const neededRecipes = filters.numberOfRecipes - keptRecipes.length;
 
-    let random = Math.random() * totalWeight;
-    let selected: Recipe | null = null;
-
-    for (const recipe of filteredRecipes) {
-      const timesCooked = recipe.timesCooked || 0;
-      const weight = 100 - Math.min(timesCooked, 99);
-      random -= weight;
-      
-      if (random <= 0) {
-        selected = recipe;
-        break;
-      }
-    }
-
-    // Si aucune recette n'a été sélectionnée (cas rare), prendre la dernière
-    if (!selected && filteredRecipes.length > 0) {
-      selected = filteredRecipes[filteredRecipes.length - 1];
-    }
-
-    setTimeout(() => {
-      setSelectedRecipe(selected);
+    if (neededRecipes <= 0) {
       setLoading(false);
-      if (selected && onSelectRecipe) {
-        onSelectRecipe(selected);
-      }
-    }, 500); // Petit délai pour l'effet visuel
+      return;
+    }
+
+    // Exclure les recettes déjà sélectionnées
+    const availableRecipes = filteredRecipes.filter(
+      recipe => !keptRecipes.some(kept => kept.id === recipe.id)
+    );
+
+    // Calculer les poids pour les nouvelles recettes
+    const recipesWithWeights = availableRecipes.map(recipe => ({
+      recipe,
+      weight: 100 - Math.min(recipe.timesCooked || 0, 99)
+    }));
+
+    // Trier par poids de manière aléatoire
+    recipesWithWeights.sort(() => Math.random() - 0.5);
+    recipesWithWeights.sort((a, b) => b.weight - a.weight);
+    
+    // Sélectionner les nouvelles recettes
+    const newRecipes = recipesWithWeights
+      .slice(0, Math.min(neededRecipes, recipesWithWeights.length))
+      .map(item => ({
+        ...item.recipe,
+        isSelected: false
+      }));
+
+    // Combiner les recettes gardées et les nouvelles
+    setTimeout(() => {
+      setSelectedRecipes([...keptRecipes, ...newRecipes]);
+      setLoading(false);
+    }, 500);
+  };
+
+  const toggleRecipeSelection = (recipeId: string) => {
+    setSelectedRecipes(prev => 
+      prev.map(recipe => 
+        recipe.id === recipeId 
+          ? { ...recipe, isSelected: !recipe.isSelected }
+          : recipe
+      )
+    );
   };
 
   const handleFilterChange = (field: keyof FilterOptions, value: number | boolean) => {
@@ -128,10 +156,45 @@ const RandomRecipe: React.FC<RandomRecipeProps> = ({ onSelectRecipe }) => {
     }));
   };
 
+  const handleRegenerateUnselected = () => {
+    selectRandomRecipes(true);
+  };
+
+  const handleCreateShoppingList = async () => {
+    const selectedRecipesList = selectedRecipes.filter(recipe => recipe.isSelected);
+    if (selectedRecipesList.length === 0) {
+      return;
+    }
+
+    try {
+      const listName = `Liste du ${new Date().toLocaleDateString('fr-FR')}`;
+      await createShoppingList(currentUser?.uid || '', {
+        name: listName,
+        recipes: selectedRecipesList,
+        createdAt: new Date().toISOString(),
+        items: selectedRecipesList.flatMap(recipe => 
+          recipe.ingredients?.map(ingredient => ({
+            name: ingredient.name,
+            quantity: ingredient.quantity,
+            unit: ingredient.unit,
+            checked: false,
+            recipeId: recipe.id,
+            recipeName: recipe.title
+          })) || []
+        )
+      });
+
+      // Rediriger vers la page des listes de courses
+      navigate('/shopping-lists');
+    } catch (error) {
+      console.error('Error creating shopping list:', error);
+    }
+  };
+
   return (
-    <Box sx={{ maxWidth: 600, mx: 'auto', p: 2 }}>
+    <Box sx={{ maxWidth: 1200, mx: 'auto', p: 2 }}>
       <Typography variant="h5" gutterBottom>
-        Suggestion de Recette
+        Suggestions de Recettes
       </Typography>
 
       {/* Filtres */}
@@ -141,6 +204,21 @@ const RandomRecipe: React.FC<RandomRecipeProps> = ({ onSelectRecipe }) => {
             Filtres
           </Typography>
           <Stack spacing={2}>
+            <FormControl fullWidth>
+              <Typography gutterBottom>
+                Nombre de suggestions : {filters.numberOfRecipes}
+              </Typography>
+              <Slider
+                value={filters.numberOfRecipes}
+                onChange={(_, value) => handleFilterChange('numberOfRecipes', value as number)}
+                min={1}
+                max={MAX_SUGGESTIONS}
+                marks
+                step={1}
+                valueLabelDisplay="auto"
+              />
+            </FormControl>
+
             <Box>
               <Typography gutterBottom>
                 Temps de préparation max: {filters.maxPrepTime} min
@@ -197,67 +275,110 @@ const RandomRecipe: React.FC<RandomRecipeProps> = ({ onSelectRecipe }) => {
         </CardContent>
       </Card>
 
-      {/* Bouton de suggestion */}
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={selectRandomRecipe}
-        startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <RefreshIcon />}
-        fullWidth
-        sx={{ mb: 2 }}
-        disabled={loading}
-      >
-        {loading ? 'Recherche...' : 'Suggérer une recette'}
-      </Button>
+      {/* Boutons d'action */}
+      <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => selectRandomRecipes(false)}
+          startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <RefreshIcon />}
+          fullWidth
+          disabled={loading}
+        >
+          {loading ? 'Recherche...' : 'Nouvelles suggestions'}
+        </Button>
 
-      {/* Affichage de la recette sélectionnée */}
-      {selectedRecipe && (
-        <Card>
-          <CardContent>
-            <Typography variant="h6" gutterBottom>
-              {selectedRecipe.title}
-            </Typography>
-            
-            <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
-              {selectedRecipe.isVegetarian && (
-                <Chip label="Végétarien" color="success" size="small" />
-              )}
-              <Chip 
-                label={`${selectedRecipe.timesCooked || 0} réalisation${selectedRecipe.timesCooked !== 1 ? 's' : ''}`}
-                color="primary"
-                size="small"
-              />
-              <Chip
-                label={`Prep: ${selectedRecipe.prepTime}min`}
-                color="default"
-                size="small"
-              />
-              <Chip
-                label={`Cuisson: ${selectedRecipe.cookTime}min`}
-                color="default"
-                size="small"
-              />
-            </Stack>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={handleRegenerateUnselected}
+          startIcon={<RefreshIcon />}
+          fullWidth
+          disabled={loading}
+        >
+          Régénérer non sélectionnées
+        </Button>
 
-            <Typography variant="body2" color="text.secondary" paragraph>
-              {selectedRecipe.description}
-            </Typography>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={handleCreateShoppingList}
+          startIcon={<ShoppingCartIcon />}
+          fullWidth
+          disabled={loading || !selectedRecipes.some(r => r.isSelected)}
+        >
+          Créer liste de courses
+        </Button>
+      </Stack>
 
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={() => onSelectRecipe?.(selectedRecipe)}
-              fullWidth
+      {/* Grille des recettes sélectionnées */}
+      <Grid container spacing={2}>
+        {selectedRecipes.map((recipe) => (
+          <Grid item xs={12} sm={6} md={4} key={recipe.id}>
+            <Card 
+              sx={{ 
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                bgcolor: recipe.isSelected ? 'action.selected' : 'background.paper'
+              }}
             >
-              Voir la recette
-            </Button>
-          </CardContent>
-        </Card>
-      )}
+              <CardContent sx={{ flexGrow: 1 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={recipe.isSelected}
+                        onChange={() => toggleRecipeSelection(recipe.id)}
+                      />
+                    }
+                    label={recipe.title}
+                    sx={{ flexGrow: 1 }}
+                  />
+                </Box>
+                
+                <Stack direction="row" spacing={1} sx={{ mb: 2 }} flexWrap="wrap" gap={1}>
+                  {recipe.isVegetarian && (
+                    <Chip label="Végétarien" color="success" size="small" />
+                  )}
+                  <Chip 
+                    label={`${recipe.timesCooked || 0} réalisation${recipe.timesCooked !== 1 ? 's' : ''}`}
+                    color="primary"
+                    size="small"
+                  />
+                  <Chip
+                    label={`Prep: ${recipe.prepTime}min`}
+                    color="default"
+                    size="small"
+                  />
+                  <Chip
+                    label={`Cuisson: ${recipe.cookTime}min`}
+                    color="default"
+                    size="small"
+                  />
+                </Stack>
 
-      {!selectedRecipe && !loading && (
+                <Typography variant="body2" color="text.secondary" paragraph>
+                  {recipe.description}
+                </Typography>
+
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => onSelectRecipe?.(recipe)}
+                  fullWidth
+                >
+                  Voir la recette
+                </Button>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+
+      {selectedRecipes.length === 0 && !loading && (
         <Typography color="text.secondary" align="center">
-          Cliquez sur le bouton pour obtenir une suggestion de recette
+          Cliquez sur le bouton pour obtenir des suggestions de recettes
         </Typography>
       )}
     </Box>

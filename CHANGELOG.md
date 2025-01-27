@@ -4,6 +4,15 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.9.1] - 2025-01-27
+### Corrigé
+- Amélioration du système de listes de courses :
+  - Correction de la mise à jour des portions de recettes
+  - Correction de la suppression des recettes d'une liste
+  - Correction du cochage/décochage des ingrédients
+  - Amélioration de la synchronisation des données
+  - Meilleure gestion de l'état local
+
 ## [0.9.0] - 2025-01-24
 ### Ajouté
 - Système de suggestion aléatoire de recettes :
