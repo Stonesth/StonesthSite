@@ -7,6 +7,12 @@
 # 4. Les tâches sont regroupées par date
 # 5. Chaque mise à jour doit conserver les tâches terminées en haut du fichier avec la date de la mise à jour
 
+## Fait ✅ (28/01/2025)
+- [x] Correction du bug d'édition des listes de courses depuis la page de suggestions aléatoires
+  - [x] Normalisation des quantités d'ingrédients
+  - [x] Amélioration de la gestion des types de données
+  - [x] Correction de l'affichage des quantités dans l'interface
+
 ## Fait ✅ (27/01/2025)
 - [x] Correction des bugs de la liste de courses
   - [x] Correction des erreurs TypeScript
@@ -115,6 +121,9 @@
 - [-] Documentation du code
 
 ### Haute priorité
+- [ ] résoudre le bug d'édition des listes de courses quand celle-ci a été créée par la page random-meal. j'ai l'erreur suivante : voir le fichier error.txt
+- [ ] Ajouter un sytème pour dire si les enfants aime ou pas la recette
+- [ ] Voir pourquoi le site n'est plus utilisable sur un smartphone
 - [ ] Ajouter le tri par date ou titre
 - [ ] Créer un système de catégories pour les recettes
 - [ ] Ajouter la possibilité de partager des recettes

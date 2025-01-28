@@ -169,7 +169,7 @@ const ShoppingList: React.FC<ShoppingListProps> = ({
             }
           >
             <ListItemText
-              primary={`${item.name} - ${item.quantity.toFixed(2)} ${item.unit}`}
+              primary={`${item.name} - ${typeof item.quantity === 'number' ? item.quantity.toFixed(2) : Number(item.quantity).toFixed(2)} ${item.unit}`}
               secondary={`Pour : ${shoppingList.recipes
                 .filter(recipe => item.recipes.includes(recipe.recipeId))
                 .map(recipe => recipe.title)
