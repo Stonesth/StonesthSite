@@ -4,6 +4,15 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.9.6] - 2025-01-28
+### Amélioré
+- Amélioration de la responsivité mobile :
+  - Correction de l'affichage des noms de recettes dans la liste de courses
+  - Amélioration de l'interface d'ajout de recettes avec un meilleur retour visuel
+  - Ajustement des boutons sur la page random-meal pour mobile
+  - Correction des props pour l'ajout de recettes
+  - Meilleure expérience utilisateur sur les petits écrans
+
 ## [0.9.5] - 2025-01-28
 ### Amélioré
 - Optimisation de la configuration du build :

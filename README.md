@@ -3,6 +3,11 @@
 
 Site personnel présentant mes projets en IA, LLMs, impression 3D et gestion de recettes.
 
+## Nouvelles fonctionnalités (28/01/2025)
+- Amélioration de la responsivité mobile
+- Correction des bugs d'affichage
+- Interface utilisateur optimisée pour les petits écrans
+
 ## Nouvelles fonctionnalités (27/01/2025)
 - Correction des bugs de la liste de courses
 - Amélioration de la gestion des quantités

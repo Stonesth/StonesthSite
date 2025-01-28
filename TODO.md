@@ -8,6 +8,11 @@
 # 5. Chaque mise à jour doit conserver les tâches terminées en haut du fichier avec la date de la mise à jour
 
 ## Fait ✅ (28/01/2025)
+- [x] Amélioration de la responsivité mobile
+  - [x] Correction de l'affichage des noms de recettes dans la liste de courses
+  - [x] Amélioration de l'interface d'ajout de recettes
+  - [x] Ajustement des boutons sur la page random-meal
+  - [x] Correction des props pour l'ajout de recettes
 - [x] Correction du bug d'édition des listes de courses depuis la page de suggestions aléatoires
   - [x] Normalisation des quantités d'ingrédients
   - [x] Amélioration de la gestion des types de données

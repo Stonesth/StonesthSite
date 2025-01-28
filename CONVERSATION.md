@@ -168,6 +168,29 @@
 - Implémenter une confirmation avant la fermeture si des données ont été saisies
 - Ajouter la possibilité de sauvegarder des brouillons
 
+## Session du 28/01/2025 - Amélioration de la Responsivité Mobile
+
+### Réalisations
+1. Correction des bugs d'affichage :
+   - Affichage correct des noms de recettes dans la liste de courses
+   - Amélioration de l'interface d'ajout de recettes
+   - Correction des props pour l'ajout de recettes
+
+2. Optimisation mobile :
+   - Ajustement des boutons sur la page random-meal
+   - Meilleure expérience utilisateur sur les petits écrans
+   - Interface plus intuitive et réactive
+
+3. Organisation du code :
+   - Mise à jour des fichiers de documentation
+   - Versionnage 0.9.6
+   - Tests sur différentes tailles d'écran
+
+### Prochaines Étapes
+1. Continuer l'optimisation mobile
+2. Ajouter de nouvelles fonctionnalités
+3. Améliorer les performances
+
 # Journal des Conversations et Décisions
 
 ## 20 janvier 2025
