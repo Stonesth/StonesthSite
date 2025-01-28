@@ -191,6 +191,29 @@
 2. Ajouter de nouvelles fonctionnalités
 3. Améliorer les performances
 
+## Session du 28/01/2025 - Déploiement de la Version 0.9.6
+
+### Réalisations
+1. Correction des erreurs TypeScript :
+   - Correction des types dans ShoppingList
+   - Amélioration des interfaces des composants
+   - Gestion des cas undefined
+
+2. Build et déploiement :
+   - Build optimisé de l'application
+   - Déploiement réussi sur Firebase
+   - Tests de l'application en production
+
+3. Documentation :
+   - Mise à jour de tous les fichiers .md
+   - Documentation du déploiement
+   - Suivi des versions
+
+### Prochaines Étapes
+1. Surveiller les performances en production
+2. Collecter les retours utilisateurs
+3. Planifier les prochaines améliorations
+
 # Journal des Conversations et Décisions
 
 ## 20 janvier 2025

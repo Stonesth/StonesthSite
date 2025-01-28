@@ -8,6 +8,10 @@
 # 5. Chaque mise à jour doit conserver les tâches terminées en haut du fichier avec la date de la mise à jour
 
 ## Fait ✅ (28/01/2025)
+- [x] Déploiement de la version 0.9.6 en production
+  - [x] Correction des erreurs TypeScript
+  - [x] Build optimisé
+  - [x] Déploiement sur Firebase
 - [x] Amélioration de la responsivité mobile
   - [x] Correction de l'affichage des noms de recettes dans la liste de courses
   - [x] Amélioration de l'interface d'ajout de recettes
@@ -137,7 +141,7 @@
 - [-] Amélioration de l'interface utilisateur
 - [-] Documentation du code
 - [-] Ajouter un sytème pour dire si les enfants aime ou pas la recette
-- [-] Voir pourquoi le site n'est plus utilisable sur un smartphone
+- [-] Ajouter une validation avant de supprimer une recette
 - [-] Ajouter le tri par date ou titre
 - [-] Créer un système de catégories pour les recettes
 - [-] Ajouter la possibilité de partager des recettes

@@ -170,9 +170,10 @@ const ShoppingLists: React.FC = () => {
     return (
       <Container maxWidth="lg">
         <ShoppingList
+          key={selectedList.id}
           shoppingList={selectedList}
           onUpdate={loadData}
-          onDelete={handleDeleteList}
+          onDelete={() => selectedList.id ? handleDeleteList(selectedList.id) : Promise.resolve()}
           onBack={() => setSelectedList(null)}
         />
       </Container>

@@ -25,9 +25,9 @@ import AddRecipeDialog from './AddRecipeDialog';
 
 interface ShoppingListProps {
   shoppingList: ShoppingListType;
-  onUpdate: () => void;
-  onDelete: () => void;
-  onBack: () => void;
+  onUpdate: () => Promise<void>;
+  onDelete: () => Promise<void>;
+  onBack?: () => void;
 }
 
 const ShoppingList: React.FC<ShoppingListProps> = ({
@@ -66,7 +66,7 @@ const ShoppingList: React.FC<ShoppingListProps> = ({
         ...prev,
         [recipeId]: newServings.toString()
       }));
-      onUpdate();
+      await onUpdate();
     } catch (error) {
       console.error('Error updating servings:', error);
     }
@@ -97,11 +97,11 @@ const ShoppingList: React.FC<ShoppingListProps> = ({
     }
   };
 
-  const handleAddRecipe = async (recipe: Recipe, servings: number) => {
+  const handleAddRecipe = async (recipe: Recipe) => {
     if (!shoppingList.id) return;
     
     try {
-      await addRecipeToList(shoppingList.id, recipe, servings);
+      await addRecipeToList(shoppingList.id, recipe);
       await onUpdate();
     } catch (error) {
       console.error('Error adding recipe:', error);
@@ -326,7 +326,7 @@ const ShoppingList: React.FC<ShoppingListProps> = ({
       <AddRecipeDialog
         open={addRecipeDialogOpen}
         onClose={() => setAddRecipeDialogOpen(false)}
-        onAdd={(recipe, servings) => handleAddRecipe(recipe, servings)}
+        onAdd={handleAddRecipe}
       />
     </Box>
   );

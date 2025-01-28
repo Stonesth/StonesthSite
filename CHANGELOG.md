@@ -5,6 +5,11 @@
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
 ## [0.9.6] - 2025-01-28
+### Déployé
+- Version 0.9.6 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
+
 ### Amélioré
 - Amélioration de la responsivité mobile :
   - Correction de l'affichage des noms de recettes dans la liste de courses
@@ -14,6 +19,11 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
   - Meilleure expérience utilisateur sur les petits écrans
 
 ## [0.9.5] - 2025-01-28
+### Déployé
+- Version 0.9.5 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
+
 ### Amélioré
 - Optimisation de la configuration du build :
   - Augmentation de la limite d'avertissement pour la taille des chunks
@@ -21,6 +31,11 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
   - Amélioration des performances de chargement
 
 ## [0.9.4] - 2025-01-28
+### Déployé
+- Version 0.9.4 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
+
 ### Corrigé
 - Correction du bug d'augmentation des portions dans les listes de courses :
   - Utilisation des portions actuelles au lieu des portions originales pour le calcul des quantités
@@ -28,6 +43,11 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
   - Normalisation des quantités avant les calculs
 
 ## [0.9.3] - 2025-01-28
+### Déployé
+- Version 0.9.3 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
+
 ### Ajouté
 - Restauration de la fonctionnalité d'ajout de recettes à une liste de courses existante :
   - Nouveau composant AddRecipeDialog pour la sélection des recettes
@@ -36,6 +56,11 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
   - Intégration avec le service existant addRecipeToList
 
 ## [0.9.2] - 2025-01-28
+### Déployé
+- Version 0.9.2 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
+
 ### Corrigé
 - Correction du bug d'édition des listes de courses créées depuis la page de suggestions aléatoires :
   - Normalisation des quantités d'ingrédients
@@ -43,6 +68,11 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
   - Correction de l'affichage des quantités dans l'interface
 
 ## [0.9.1] - 2025-01-27
+### Déployé
+- Version 0.9.1 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
+
 ### Corrigé
 - Amélioration du système de listes de courses :
   - Correction de la mise à jour des portions de recettes
@@ -52,6 +82,11 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
   - Meilleure gestion de l'état local
 
 ## [0.9.0] - 2025-01-24
+### Déployé
+- Version 0.9.0 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
+
 ### Ajouté
 - Système de suggestion aléatoire de recettes :
   - Algorithme de sélection basé sur le nombre de réalisations
@@ -63,6 +98,11 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
   - Navigation directe vers la recette sélectionnée
 
 ## [0.8.1] - 2025-01-24
+### Déployé
+- Version 0.8.1 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
+
 ### Corrigé
 - Réinitialisation des champs du formulaire de recette :
   - Nettoyage des champs après l'ajout d'une recette
@@ -70,6 +110,11 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
   - Plus besoin de recharger la page pour avoir des champs vides
 
 ## [0.8.0] - 2025-01-22
+### Déployé
+- Version 0.8.0 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
+
 ### Ajouté
 - Système de gestion des listes de courses :
   - Création et suppression de listes
@@ -89,6 +134,11 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
 
 ## [0.7.0] - 2025-01-22
 
+### Déployé
+- Version 0.7.0 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
+
 ### Ajouté
 - Système de liste de courses
   - Création de listes de courses à partir des recettes
@@ -100,6 +150,11 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
 
 ## [0.6.0] - 2025-01-22
 
+### Déployé
+- Version 0.6.0 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
+
 ### Ajouté
 - Système de suivi des recettes réalisées
   - Historique complet des réalisations avec dates
@@ -110,12 +165,22 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
 
 ## [0.5.9] - 2025-01-22
 
+### Déployé
+- Version 0.5.9 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
+
 ### Corrigé
 - Correction du champ description dans le formulaire de recette
 - Correction de l'erreur de champs vides lors de la création d'une recette
 - Amélioration de la gestion des valeurs par défaut pour tous les champs
 
 ## [0.5.8] - 2025-01-22
+
+### Déployé
+- Version 0.5.8 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
 
 ### Ajouté
 - Amélioration de l'affichage des badges dans les cartes de recettes
@@ -130,6 +195,11 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
 
 ## [0.5.7] - 2025-01-22
 
+### Déployé
+- Version 0.5.7 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
+
 ### Corrigé
 - Correction du filtrage des recettes par temps :
   - Correction de la conversion des temps string vers number
@@ -142,6 +212,11 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
 - Amélioration de la documentation technique
 
 ## [0.5.6] - 2025-01-21
+
+### Déployé
+- Version 0.5.6 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
 
 ### Corrigé
 - Correction des problèmes d'authentification persistante :
@@ -158,6 +233,11 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
 
 ## [0.5.5] - 2025-01-21
 
+### Déployé
+- Version 0.5.5 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
+
 ### Ajouté
 - Filtres avancés pour les recettes
   - Filtrage par temps de préparation avec slider (0-3h)
@@ -170,6 +250,11 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
 - Optimisation de la logique de filtrage combiné (texte + temps)
 
 ## [0.5.4] - 2025-01-22
+
+### Déployé
+- Version 0.5.4 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
 
 ### Ajouté
 - Fonctionnalité de recherche dans les recettes
@@ -184,6 +269,11 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
 
 ## [0.5.3] - 2025-01-20
 
+### Déployé
+- Version 0.5.3 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
+
 ### Ajouté
 - Ajout des dates de dernière mise à jour sur les pages
 - Réorganisation de la section Resources
@@ -194,6 +284,11 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
 - Ajout de la section Blockchain dans Resources
 
 ## [0.5.2] - 2025-01-21
+
+### Déployé
+- Version 0.5.2 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
 
 ### Ajouté
 - Fonctionnalité complète de gestion des recettes
@@ -219,6 +314,11 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
 
 ## [0.5.1] - 2025-01-20
 
+### Déployé
+- Version 0.5.1 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
+
 ### Ajouté
 - Nouveau composant Footer avec :
   - Affichage de la version de l'application
@@ -233,6 +333,11 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
 - Synchronisation de la version entre package.json et CHANGELOG.md
 
 ## [0.5.0] - 2025-01-20
+
+### Déployé
+- Version 0.5.0 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
 
 ### Ajouté
 - Nouvelle interface d'administration sécurisée :
@@ -251,6 +356,11 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
 - Optimisation des messages d'erreur pour les utilisateurs avec bloqueurs de publicités
 
 ## [0.4.0] - 2025-01-04
+
+### Déployé
+- Version 0.4.0 déployée en production sur Firebase
+- Correction des erreurs TypeScript
+- Build optimisé pour la production
 
 ### Ajouté
 - Nouvelle section "Ressources & Conseils" :
