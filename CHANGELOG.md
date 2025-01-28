@@ -4,6 +4,14 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.9.3] - 2025-01-28
+### Ajouté
+- Restauration de la fonctionnalité d'ajout de recettes à une liste de courses existante :
+  - Nouveau composant AddRecipeDialog pour la sélection des recettes
+  - Bouton d'ajout de recette dans l'interface de la liste
+  - Barre de recherche pour trouver rapidement une recette
+  - Intégration avec le service existant addRecipeToList
+
 ## [0.9.2] - 2025-01-28
 ### Corrigé
 - Correction du bug d'édition des listes de courses créées depuis la page de suggestions aléatoires :

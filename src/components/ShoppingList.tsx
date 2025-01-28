@@ -14,8 +14,11 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import AddIcon from '@mui/icons-material/Add';
 import { ShoppingList as ShoppingListType, ShoppingListIngredient } from '../types/ShoppingList';
-import { updateRecipeServings, removeRecipeFromList, updateIngredientStatus } from '../services/shoppingListService';
+import { updateRecipeServings, removeRecipeFromList, updateIngredientStatus, addRecipeToList } from '../services/shoppingListService';
+import { Recipe } from '../types/Recipe';
+import AddRecipeDialog from './AddRecipeDialog';
 
 interface ShoppingListProps {
   shoppingList: ShoppingListType;
@@ -31,6 +34,7 @@ const ShoppingList: React.FC<ShoppingListProps> = ({
   onBack
 }) => {
   const [servings, setServings] = useState<{ [key: string]: string }>({});
+  const [addRecipeDialogOpen, setAddRecipeDialogOpen] = useState(false);
 
   useEffect(() => {
     const newServings: { [key: string]: string } = {};
@@ -88,6 +92,17 @@ const ShoppingList: React.FC<ShoppingListProps> = ({
     }
   };
 
+  const handleAddRecipe = async (recipe: Recipe) => {
+    if (!shoppingList.id) return;
+    
+    try {
+      await addRecipeToList(shoppingList.id, recipe);
+      await onUpdate();
+    } catch (error) {
+      console.error('Error adding recipe:', error);
+    }
+  };
+
   if (!shoppingList.recipes || !shoppingList.ingredients) {
     return (
       <Box>
@@ -99,23 +114,37 @@ const ShoppingList: React.FC<ShoppingListProps> = ({
 
   return (
     <Box>
-      <Box display="flex" alignItems="center" mb={3}>
-        <IconButton onClick={onBack} sx={{ mr: 2 }}>
-          <ArrowBackIcon />
-        </IconButton>
-        <Typography variant="h5" component="h2">
-          {shoppingList.name}
-        </Typography>
-        <Box flexGrow={1} />
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
         <Button
+          startIcon={<ArrowBackIcon />}
+          onClick={onBack}
           variant="outlined"
-          color="error"
-          startIcon={<DeleteIcon />}
-          onClick={onDelete}
         >
-          Supprimer la liste
+          Retour
         </Button>
+        <Box>
+          <Button
+            startIcon={<AddIcon />}
+            onClick={() => setAddRecipeDialogOpen(true)}
+            variant="contained"
+            sx={{ mr: 1 }}
+          >
+            Ajouter une recette
+          </Button>
+          <Button
+            color="error"
+            variant="contained"
+            onClick={onDelete}
+            startIcon={<DeleteIcon />}
+          >
+            Supprimer la liste
+          </Button>
+        </Box>
       </Box>
+
+      <Typography variant="h5" component="h2" sx={{ mb: 3 }}>
+        {shoppingList.name}
+      </Typography>
 
       <Typography variant="h6" gutterBottom>
         Recettes
@@ -182,6 +211,12 @@ const ShoppingList: React.FC<ShoppingListProps> = ({
           </ListItem>
         ))}
       </List>
+
+      <AddRecipeDialog
+        open={addRecipeDialogOpen}
+        onClose={() => setAddRecipeDialogOpen(false)}
+        onAddRecipe={handleAddRecipe}
+      />
     </Box>
   );
 };
