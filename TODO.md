@@ -17,6 +17,10 @@
   - [x] Réimplémentation de l'interface d'ajout de recettes
   - [x] Mise à jour du service shoppingList
   - [x] Tests de la fonctionnalité
+- [x] Correction du bug d'augmentation des portions dans les listes de courses
+  - [x] Analyse du problème dans le service shoppingList
+  - [x] Modification de la fonction updateRecipeServings
+  - [x] Tests de la fonctionnalité
 
 ## Fait ✅ (27/01/2025)
 - [x] Correction des bugs de la liste de courses
@@ -122,20 +126,18 @@
   - [-] Ajuster les limites de taille des chunks
 - [-] Amélioration de l'interface utilisateur
 - [-] Documentation du code
-
-## Haute priorité
-- [ ] résoudre le bug d'édition des listes de courses quand celle-ci a été créée par la page random-meal. j'ai l'erreur suivante : voir le fichier error.txt
-- [ ] Ajouter un sytème pour dire si les enfants aime ou pas la recette
-- [ ] Voir pourquoi le site n'est plus utilisable sur un smartphone
-- [ ] Ajouter le tri par date ou titre
-- [ ] Créer un système de catégories pour les recettes
-- [ ] Ajouter la possibilité de partager des recettes
-- [ ] Ajouter une option végétarien pour les recettes
-  - [ ] Ajouter un champ booléen "isVegetarian" dans le type Recipe
-  - [ ] Mettre à jour le formulaire RecipeForm avec une case à cocher
-  - [ ] Ajouter un badge ou une icône dans RecipeCard pour indiquer si la recette est végétarienne
-  - [ ] Ajouter un filtre pour afficher uniquement les recettes végétariennes
-  - [ ] Mettre à jour la base de données avec le nouveau champ
+- [-] résoudre le bug d'édition des listes de courses quand celle-ci a été créée par la page random-meal. j'ai l'erreur suivante : voir le fichier error.txt
+- [-] Ajouter un sytème pour dire si les enfants aime ou pas la recette
+- [-] Voir pourquoi le site n'est plus utilisable sur un smartphone
+- [-] Ajouter le tri par date ou titre
+- [-] Créer un système de catégories pour les recettes
+- [-] Ajouter la possibilité de partager des recettes
+- [-] Ajouter une option végétarien pour les recettes
+  - [-] Ajouter un champ booléen "isVegetarian" dans le type Recipe
+  - [-] Mettre à jour le formulaire RecipeForm avec une case à cocher
+  - [-] Ajouter un badge ou une icône dans RecipeCard pour indiquer si la recette est végétarienne
+  - [-] Ajouter un filtre pour afficher uniquement les recettes végétariennes
+  - [-] Mettre à jour la base de données avec le nouveau champ
 
 ### Resources
 - [ ] Ajouter plus de ressources pour chaque catégorie

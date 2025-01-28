@@ -4,6 +4,13 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.9.4] - 2025-01-28
+### Corrigé
+- Correction du bug d'augmentation des portions dans les listes de courses :
+  - Utilisation des portions actuelles au lieu des portions originales pour le calcul des quantités
+  - Amélioration de la gestion des erreurs avec vérification de l'existence de la recette
+  - Normalisation des quantités avant les calculs
+
 ## [0.9.3] - 2025-01-28
 ### Ajouté
 - Restauration de la fonctionnalité d'ajout de recettes à une liste de courses existante :

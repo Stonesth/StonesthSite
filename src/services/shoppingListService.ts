@@ -225,17 +225,23 @@ export const updateRecipeServings = async (
     }
 
     const list = listSnap.data() as ShoppingList;
-    const updatedRecipes = list.recipes.map(recipe => {
-      if (recipe.recipeId === recipeId) {
-        return { ...recipe, servings: newServings.toString() };
+    const recipe = list.recipes.find(r => r.recipeId === recipeId);
+    if (!recipe) {
+      throw new Error('Recipe not found in shopping list');
+    }
+
+    const currentServings = Number(recipe.servings);
+    const updatedRecipes = list.recipes.map(r => {
+      if (r.recipeId === recipeId) {
+        return { ...r, servings: newServings.toString() };
       }
-      return recipe;
+      return r;
     });
 
     const updatedIngredients = list.ingredients.map(ingredient => {
       if (ingredient.recipes.includes(recipeId)) {
-        const originalQuantity = normalizeQuantity(ingredient.quantity);
-        const newQuantity = (originalQuantity / Number(originalServings)) * newServings;
+        const currentQuantity = normalizeQuantity(ingredient.quantity);
+        const newQuantity = (currentQuantity / currentServings) * newServings;
         return {
           ...ingredient,
           quantity: newQuantity
