@@ -8,9 +8,12 @@ import {
   List,
   ListItem,
   ListItemText,
+  ListItemButton,
   TextField,
   Box,
-  Checkbox
+  Checkbox,
+  useTheme,
+  useMediaQuery
 } from '@mui/material';
 import { Recipe } from '../types/Recipe';
 import { getAllRecipes } from '../services/recipeService';
@@ -18,17 +21,19 @@ import { getAllRecipes } from '../services/recipeService';
 interface AddRecipeDialogProps {
   open: boolean;
   onClose: () => void;
-  onAddRecipe: (recipe: Recipe) => void;
+  onAdd: (recipe: Recipe) => void;
 }
 
 const AddRecipeDialog: React.FC<AddRecipeDialogProps> = ({
   open,
   onClose,
-  onAddRecipe
+  onAdd
 }) => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     const loadRecipes = async () => {
@@ -52,12 +57,23 @@ const AddRecipeDialog: React.FC<AddRecipeDialogProps> = ({
   );
 
   const handleAddRecipe = (recipe: Recipe) => {
-    onAddRecipe(recipe);
+    onAdd(recipe);
     onClose();
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog 
+      open={open} 
+      onClose={onClose} 
+      maxWidth="sm" 
+      fullWidth
+      PaperProps={{
+        sx: {
+          minHeight: '50vh',
+          maxHeight: '90vh'
+        }
+      }}
+    >
       <DialogTitle>Ajouter une recette à la liste</DialogTitle>
       <DialogContent>
         <Box sx={{ mb: 2 }}>
@@ -67,22 +83,42 @@ const AddRecipeDialog: React.FC<AddRecipeDialogProps> = ({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             margin="normal"
+            size={isMobile ? "medium" : "small"}
           />
         </Box>
-        <List>
+        <List sx={{ 
+          maxHeight: '50vh',
+          overflow: 'auto',
+          bgcolor: 'background.paper',
+          borderRadius: 1
+        }}>
           {filteredRecipes.map((recipe) => (
-            <ListItem
+            <ListItemButton
               key={recipe.id}
               onClick={() => handleAddRecipe(recipe)}
-              sx={{ cursor: 'pointer' }}
+              sx={{ 
+                borderBottom: '1px solid',
+                borderColor: 'divider',
+                py: isMobile ? 2 : 1
+              }}
             >
-              <ListItemText primary={recipe.title} />
-            </ListItem>
+              <ListItemText 
+                primary={recipe.title}
+                primaryTypographyProps={{
+                  sx: { 
+                    fontSize: isMobile ? '1rem' : 'inherit',
+                    fontWeight: 'medium'
+                  }
+                }}
+              />
+            </ListItemButton>
           ))}
         </List>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Annuler</Button>
+        <Button onClick={onClose} size={isMobile ? "large" : "medium"}>
+          Annuler
+        </Button>
       </DialogActions>
     </Dialog>
   );

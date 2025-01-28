@@ -18,7 +18,10 @@ import {
   Grid,
   Paper,
   Divider,
-  IconButton
+  IconButton,
+  useTheme,
+  useMediaQuery,
+  Stack
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
@@ -43,6 +46,9 @@ const ShoppingLists: React.FC = () => {
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [newListName, setNewListName] = useState('');
   const [selectedList, setSelectedList] = useState<ShoppingListType | null>(null);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     if (currentUser?.uid) {
@@ -160,50 +166,71 @@ const ShoppingLists: React.FC = () => {
     );
   }
 
-  return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
-      {error && (
-        <Alert severity="error" sx={{ mb: 2 }}>
-          {error}
-        </Alert>
-      )}
-
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
-        <Typography variant="h4" component="h1">
-          Listes de courses
-        </Typography>
-        <Box display="flex" gap={2}>
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={() => navigate('/ideas-repas')}
-            startIcon={<RestaurantIcon />}
-          >
-            Retour aux recettes
-          </Button>
-          <Button
-            variant="contained"
-            startIcon={<AddIcon />}
-            onClick={() => setCreateDialogOpen(true)}
-          >
-            Nouvelle liste
-          </Button>
-        </Box>
-      </Box>
-
-      {selectedList ? (
+  if (selectedList) {
+    return (
+      <Container maxWidth="lg">
         <ShoppingList
           shoppingList={selectedList}
           onUpdate={loadData}
-          onDelete={() => {
-            if (selectedList.id) {
-              handleDeleteList(selectedList.id);
-            }
-            setSelectedList(null);
-          }}
+          onDelete={handleDeleteList}
           onBack={() => setSelectedList(null)}
         />
-      ) : (
+      </Container>
+    );
+  }
+
+  return (
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      <Box sx={{ 
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 3
+      }}>
+        <Box sx={{
+          display: 'flex',
+          flexDirection: isMobile ? 'column' : 'row',
+          justifyContent: 'space-between',
+          alignItems: isMobile ? 'stretch' : 'center',
+          gap: 2
+        }}>
+          <Typography variant="h4" component="h1" sx={{ 
+            textAlign: isMobile ? 'center' : 'left'
+          }}>
+            Listes de courses
+          </Typography>
+          <Stack 
+            direction={isMobile ? "column" : "row"} 
+            spacing={2} 
+            sx={{ 
+              width: isMobile ? '100%' : 'auto',
+              '& .MuiButton-root': {
+                minWidth: isMobile ? 'auto' : '200px'
+              }
+            }}
+          >
+            <Button
+              variant="outlined"
+              onClick={() => navigate('/ideas-repas')}
+              startIcon={<RestaurantIcon />}
+            >
+              Retour aux recettes
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() => setCreateDialogOpen(true)}
+              startIcon={<AddIcon />}
+            >
+              Nouvelle liste
+            </Button>
+          </Stack>
+        </Box>
+
+        {error && (
+          <Alert severity="error" sx={{ mb: 2 }}>
+            {error}
+          </Alert>
+        )}
+
         <Grid container spacing={3}>
           {shoppingLists.map((list) => (
             <Grid item xs={12} key={list.id}>
@@ -241,51 +268,51 @@ const ShoppingLists: React.FC = () => {
             </Grid>
           ))}
         </Grid>
-      )}
 
-      {/* Dialog de création de liste */}
-      <Dialog
-        open={createDialogOpen}
-        onClose={() => setCreateDialogOpen(false)}
-        maxWidth="sm"
-        fullWidth
-      >
-        <DialogTitle>Créer une nouvelle liste de courses</DialogTitle>
-        <DialogContent>
-          <TextField
-            fullWidth
-            label="Nom de la liste"
-            value={newListName}
-            onChange={(e) => setNewListName(e.target.value)}
-            margin="normal"
-          />
-          <Typography variant="subtitle1" sx={{ mt: 2, mb: 1 }}>
-            Sélectionner les recettes
-          </Typography>
-          <List sx={{ maxHeight: 300, overflow: 'auto' }}>
-            {recipes.map((recipe) => (
-              <ListItem key={recipe.id} dense>
-                <Checkbox
-                  edge="start"
-                  checked={selectedRecipes.some(r => r.id === recipe.id)}
-                  onChange={() => handleRecipeToggle(recipe)}
-                />
-                <ListItemText primary={recipe.title} />
-              </ListItem>
-            ))}
-          </List>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setCreateDialogOpen(false)}>Annuler</Button>
-          <Button
-            onClick={handleCreateList}
-            disabled={!newListName || selectedRecipes.length === 0}
-            variant="contained"
-          >
-            Créer
-          </Button>
-        </DialogActions>
-      </Dialog>
+        {/* Dialog de création de liste */}
+        <Dialog
+          open={createDialogOpen}
+          onClose={() => setCreateDialogOpen(false)}
+          maxWidth="sm"
+          fullWidth
+        >
+          <DialogTitle>Créer une nouvelle liste de courses</DialogTitle>
+          <DialogContent>
+            <TextField
+              fullWidth
+              label="Nom de la liste"
+              value={newListName}
+              onChange={(e) => setNewListName(e.target.value)}
+              margin="normal"
+            />
+            <Typography variant="subtitle1" sx={{ mt: 2, mb: 1 }}>
+              Sélectionner les recettes
+            </Typography>
+            <List sx={{ maxHeight: 300, overflow: 'auto' }}>
+              {recipes.map((recipe) => (
+                <ListItem key={recipe.id} dense>
+                  <Checkbox
+                    edge="start"
+                    checked={selectedRecipes.some(r => r.id === recipe.id)}
+                    onChange={() => handleRecipeToggle(recipe)}
+                  />
+                  <ListItemText primary={recipe.title} />
+                </ListItem>
+              ))}
+            </List>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setCreateDialogOpen(false)}>Annuler</Button>
+            <Button
+              onClick={handleCreateList}
+              disabled={!newListName || selectedRecipes.length === 0}
+              variant="contained"
+            >
+              Créer
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Box>
     </Container>
   );
 };

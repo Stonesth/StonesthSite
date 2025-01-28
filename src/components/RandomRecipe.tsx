@@ -16,7 +16,9 @@ import {
   Stack,
   Chip,
   Grid,
-  IconButton
+  IconButton,
+  useTheme,
+  useMediaQuery
 } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -60,6 +62,9 @@ const RandomRecipe: React.FC<RandomRecipeProps> = ({ onSelectRecipe }) => {
     numberOfRecipes: 3
   });
   const [error, setError] = useState<string | null>(null);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     loadRecipes();
@@ -281,14 +286,24 @@ const RandomRecipe: React.FC<RandomRecipeProps> = ({ onSelectRecipe }) => {
       </Card>
 
       {/* Boutons d'action */}
-      <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
+      <Stack 
+        direction={isMobile ? "column" : "row"} 
+        spacing={2} 
+        sx={{ 
+          mb: 2,
+          '& .MuiButton-root': {
+            minWidth: isMobile ? 'auto' : '200px'
+          }
+        }}
+      >
         <Button
           variant="contained"
           color="primary"
           onClick={() => selectRandomRecipes(false)}
           startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <RefreshIcon />}
-          fullWidth
+          fullWidth={!isMobile}
           disabled={loading}
+          size={isMobile ? "medium" : "large"}
         >
           {loading ? 'Recherche...' : 'Nouvelles suggestions'}
         </Button>
@@ -298,8 +313,9 @@ const RandomRecipe: React.FC<RandomRecipeProps> = ({ onSelectRecipe }) => {
           color="secondary"
           onClick={handleRegenerateUnselected}
           startIcon={<RefreshIcon />}
-          fullWidth
+          fullWidth={!isMobile}
           disabled={loading}
+          size={isMobile ? "medium" : "large"}
         >
           Régénérer non sélectionnées
         </Button>
@@ -309,8 +325,9 @@ const RandomRecipe: React.FC<RandomRecipeProps> = ({ onSelectRecipe }) => {
           color="success"
           onClick={handleCreateShoppingList}
           startIcon={<ShoppingCartIcon />}
-          fullWidth
+          fullWidth={!isMobile}
           disabled={loading || !selectedRecipes.some(r => r.isSelected)}
+          size={isMobile ? "medium" : "large"}
         >
           Créer liste de courses
         </Button>
