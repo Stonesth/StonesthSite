@@ -17,6 +17,12 @@ import { ShoppingList, ShoppingListIngredient, ShoppingListRecipe } from '../typ
 
 const SHOPPING_LISTS_COLLECTION = 'shoppingLists';
 
+const normalizeQuantity = (quantity: number | string): number => {
+  if (typeof quantity === 'number') return quantity;
+  const parsed = parseFloat(quantity);
+  return isNaN(parsed) ? 0 : parsed;
+};
+
 export const createShoppingList = async (userId: string, shoppingList: Omit<ShoppingList, 'id' | 'createdAt' | 'updatedAt' | 'status'>) => {
   if (!userId) {
     throw new Error('userId is required');
@@ -24,8 +30,14 @@ export const createShoppingList = async (userId: string, shoppingList: Omit<Shop
 
   try {
     const now = Timestamp.now();
+    const normalizedIngredients = shoppingList.ingredients.map(ingredient => ({
+      ...ingredient,
+      quantity: normalizeQuantity(ingredient.quantity)
+    }));
+
     const listWithMetadata = {
       ...shoppingList,
+      ingredients: normalizedIngredients,
       userId,
       createdAt: now,
       updatedAt: now,
@@ -88,20 +100,30 @@ export const addRecipeToList = async (listId: string, recipe: Recipe): Promise<v
   try {
     const listRef = doc(db, SHOPPING_LISTS_COLLECTION, listId);
     const listSnap = await getDoc(listRef);
-    if (!listSnap.exists()) throw new Error('Shopping list not found');
+
+    if (!listSnap.exists()) {
+      throw new Error('Shopping list not found');
+    }
 
     const list = listSnap.data() as ShoppingList;
     const newRecipe: ShoppingListRecipe = {
       recipeId: recipe.id!,
       title: recipe.title,
-      servings: '1',
-      originalServings: '1'
+      servings: recipe.servings,
+      originalServings: recipe.servings
     };
 
-    const updatedRecipes = [...(list.recipes || []), newRecipe];
-    
+    const newIngredients = recipe.ingredients.map(ingredient => ({
+      name: ingredient.name,
+      quantity: normalizeQuantity(ingredient.quantity),
+      unit: ingredient.unit,
+      checked: false,
+      recipes: [recipe.id!]
+    }));
+
     await updateDoc(listRef, {
-      recipes: updatedRecipes,
+      recipes: arrayUnion(newRecipe),
+      ingredients: [...list.ingredients, ...newIngredients],
       updatedAt: Timestamp.now()
     });
   } catch (error) {
@@ -197,23 +219,23 @@ export const updateRecipeServings = async (
   try {
     const listRef = doc(db, SHOPPING_LISTS_COLLECTION, listId);
     const listSnap = await getDoc(listRef);
-    if (!listSnap.exists()) throw new Error('Shopping list not found');
+
+    if (!listSnap.exists()) {
+      throw new Error('Shopping list not found');
+    }
 
     const list = listSnap.data() as ShoppingList;
-    const ratio = newServings / originalServings;
+    const updatedRecipes = list.recipes.map(recipe => {
+      if (recipe.recipeId === recipeId) {
+        return { ...recipe, servings: newServings.toString() };
+      }
+      return recipe;
+    });
 
-    // Mettre à jour les portions de la recette
-    const updatedRecipes = list.recipes.map(recipe =>
-      recipe.recipeId === recipeId
-        ? { ...recipe, servings: newServings.toString(), originalServings: recipe.originalServings }
-        : recipe
-    );
-
-    // Mettre à jour les quantités des ingrédients
     const updatedIngredients = list.ingredients.map(ingredient => {
       if (ingredient.recipes.includes(recipeId)) {
-        const baseQuantity = ingredient.quantity / parseFloat(list.recipes.find(r => r.recipeId === recipeId)?.servings || '1');
-        const newQuantity = baseQuantity * newServings;
+        const originalQuantity = normalizeQuantity(ingredient.quantity);
+        const newQuantity = (originalQuantity / Number(originalServings)) * newServings;
         return {
           ...ingredient,
           quantity: newQuantity

@@ -4,6 +4,13 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.9.2] - 2025-01-28
+### Corrigé
+- Correction du bug d'édition des listes de courses créées depuis la page de suggestions aléatoires :
+  - Normalisation des quantités d'ingrédients
+  - Amélioration de la gestion des types de données
+  - Correction de l'affichage des quantités dans l'interface
+
 ## [0.9.1] - 2025-01-27
 ### Corrigé
 - Amélioration du système de listes de courses :

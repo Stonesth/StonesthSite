@@ -1,0 +1,35 @@
+chunk-KDCVS43I.js?v=610e34df:14080 The above error occurred in the <ShoppingList> component:
+
+    at ShoppingList (http://localhost:5173/src/components/ShoppingList.tsx?t=1738012244900:36:3)
+    at div
+    at http://localhost:5173/node_modules/.vite/deps/chunk-QWHT5NY4.js?v=610e34df:2432:46
+    at Container3 (http://localhost:5173/node_modules/.vite/deps/chunk-QWHT5NY4.js?v=610e34df:6847:19)
+    at ShoppingLists (http://localhost:5173/src/pages/ShoppingLists.tsx?t=1738012244900:50:27)
+    at PrivateRoute (http://localhost:5173/src/components/PrivateRoute.tsx:23:25)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=610e34df:5360:26)
+    at Routes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=610e34df:6090:3)
+    at main
+    at http://localhost:5173/node_modules/.vite/deps/chunk-QWHT5NY4.js?v=610e34df:2432:46
+    at Box3 (http://localhost:5173/node_modules/.vite/deps/chunk-QWHT5NY4.js?v=610e34df:5172:19)
+    at div
+    at http://localhost:5173/node_modules/.vite/deps/chunk-QWHT5NY4.js?v=610e34df:2432:46
+    at Box3 (http://localhost:5173/node_modules/.vite/deps/chunk-QWHT5NY4.js?v=610e34df:5172:19)
+    at Layout (http://localhost:5173/src/components/Layout.tsx?t=1738012244893:20:19)
+    at Router (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=610e34df:6033:13)
+    at BrowserRouter (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=610e34df:8073:3)
+    at AuthProvider (http://localhost:5173/src/contexts/AuthContext.tsx:36:32)
+    at DefaultPropsProvider (http://localhost:5173/node_modules/.vite/deps/chunk-QWHT5NY4.js?v=610e34df:5721:3)
+    at RtlProvider (http://localhost:5173/node_modules/.vite/deps/chunk-QWHT5NY4.js?v=610e34df:5697:3)
+    at ThemeProvider2 (http://localhost:5173/node_modules/.vite/deps/chunk-QWHT5NY4.js?v=610e34df:5653:5)
+    at ThemeProvider3 (http://localhost:5173/node_modules/.vite/deps/chunk-QWHT5NY4.js?v=610e34df:5804:5)
+    at ThemeProviderNoVars (http://localhost:5173/node_modules/.vite/deps/chunk-DWL7RRTQ.js?v=610e34df:275:10)
+    at ThemeProvider (http://localhost:5173/node_modules/.vite/deps/chunk-DWL7RRTQ.js?v=610e34df:357:3)
+    at App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+chunk-KDCVS43I.js?v=610e34df:9176 Uncaught TypeError: item.quantity.toFixed is not a function
+    at ShoppingList.tsx:172:56
+    at Array.map (<anonymous>)
+    at ShoppingList (ShoppingList.tsx:160:35)
+﻿
