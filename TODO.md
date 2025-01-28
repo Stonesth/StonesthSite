@@ -12,6 +12,11 @@
   - [x] Normalisation des quantités d'ingrédients
   - [x] Amélioration de la gestion des types de données
   - [x] Correction de l'affichage des quantités dans l'interface
+- [x] Restauration de la fonctionnalité d'ajout de recettes à une liste existante
+  - [x] Analyse du code précédent pour retrouver la fonctionnalité
+  - [x] Réimplémentation de l'interface d'ajout de recettes
+  - [x] Mise à jour du service shoppingList
+  - [x] Tests de la fonctionnalité
 
 ## Fait ✅ (27/01/2025)
 - [x] Correction des bugs de la liste de courses
@@ -110,9 +115,7 @@
   - [x] Implémenter le footer sur toutes les pages
   - [x] Synchroniser la version avec CHANGELOG.md
 
-## TODO List
-
-### En cours
+## En cours 🔄 (28/01/2025)
 - [-] Optimisation des performances de chargement :
   - [-] Implémenter le code splitting avec dynamic imports
   - [-] Optimiser la taille des chunks JavaScript
@@ -120,7 +123,7 @@
 - [-] Amélioration de l'interface utilisateur
 - [-] Documentation du code
 
-### Haute priorité
+## Haute priorité
 - [ ] résoudre le bug d'édition des listes de courses quand celle-ci a été créée par la page random-meal. j'ai l'erreur suivante : voir le fichier error.txt
 - [ ] Ajouter un sytème pour dire si les enfants aime ou pas la recette
 - [ ] Voir pourquoi le site n'est plus utilisable sur un smartphone
