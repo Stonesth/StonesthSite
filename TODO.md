@@ -21,6 +21,10 @@
   - [x] Analyse du problème dans le service shoppingList
   - [x] Modification de la fonction updateRecipeServings
   - [x] Tests de la fonctionnalité
+- [x] résoudre le bug d'édition des listes de courses quand celle-ci a été créée par la page random-meal
+  - [x] Normalisation des quantités d'ingrédients
+  - [x] Amélioration de la gestion des types de données
+  - [x] Correction de l'affichage des quantités dans l'interface
 
 ## Fait ✅ (27/01/2025)
 - [x] Correction des bugs de la liste de courses
@@ -126,7 +130,6 @@
   - [-] Ajuster les limites de taille des chunks
 - [-] Amélioration de l'interface utilisateur
 - [-] Documentation du code
-- [-] résoudre le bug d'édition des listes de courses quand celle-ci a été créée par la page random-meal. j'ai l'erreur suivante : voir le fichier error.txt
 - [-] Ajouter un sytème pour dire si les enfants aime ou pas la recette
 - [-] Voir pourquoi le site n'est plus utilisable sur un smartphone
 - [-] Ajouter le tri par date ou titre
