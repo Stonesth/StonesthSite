@@ -17,14 +17,11 @@
   - [x] Réimplémentation de l'interface d'ajout de recettes
   - [x] Mise à jour du service shoppingList
   - [x] Tests de la fonctionnalité
-- [x] Correction du bug d'augmentation des portions dans les listes de courses
-  - [x] Analyse du problème dans le service shoppingList
-  - [x] Modification de la fonction updateRecipeServings
-  - [x] Tests de la fonctionnalité
+- [x] Optimisation de la configuration du build
+  - [x] Augmentation de la limite d'avertissement pour la taille des chunks
+  - [x] Ajout des index Firestore manquants
+  - [x] Déploiement en production
 - [x] résoudre le bug d'édition des listes de courses quand celle-ci a été créée par la page random-meal
-  - [x] Normalisation des quantités d'ingrédients
-  - [x] Amélioration de la gestion des types de données
-  - [x] Correction de l'affichage des quantités dans l'interface
 
 ## Fait ✅ (27/01/2025)
 - [x] Correction des bugs de la liste de courses

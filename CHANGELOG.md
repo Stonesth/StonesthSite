@@ -4,6 +4,13 @@
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
 
+## [0.9.5] - 2025-01-28
+### Amélioré
+- Optimisation de la configuration du build :
+  - Augmentation de la limite d'avertissement pour la taille des chunks
+  - Ajout des index Firestore manquants pour les recettes et les listes de courses
+  - Amélioration des performances de chargement
+
 ## [0.9.4] - 2025-01-28
 ### Corrigé
 - Correction du bug d'augmentation des portions dans les listes de courses :

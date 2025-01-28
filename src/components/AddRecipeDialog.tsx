@@ -73,8 +73,8 @@ const AddRecipeDialog: React.FC<AddRecipeDialogProps> = ({
           {filteredRecipes.map((recipe) => (
             <ListItem
               key={recipe.id}
-              button
               onClick={() => handleAddRecipe(recipe)}
+              sx={{ cursor: 'pointer' }}
             >
               <ListItemText primary={recipe.title} />
             </ListItem>
