@@ -1,5 +1,21 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Container, Grid, Button, Box, CircularProgress, TextField, Slider, Typography, FormControlLabel, Switch, Checkbox, Chip, Badge } from '@mui/material';
+import { 
+  Container, 
+  Grid, 
+  Button, 
+  Box, 
+  CircularProgress, 
+  TextField, 
+  Slider, 
+  Typography, 
+  FormControlLabel, 
+  Switch, 
+  Checkbox, 
+  Chip, 
+  Badge,
+  useTheme,
+  useMediaQuery
+} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
@@ -26,6 +42,9 @@ const IdeasRepas: React.FC = () => {
   const [prepTimeRange, setPrepTimeRange] = useState<number[]>([0, 180]);
   const [cookTimeRange, setCookTimeRange] = useState<number[]>([0, 180]);
   const [showVegetarianOnly, setShowVegetarianOnly] = useState(false);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const loadRecipes = useCallback(async () => {
     if (!currentUser) {
@@ -176,12 +195,19 @@ const IdeasRepas: React.FC = () => {
   }
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-        <Typography variant="h4" component="h1">
+    <Container maxWidth="lg" sx={{ mt: isMobile ? 2 : 4, mb: isMobile ? 2 : 4 }}>
+      <Box display="flex" flexDirection={isMobile ? 'column' : 'row'} justifyContent="space-between" alignItems={isMobile ? 'stretch' : 'center'} mb={3}>
+        <Typography variant="h4" component="h1" sx={{ mb: isMobile ? 2 : 0 }}>
           Idées Repas
         </Typography>
-        <Box sx={{ display: 'flex', gap: 2, mb: 3 }}>
+        <Box sx={{ 
+          display: 'flex', 
+          gap: 2, 
+          flexDirection: isMobile ? 'column' : 'row',
+          '& .MuiButton-root': {
+            width: isMobile ? '100%' : 'auto'
+          }
+        }}>
           <Button
             variant="contained"
             color="primary"
@@ -227,6 +253,11 @@ const IdeasRepas: React.FC = () => {
             />
           }
           label="Filtres avancés"
+          sx={{
+            width: isMobile ? '100%' : 'auto',
+            justifyContent: isMobile ? 'space-between' : 'flex-start',
+            ml: 0
+          }}
         />
       </Box>
 
@@ -261,14 +292,26 @@ const IdeasRepas: React.FC = () => {
               color="primary"
               size="small"
             />
-            <Typography variant="body2">: Recette réalisée (le nombre indique le total de réalisations)</Typography>
+            <Typography variant="body2" sx={{ 
+              maxWidth: isMobile ? '200px' : 'none',
+              whiteSpace: isMobile ? 'normal' : 'nowrap'
+            }}>
+              : Recette réalisée (le nombre indique le total de réalisations)
+            </Typography>
           </Box>
         </Box>
       </Box>
 
       {/* Filtres avancés */}
       {showAdvancedFilters && (
-        <Box mb={3}>
+        <Box mb={3} sx={{ 
+          p: 2, 
+          bgcolor: 'background.paper', 
+          borderRadius: 1,
+          '& .MuiSlider-root': {
+            mx: isMobile ? 2 : 0
+          }
+        }}>
           <FormControlLabel
             control={
               <Checkbox
@@ -278,6 +321,12 @@ const IdeasRepas: React.FC = () => {
               />
             }
             label="Afficher uniquement les recettes végétariennes"
+            sx={{
+              width: isMobile ? '100%' : 'auto',
+              justifyContent: isMobile ? 'space-between' : 'flex-start',
+              ml: 0,
+              mb: 2
+            }}
           />
 
           <Typography gutterBottom sx={{ mt: 2 }}>
@@ -301,7 +350,12 @@ const IdeasRepas: React.FC = () => {
               { value: 120, label: '2h' },
               { value: 180, label: '3h' }
             ]}
-            sx={{ mb: 3 }}
+            sx={{ 
+              mb: 3,
+              '& .MuiSlider-markLabel': {
+                fontSize: isMobile ? '0.75rem' : '0.875rem'
+              }
+            }}
           />
 
           <Typography gutterBottom>
@@ -325,6 +379,11 @@ const IdeasRepas: React.FC = () => {
               { value: 120, label: '2h' },
               { value: 180, label: '3h' }
             ]}
+            sx={{ 
+              '& .MuiSlider-markLabel': {
+                fontSize: isMobile ? '0.75rem' : '0.875rem'
+              }
+            }}
           />
         </Box>
       )}
@@ -335,12 +394,12 @@ const IdeasRepas: React.FC = () => {
         </Box>
       ) : filteredRecipes.length === 0 ? (
         <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
-          <h3>Aucune recette trouvée</h3>
+          <Typography variant="h6">Aucune recette trouvée</Typography>
         </Box>
       ) : (
-        <Grid container spacing={3}>
+        <Grid container spacing={isMobile ? 2 : 3}>
           {filteredRecipes.map((recipe) => (
-            <Grid item xs={12} md={6} lg={4} key={recipe.id}>
+            <Grid item xs={12} sm={6} md={4} lg={4} key={recipe.id}>
               <RecipeCard
                 recipe={recipe}
                 onEdit={handleEditRecipe}
