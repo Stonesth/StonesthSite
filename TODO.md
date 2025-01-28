@@ -121,6 +121,10 @@
   - [x] Synchroniser la version avec CHANGELOG.md
 
 ## En cours 🔄 (28/01/2025)
+- [-] Amélioration de la compatibilité mobile
+  - [-] Analyse des problèmes d'affichage sur smartphone
+  - [-] Adaptation des composants pour les petits écrans
+  - [-] Test sur différents appareils mobiles
 - [-] Optimisation des performances de chargement :
   - [-] Implémenter le code splitting avec dynamic imports
   - [-] Optimiser la taille des chunks JavaScript
